@@ -182,6 +182,9 @@ audio:
   `audio:` are unchanged.
 
 ## Tech-lead checks (`tools/`)
+- Links to our own pages (a path like `/2026/11/02/prompt-caching/` or `/ai/`) are cross-references, not
+  sources. They don't go in `sources:`, and the checker allows them if they resolve to a post or page on the
+  site (it fails if they don't).
 - `check-citations.rb` FAILS on a missing or empty `author:`, and WARNS when a news source's `accessed:`
   is more than 7 days before the publication date (style.md §11 target).
 - `check-citations.rb` also checks sections and kinds: exactly one valid section, a subsection valid for

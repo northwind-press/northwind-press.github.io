@@ -66,9 +66,27 @@ sources.each_with_index do |url, i|
   fails << "source #{n} (#{url}) is never cited" unless cited
 end
 
-# 3. inline links to URLs that aren't sources (excluding in-page anchors)
+# 3. inline links to URLs that aren't sources (excluding in-page anchors).
+# Links to our own site (a path starting with "/", or the full site URL) are cross-references, not
+# sources: allowed if they resolve to a post at this revision or a known page (sections, About, Corrections).
+site_paths = lambda do
+  return @site_paths if @site_paths
+  posts = rev.start_with?("file=") ? [] : IO.popen(["git", "ls-tree", "--name-only", "#{rev}:_posts"], err: File::NULL, &:read).to_s.split("\n")
+  urls = posts.grep(/\A\d{4}-\d\d-\d\d-.+\.md\z/).map { |f| y, m, d, slug = f.match(/\A(\d{4})-(\d\d)-(\d\d)-(.+)\.md\z/).captures; "/#{y}/#{m}/#{d}/#{slug}/" }
+  data = File.expand_path("../_data/sections.yml", __dir__)
+  secs = File.exist?(data) ? YAML.load_file(data) : []
+  urls += secs.flat_map { |s| [s["url"]] + (s["subsections"] || []).map { |x| x["url"] } }
+  @site_paths = urls + %w[/ /about/ /corrections/]
+end
 links.reject { |u, _, _| u.start_with?("#") || sources.include?(u) }.each do |u, pos, _|
-  fails << "inline link at line #{line_of.(pos)} to #{u}, which isn't in sources:"
+  internal = u.sub(%r{\Ahttps://northwind-press\.github\.io}, "")
+  if internal.start_with?("/")
+    target = internal.sub(/#.*\z/, "")
+    target += "/" unless target.end_with?("/") || target =~ /\.\w+\z/
+    fails << "internal link at line #{line_of.(pos)} to #{u} doesn't match any post or page on the site" unless site_paths.().include?(target)
+  else
+    fails << "inline link at line #{line_of.(pos)} to #{u}, which isn't in sources:"
+  end
 end
 
 # 4. markers inside quotation marks (straight or curly), counted within the paragraph
