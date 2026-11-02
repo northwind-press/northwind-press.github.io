@@ -11,8 +11,10 @@ FM = <<~Y
   sources:
     - title: "A"
       url: https://a.example/doc
+      accessed: "2026-11-02"
     - title: "B"
       url: https://b.example/doc
+      accessed: "2026-11-02"
   corrections: []
   ---
 Y

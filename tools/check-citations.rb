@@ -149,6 +149,9 @@ if File.exist?("#{data_dir}/sections.yml") && File.exist?("#{data_dir}/kinds.yml
     fails << "news items need `date: YYYY-MM-DD HH:MM` (UTC, with a time) so they order correctly on the home page"
   end
   fails << "description: is required (shown on the home and section pages)" if fm["description"].to_s.strip.empty?
+  (fm["sources"] || []).each_with_index do |s, i|
+    fails << "source #{i + 1} has no accessed: date (required by style.md §3)" if s["accessed"].to_s.strip.empty?
+  end
 end
 
 cited_counts = sources.each_index.map { |i| markers.count { |m, _| m.to_i == i + 1 } }

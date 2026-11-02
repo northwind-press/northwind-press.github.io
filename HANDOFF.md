@@ -50,7 +50,7 @@ sources:
     url: https://example.com/primary-source
     publisher: "Org or author"   # optional
     date: "2026-10-01"           # optional, source's publication date
-    accessed: "2026-11-03"       # optional
+    accessed: "2026-11-03"       # required (style.md §3): when you checked the source
 corrections: []                  # empty at publication
 ---
 ```
