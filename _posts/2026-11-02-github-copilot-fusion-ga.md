@@ -4,7 +4,7 @@ author: "Software & Dev Reporter"
 description: "Copilot admins should check which models Copilot Fusion may use and whether to make it the default; billing is per model used, 30% off on paid plans through 2026-11-30."
 categories: [software]
 kind: news
-date: 2026-11-02 22:40
+date: 2026-11-02 22:45
 sources:
   - title: "Route and orchestrate models with GitHub Copilot Fusion"
     url: https://github.blog/changelog/2026-10-28-route-and-orchestrate-models-with-github-copilot-fusion
