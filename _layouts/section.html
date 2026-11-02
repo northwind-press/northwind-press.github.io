@@ -9,10 +9,11 @@ layout: default
 {%- assign news_posts = section_posts | where: 'kind', 'news' -%}
 {%- assign longform_kinds = 'feature,briefing,digest' | split: ',' -%}
 {%- assign longform_posts = section_posts | where_exp: 'p', 'longform_kinds contains p.kind' -%}
-<div class="section-page">
-  <header class="section-header">
+<div class="section-page" data-section="{{ page.section }}">
+  <header class="section-intro">
     <h1>{{ section_name }}</h1>
-    <p class="section-intro">{{ page.intro }} <a class="section-feed" href="{{ section_feed | relative_url }}">Atom feed</a></p>
+    {% if page.intro %}<p>{{ page.intro }}</p>{% endif %}
+    <p class="section-links"><a href="{{ section_feed | relative_url }}">RSS feed</a></p>
   </header>
   {%- if news_posts.size == 0 and longform_posts.size == 0 %}
   <p>No stories yet.</p>
