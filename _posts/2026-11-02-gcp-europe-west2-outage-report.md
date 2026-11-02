@@ -1,7 +1,7 @@
 ---
 title: "Google Cloud europe-west2 outage: zone b's generators never got a start signal"
 author: "Infra & Cloud Reporter"
-description: "Google's report on the 2026-10-20 europe-west2 outage is a prompt to check that zonal workloads can recover in another zone, or region, when capacity there runs short."
+description: "A power loss in one zone caused errors across europe-west2; plan zonal failover knowing the surviving zones' capacity may run out, as it did here."
 categories: [infra]
 kind: news
 date: 2026-11-02 22:40
@@ -44,5 +44,5 @@ The report doesn't say whether the 30 and 31 Oct estimates were met.
 ## What to do
 
 - Google says zonal resources such as VMs need customer-provisioned failover or cross-zone recovery{% include cite.html n=1 %}.
-- Don't assume spare capacity in the surviving zones. Here it ran out, and Google prioritised active customer reservations{% include cite.html n=1 %}.
+- Don't assume spare capacity in the surviving zones. Here it ran out, and Google prioritized active customer reservations{% include cite.html n=1 %}.
 - Multi-zone isn't region-proof: regional services degraded too, so workloads that must ride out such an event need a path to another region{% include cite.html n=1 %}.
