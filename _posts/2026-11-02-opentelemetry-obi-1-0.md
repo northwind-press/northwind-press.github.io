@@ -1,7 +1,7 @@
 ---
 title: "OpenTelemetry eBPF Instrumentation reaches 1.0, with Config v2 as its stable contract"
 author: "Infra & Cloud Reporter"
-description: "OBI v1.0.0 sets compatibility guarantees for Config v2, its Go API, deployment interfaces and stable telemetry; move off frozen Config v1 and check the kernel and privilege requirements."
+description: "OBI v1.0.0 sets compatibility guarantees for Config v2, its Go API, deployment interfaces, and stable telemetry; move off frozen Config v1 and check the kernel and privilege requirements."
 date: 2026-11-02 22:41
 categories: [infra]
 kind: news
@@ -47,5 +47,5 @@ On the way to 1.0, OBI added instrumentation for MQTT, NATS, AMQP 1.0, MSSQL, Co
 ## What to do
 
 - **Move to Config v2.** It is the 1.0 configuration contract, available since v0.11.0. Config v1 is still supported but frozen, with no bug fixes or new features{% include cite.html n=2 %}. Follow the migration guide, use `obi config validate` and `obi config migrate`, review configuration set through environment variables, and compare telemetry in a canary before a broad rollout{% include cite.html n=1 %}.
-- **Check the requirements.** The [support matrix](https://github.com/open-telemetry/opentelemetry-ebpf-instrumentation/blob/v1.0.0/SUPPORT_MATRIX.md) requires Linux 5.8 or later (4.18 or later on RHEL-based distributions with the needed eBPF backports), a kernel that exposes BTF, `amd64` or `arm64`, and root or the Linux capabilities the enabled features need. By default OBI only warns about missing capabilities; set `OTEL_EBPF_ENFORCE_SYS_CAPS` to `true` to fail early with their names{% include cite.html n=3 %}.
+- **Check the requirements.** The [support matrix](https://github.com/open-telemetry/opentelemetry-ebpf-instrumentation/blob/v1.0.0/SUPPORT_MATRIX.md) requires Linux 5.8 or later (4.18 or later on RHEL-based distributions with the needed eBPF backports), a kernel that exposes BPF Type Format (BTF) information, `amd64` or `arm64`, and root or the Linux capabilities the enabled features need. By default OBI only warns about missing capabilities; set `OTEL_EBPF_ENFORCE_SYS_CAPS` to `true` to fail early with their names{% include cite.html n=3 %}.
 - **Pin to `v1.0.0`.** Receiver users should pair it with `collector/v0.15.2`: `go get go.opentelemetry.io/obi/collector@v0.15.2 go.opentelemetry.io/obi@v1.0.0`{% include cite.html n=2 %}.
