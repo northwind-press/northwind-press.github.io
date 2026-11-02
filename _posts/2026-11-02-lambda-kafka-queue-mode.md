@@ -23,7 +23,7 @@ sources:
 corrections: []
 ---
 
-AWS Lambda's self-managed Apache Kafka event source mappings can now consume topics in a queue mode, AWS [announced](https://aws.amazon.com/about-aws/whats-new/2026/11/aws-lambda-queue-kafka-esm/) on 2026-11-02. With `ConsumptionMode` set to `Queue`, several event pollers read from the same partition, each running up to 10 concurrent invocations. That lets processing scale past a topic's partition count without adding partitions or changing producers, topic configuration or function code{% include cite.html n=1 %}.
+AWS Lambda's self-managed Apache Kafka event source mappings can now consume topics in a queue mode, AWS [announced](https://aws.amazon.com/about-aws/whats-new/2026/11/aws-lambda-queue-kafka-esm/) on 2026-11-02. With `ConsumptionMode` set to `Queue`, several event pollers read from the same partition, each running up to 10 concurrent invocations. That lets processing scale past a topic's partition count without adding partitions or changing producers, topic configuration, or function code{% include cite.html n=1 %}.
 
 ## What changed
 
@@ -31,7 +31,7 @@ Until now, Lambda's Kafka mappings used the consumer group protocol, which gives
 
 ## Who can use it
 
-It works with Kafka clusters customers run themselves and with managed offerings such as Confluent Cloud, in all AWS commercial Regions that offer self-managed Kafka mappings{% include cite.html n=1 %}. The [Lambda developer guide](https://docs.aws.amazon.com/lambda/latest/dg/polling-kafka-queue.html) says Amazon MSK does not currently support Queue mode, and AWS will add MSK support once MSK offers Kafka 4.2 or later with share groups enabled.
+It works with Kafka clusters customers run themselves and with managed offerings such as Confluent Cloud, in all AWS commercial Regions that offer self-managed Kafka mappings{% include cite.html n=1 %}. The [Lambda developer guide](https://docs.aws.amazon.com/lambda/latest/dg/polling-kafka-queue.html) says Amazon Managed Streaming for Apache Kafka (MSK) does not currently support Queue mode, and AWS will add MSK support once MSK offers Kafka 4.2 or later with share groups enabled.
 
 The cluster must run Apache Kafka 4.2 or later with share groups enabled{% include cite.html n=2 %}. Share groups first appeared in Kafka 4.0, but Lambda's poller needs 4.2{% include cite.html n=2 %}. The [Kafka 4.2 release announcement](https://kafka.apache.org/blog/2026/02/17/apache-kafka-4.2.0-release-announcement/) of 2026-02-17 describes share groups as production-ready. AWS calls them generally available in 4.2{% include cite.html n=1 %}.
 
