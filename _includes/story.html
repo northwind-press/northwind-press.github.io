@@ -20,9 +20,9 @@
 {%- if st.corrections and st.corrections.size > 0 -%}{%- assign st_corrected = true -%}{%- endif -%}
 <{{ st_tag }} class="story story--{{ st_variant }}"{% if so_section %} data-section="{{ so_section.slug }}"{% endif %}>
   <p class="post-card__kicker">
-    {%- if st_kind %}<span class="badge badge--{{ st_kind.slug }}">{{ st_kind.label }}</span> {% endif -%}
-    {%- if so_section %}<a href="{{ so_section.url | relative_url }}">{{ so_section.title }}</a> {% endif -%}
-    {%- if so_sub %}<a href="{{ so_sub.url | relative_url }}">{{ so_sub.title }}</a> {% endif -%}
+    {%- if st_kind %}<span class="badge badge--{{ st_kind.slug }}">{{ st_kind.label | escape }}</span> {% endif -%}
+    {%- if so_section %}<a href="{{ so_section.url | relative_url }}">{{ so_section.title | escape }}</a> {% endif -%}
+    {%- if so_sub %}<a href="{{ so_sub.url | relative_url }}">{{ so_sub.title | escape }}</a> {% endif -%}
     <time datetime="{{ st.date | date_to_xmlschema }}">{{ st.date | date: '%-d %B %Y' }}{% if st.kind == 'news' %}, {{ st.date | date: '%H:%M' }} UTC{% endif %}</time>
   </p>
   <{{ st_h }} class="story__title"><a href="{{ st.url | relative_url }}">{{ st.title | smartify }}</a></{{ st_h }}>
@@ -30,7 +30,7 @@
   <p class="story__dek">{{ st.description | smartify }}</p>
   {%- endif %}
   {%- if st_variant == 'lead' %}
-  <p class="meta">By <span class="byline">{{ st.author | default: 'Northwind Press' }}</span>{% if st.sources and st.sources.size > 0 %} · <span class="nowrap">{{ st.sources.size }} source{% if st.sources.size != 1 %}s{% endif %}</span>{% endif %}{% if st_corrected %} · <span class="tag">Corrected</span>{% endif %}</p>
+  <p class="meta">By <span class="byline">{{ st.author | default: 'Northwind Press' | escape }}</span>{% if st.sources and st.sources.size > 0 %} · <span class="nowrap">{{ st.sources.size }} source{% if st.sources.size != 1 %}s{% endif %}</span>{% endif %}{% if st_corrected %} · <span class="tag">Corrected</span>{% endif %}</p>
   {%- elsif st_corrected %}
   <p class="meta"><span class="tag">Corrected</span></p>
   {%- endif %}
