@@ -6,9 +6,9 @@ layout: default
     {%- include section-of.html post=page -%}
     {%- assign post_kind = site.data.kinds | where: 'slug', page.kind | first -%}
     {%- if post_kind or so_section %}
-    <p class="post-kicker">
+    <p class="post-kicker"{% if so_section %} data-section="{{ so_section.slug }}"{% endif %}>
       {%- if post_kind %}<span class="badge badge--{{ post_kind.slug }}">{{ post_kind.label }}</span>{% endif -%}
-      {%- if so_section %} <a href="{{ so_section.url | relative_url }}">{{ so_section.title }}</a>{% if so_sub %} · <a href="{{ so_sub.url | relative_url }}">{{ so_sub.title }}</a>{% endif %}{% endif -%}
+      {%- if so_section %} <a href="{{ so_section.url | relative_url }}">{{ so_section.title }}</a>{% if so_sub %} <a href="{{ so_sub.url | relative_url }}">{{ so_sub.title }}</a>{% endif %}{% endif -%}
     </p>
     {%- endif %}
     <h1>{{ page.title | smartify }}</h1>

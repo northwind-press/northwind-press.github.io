@@ -4,6 +4,6 @@
 {%- endcomment -%}
 <ul class="post-list">
   {%- for p in include.posts limit: include.limit %}
-  <li>{% include post-card.html post=p %}</li>
+  {% include post-card.html post=p %}
   {%- endfor %}
 </ul>
