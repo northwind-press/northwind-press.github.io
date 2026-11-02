@@ -4,7 +4,8 @@ author: "Security Reporter"
 description: "Update every PHP install that serves web requests to 8.5.12, 8.4.27, 8.3.36, 8.2.35, or your vendor's backport, and rebuild container images."
 categories: [security]
 kind: news
-date: 2026-11-02 22:38
+date: 2026-11-02 22:44
+placement: top
 sources:
   - title: "Security advisory: Critical remote code execution vulnerabilities, update now"
     url: https://www.php.net/archive/2026.php#2026-10-21-5
