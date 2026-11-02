@@ -39,10 +39,15 @@ sources:
     publisher: "Python Software Foundation"
     date: "2026-10-25"
     accessed: "2026-11-02"
+  - title: "Compromised eMudhra CA keys: browsers block them, but bundled trust stores lag"
+    url: https://northwind-press.github.io/2026/11/02/emudhra-ca-compromise/
+    publisher: "Northwind Press"
+    date: "2026-11-02"
+    accessed: "2026-11-02"
 corrections: []
 ---
 
-Go and Python have shipped security releases that make their TLS code reject certificates chaining to compromised eMudhra intermediate CA keys, according to the [Go team's account](https://go.dev/blog/emudhra-incident) and the [Python 3.15.2 release page](https://www.python.org/downloads/release/python-3152/). On 2026-10-17, Mozilla added eight eMudhra-issued intermediate certificates, six used for TLS and two for code signing, to OneCRL, blocking their use in Firefox{% include cite.html n=1 %}.
+Go and Python have shipped security releases that make their TLS code reject certificates chaining to [compromised eMudhra intermediate CA keys](https://northwind-press.github.io/2026/11/02/emudhra-ca-compromise/), according to the [Go team's account](https://go.dev/blog/emudhra-incident) and the [Python 3.15.2 release page](https://www.python.org/downloads/release/python-3152/). On 2026-10-17, Mozilla added eight eMudhra-issued intermediate certificates, six used for TLS and two for code signing, to OneCRL, blocking their use in Firefox{% include cite.html n=1 %}.
 
 ## Go: a first URGENT-track release
 
