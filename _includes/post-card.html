@@ -1,0 +1,11 @@
+{%- comment -%}
+  STUB until developer-1's version lands from dev/sections; same name and params. Whoever merges second rebases.
+  Usage: {% include post-card.html post=p %}
+{%- endcomment -%}
+{%- assign pc = include.post -%}
+{%- assign pc_kind = site.data.kinds | where: 'slug', pc.kind | first -%}
+<p class="kicker label">{% if pc_kind %}<span class="badge badge--{{ pc_kind.slug }}">{{ pc_kind.label }}</span> {% endif %}<span class="nowrap"><time datetime="{{ pc.date | date_to_xmlschema }}">{{ pc.date | date: '%-d %B %Y' }}</time></span></p>
+<h3><a href="{{ pc.url | relative_url }}">{{ pc.title | smartify }}</a></h3>
+{%- assign pc_summary = pc.description | default: pc.summary %}
+{% if pc_summary %}<p class="summary">{{ pc_summary | smartify }}</p>{% endif %}
+<p class="meta">By <span class="byline">{{ pc.author | default: 'Northwind Press' }}</span>{% if pc.sources and pc.sources.size > 0 %} · <span class="nowrap">{{ pc.sources.size }} source{% if pc.sources.size != 1 %}s{% endif %}</span>{% endif %}{% if pc.corrections and pc.corrections.size > 0 %} · <span class="tag">Corrected</span>{% endif %}</p>

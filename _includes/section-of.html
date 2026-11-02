@@ -1,0 +1,19 @@
+{%- comment -%}
+  Looks up a post's section and subsection in _data/sections.yml.
+  Usage: {% include section-of.html post=page %}
+  Sets (global assigns): so_section (or nil), so_sub (or nil), so_url (deepest matching URL, or '').
+{%- endcomment -%}
+{%- assign so_section = nil -%}
+{%- assign so_sub = nil -%}
+{%- assign so_url = '' -%}
+{%- assign so_cat = include.post.categories | first -%}
+{%- if so_cat -%}
+  {%- assign so_section = site.data.sections | where: 'slug', so_cat | first -%}
+{%- endif -%}
+{%- if so_section -%}
+  {%- assign so_url = so_section.url -%}
+  {%- if include.post.subsection and so_section.subsections -%}
+    {%- assign so_sub = so_section.subsections | where: 'slug', include.post.subsection | first -%}
+    {%- if so_sub -%}{%- assign so_url = so_sub.url -%}{%- endif -%}
+  {%- endif -%}
+{%- endif -%}

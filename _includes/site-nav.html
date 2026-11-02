@@ -1,0 +1,25 @@
+{%- comment -%}
+  Section nav, built from _data/sections.yml (order = nav order). No JS: the lists wrap at narrow widths.
+  aria-current="page" on the link to the page you are on (a section page). On an article, its section
+  (or subsection, if it has one) gets aria-current="true": it is the current section, not this page.
+{%- endcomment -%}
+{%- assign nav_current = '' -%}
+{%- if page.collection == 'posts' -%}
+  {%- include section-of.html post=page -%}
+  {%- assign nav_current = so_url -%}
+{%- endif -%}
+<nav class="section-nav" aria-label="Sections">
+  <ul>
+    {%- for s in site.data.sections %}
+    <li><a href="{{ s.url | relative_url }}"{% if page.url == s.url %} aria-current="page"{% elsif nav_current == s.url %} aria-current="true"{% endif %}>{{ s.title }}</a>
+      {%- if s.subsections and s.subsections.size > 0 %}
+      <ul class="section-nav__sub">
+        {%- for sub in s.subsections %}
+        <li><a href="{{ sub.url | relative_url }}"{% if page.url == sub.url %} aria-current="page"{% elsif nav_current == sub.url %} aria-current="true"{% endif %}>{{ sub.title }}</a></li>
+        {%- endfor %}
+      </ul>
+      {%- endif %}
+    </li>
+    {%- endfor %}
+  </ul>
+</nav>

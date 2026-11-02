@@ -1,23 +1,25 @@
 ---
-title: Articles
+title: Latest
 ---
-<h1 class="visually-hidden">Articles</h1>
+<h1 class="visually-hidden">{{ site.title }}: latest</h1>
 <div class="intro">
   <p class="lede">{{ site.description }}</p>
   <p class="promise">Every claim sourced. Every correction published, dated, at the top of the article.</p>
 </div>
-{% if site.posts.size > 0 %}
-<ul class="post-list">
-  {% for post in site.posts %}
-  <li>
-    <p class="kicker label"><span class="nowrap"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%-d %B %Y' }}</time></span></p>
-    <h2><a href="{{ post.url | relative_url }}">{{ post.title | smartify }}</a></h2>
-    {% assign summary = post.description | default: post.summary %}
-    {% if summary %}<p class="summary">{{ summary | smartify }}</p>{% endif %}
-    <p class="meta">By <span class="byline">{{ post.author | default: 'Northwind Press' }}</span>{% if post.sources and post.sources.size > 0 %} · <span class="nowrap">{{ post.sources.size }} source{% if post.sources.size != 1 %}s{% endif %}</span>{% endif %}{% if post.corrections and post.corrections.size > 0 %} · <span class="tag">Corrected</span>{% endif %}</p>
-  </li>
-  {% endfor %}
-</ul>
-{% else %}
+{%- assign home_news = site.posts | where: 'kind', 'news' %}
+{%- assign home_features = site.posts | where_exp: 'p', "p.kind != 'news'" %}
+{% if home_news.size > 0 %}
+<section class="home-section" aria-labelledby="latest-news">
+  <h2 id="latest-news">Latest news</h2>
+  {% include post-list.html posts=home_news limit=10 %}
+</section>
+{% endif %}
+{% if home_features.size > 0 %}
+<section class="home-section" aria-labelledby="features-analysis">
+  <h2 id="features-analysis">Features &amp; analysis</h2>
+  {% include post-list.html posts=home_features limit=10 %}
+</section>
+{% endif %}
+{% if site.posts.size == 0 %}
 <p>Our first article is on its way.</p>
 {% endif %}

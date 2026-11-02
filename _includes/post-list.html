@@ -1,0 +1,9 @@
+{%- comment -%}
+  STUB until developer-1's version lands from dev/sections; same name and params. Whoever merges second rebases.
+  Usage: {% include post-list.html posts=some_posts limit=10 %}
+{%- endcomment -%}
+<ul class="post-list">
+  {%- for p in include.posts limit: include.limit %}
+  <li>{% include post-card.html post=p %}</li>
+  {%- endfor %}
+</ul>
