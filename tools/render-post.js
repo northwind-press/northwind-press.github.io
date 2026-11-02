@@ -33,7 +33,8 @@ if (/\{%|\{\{/.test(body)) console.error("WARNING: unrendered Liquid left in bod
 
 let html = marked.parse(body, { gfm: true });
 html = html.replace(/<table>/g, '<div class="table-wrap" role="region" aria-label="Table" tabindex="0"><table>')
-           .replace(/<\/table>/g, "</table></div>");
+           .replace(/<\/table>/g, "</table></div>")
+           .replace(/<\/sup><sup class="cite">/g, '</sup><sup class="cite-sep" aria-hidden="true">,</sup><sup class="cite">');
 const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
 const fmtDate = d => { const t = new Date(d + "T00:00:00Z"); return isNaN(t) ? d : t.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }); };
 const date = path.basename(postPath).slice(0, 10);
