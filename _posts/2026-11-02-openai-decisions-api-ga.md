@@ -5,7 +5,7 @@ description: "OpenAI's v1/decisions endpoint for typed classification, routing, 
 categories: [ai]
 subsection: applied
 kind: news
-date: 2026-11-02 22:39
+date: 2026-11-02 22:47
 sources:
   - title: "Changelog"
     url: https://platform.openai.com/docs/changelog
