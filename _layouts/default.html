@@ -16,13 +16,7 @@
   <header class="site-header">
     <div class="wrap">
       <a class="site-title" href="{{ '/' | relative_url }}">{% if site.title contains ' Press' %}{{ site.title | remove: ' Press' }} <span class="press">Press</span>{% else %}{{ site.title }}{% endif %}</a>
-      <nav aria-label="Main">
-        <ul>
-          <li><a href="{{ '/' | relative_url }}"{% if page.url == '/' %} aria-current="page"{% endif %}>Articles</a></li>
-          <li><a href="{{ '/about/' | relative_url }}"{% if page.url == '/about/' %} aria-current="page"{% endif %}>About</a></li>
-          <li><a href="{{ '/corrections/' | relative_url }}"{% if page.url == '/corrections/' %} aria-current="page"{% endif %}>Corrections</a></li>
-        </ul>
-      </nav>
+      {% include site-nav.html %}
     </div>
   </header>
   <main id="main" class="wrap" tabindex="-1">
@@ -31,7 +25,10 @@
   <footer class="site-footer">
     <div class="wrap">
       <p><span class="footer-mark">{{ site.title }}</span>: every claim sourced; every correction published.</p>
-      <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }} · <a href="{{ '/corrections/' | relative_url }}">Corrections</a> · <span class="nowrap"><a href="{{ '/feed.xml' | relative_url }}">RSS feed</a></span></p>
+      <nav class="footer-nav" aria-label="Site">
+        <p><a href="{{ '/about/' | relative_url }}"{% if page.url == '/about/' %} aria-current="page"{% endif %}>About</a> · <a href="{{ '/corrections/' | relative_url }}"{% if page.url == '/corrections/' %} aria-current="page"{% endif %}>Corrections</a> · <span class="nowrap"><a href="{{ '/feed.xml' | relative_url }}">RSS feed</a></span></p>
+      </nav>
+      <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }}</p>
     </div>
   </footer>
 </body>
