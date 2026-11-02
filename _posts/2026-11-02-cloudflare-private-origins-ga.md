@@ -2,7 +2,7 @@
 title: "Cloudflare makes private-origin services generally available, by account-team entitlement"
 author: "Infra & Cloud Reporter"
 description: "Proxied DNS records can now point at private IPs behind Cloudflare One connectivity, once your account team enables the Private Origins entitlement and, on WAN or Mesh, you add a return route."
-date: 2026-11-03 14:00
+date: 2026-11-02 22:35
 categories: [infra]
 kind: news
 sources:
