@@ -14,6 +14,7 @@
 # Also: fields complete; narrated_from == TEXT_SHA; duration format; file present, MP3, size limits.
 require "yaml"
 require "date"
+require "fileutils"
 
 args = ARGV.dup
 opt = ->(name) { i = args.index(name); i ? args.slice!(i, 2)[1] : nil }
@@ -112,6 +113,32 @@ if t && a
           fails << format("audio file is %.1f MB; GitHub rejects files over 100 MB", mb) if mb > 100
           warns << format("audio file is %.1f MB; consider external hosting above ~25 MB", mb) if mb > 25 && mb <= 100
           puts format("audio file: %s (%.1f MB)", file, mb)
+          # Mechanical cross-check (not a narration check): real duration vs stated, and speaking rate.
+          if ENV["CHECK_AUDIO_SKIP_AFINFO"] # structural self-tests use fake MP3 bytes
+            warns << "afinfo check skipped (CHECK_AUDIO_SKIP_AFINFO)"
+          elsif system("which afinfo > /dev/null 2>&1")
+            tmp = File.expand_path(".render/check-audio-#{a[0, 7]}#{File.extname(file)}")
+            FileUtils.mkdir_p(File.dirname(tmp))
+            File.binwrite(tmp, IO.popen(["git", "-C", repo, "show", "#{a}:#{file}"], "rb", &:read))
+            info = IO.popen(["afinfo", tmp], err: File::NULL, &:read).to_s
+            real = info[/estimated duration:\s*([\d.]+)/, 1]&.to_f
+            fmt = info[/Data format:\s*(.+)/, 1].to_s.strip
+            bitrate = info[/bit rate:\s*(\d+)/, 1]
+            if real.nil? || real <= 0
+              fails << "afinfo can't read #{file} as audio"
+            else
+              stated = d.to_s.split(":").map(&:to_i).reverse.each_with_index.sum { |v, i| v * 60**i }
+              puts format("  afinfo: %.0f s (stated %s = %d s); %s%s", real, d, stated, fmt, bitrate ? "; #{bitrate.to_i / 1000} kbps" : "")
+              fails << format("real duration %.0f s differs from stated %s by more than 5 s", real, d) if stated > 0 && (real - stated).abs > 5
+              words = (nfm["title"].to_s + " " + nbody.to_s.gsub(/\{%.*?%\}/m, "").gsub(/\[([^\]]*)\]\([^)]*\)/, '\1').gsub(/[#*`|>_-]/, " ")).split.size
+              wpm = words / (real / 60.0)
+              puts format("  %d words read (title + body, markers excluded) -> %.0f words/min", words, wpm)
+              warns << format("%.0f words/min is outside the usual 120–190 for narration: possible cuts, additions or wrong file", wpm) unless wpm.between?(120, 190)
+            end
+            File.delete(tmp) if File.exist?(tmp)
+          else
+            warns << "afinfo not available: real duration and speaking rate not checked"
+          end
         end
         fails << "audio file must be .mp3" unless file.downcase.end_with?(".mp3")
       elsif src.start_with?("https://")

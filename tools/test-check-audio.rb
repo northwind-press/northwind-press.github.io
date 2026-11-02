@@ -8,6 +8,7 @@ FileUtils.mkdir_p(R)
 # check-audio.rb inherits these and its `git -C` calls use them.
 ENV["GIT_DIR"] = GD
 ENV["GIT_WORK_TREE"] = R
+ENV["CHECK_AUDIO_SKIP_AFINFO"] = "1" # structural tests use fake MP3 bytes; the afinfo path is tested at the end
 def g(*a)
   system("git", "-C", R, "-c", "user.name=t", "-c", "user.email=t@t", "-c", "commit.gpgsign=false", *a, out: File::NULL, err: File::NULL) || abort("git #{a.join(' ')} failed")
 end
