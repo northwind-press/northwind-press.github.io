@@ -46,7 +46,7 @@ Go and Python have shipped security releases that make their TLS code reject cer
 
 ## Go: a first URGENT-track release
 
-The Go team says it was told about the problem on 2026-10-19 and shipped a fix about seven and a half hours later, on 2026-10-20 (UTC; 2026-10-19 in Pacific time), in its first-ever URGENT-track security release{% include cite.html n=1 %}. The patch blocks certificates that chain to the compromised intermediates{% include cite.html n=1 %}. Go hands certificate checks to the platform on Windows and macOS, but on Linux it uses its own verifier, and Linux has no uniform revocation mechanism; the Go team calls that gap one of its major drivers for an expedited release{% include cite.html n=1 %}. Go's [release history](https://go.dev/doc/devel/release) lists go1.27.3 and go1.26.10, both released 2026-10-19, with security fixes to the `crypto/x509` package.
+The Go team says it was told about the problem on 2026-10-19 and shipped a fix the same day, in its first-ever URGENT-track security release{% include cite.html n=1 %}. Its timeline puts the public announcement at 02:13 UTC on 2026-10-20 (UTC; 2026-10-19 in Pacific time){% include cite.html n=1 %}. The patch blocks certificates that chain to the compromised intermediates{% include cite.html n=1 %}. Go hands certificate checks to the platform on Windows and macOS, but on Linux it uses its own verifier, and Linux has no uniform revocation mechanism; the Go team calls that gap one of its major drivers for an expedited release{% include cite.html n=1 %}. Go's [release history](https://go.dev/doc/devel/release) lists go1.27.3 and go1.26.10, both released 2026-10-19, with security fixes to the `crypto/x509` package.
 
 ## Python: the ssl module blocks the keys
 
