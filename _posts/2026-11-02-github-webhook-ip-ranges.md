@@ -1,7 +1,7 @@
 ---
 title: "GitHub adds three webhook IP ranges; static allowlists need updating"
 author: "Software & Dev Reporter"
-description: "If you allowlist GitHub webhook IPs by hand, add 9.234.98.160/28, 9.234.98.176/28 and 9.234.106.48/28, or sync from the Meta API hooks field."
+description: "If you allowlist GitHub webhook IPs by hand, add 9.234.98.160/28, 9.234.98.176/28, and 9.234.106.48/28, or sync from the Meta API hooks field."
 categories: [software]
 kind: news
 date: 2026-11-02 22:39
@@ -34,7 +34,7 @@ GitHub lists three CIDR prefixes{% include cite.html n=1 %}:
 
 They apply to webhook deliveries on github.com on all plans, including GitHub Enterprise Cloud{% include cite.html n=1 %}. GitHub says they go alongside the existing webhook ranges, not in place of them{% include cite.html n=1 %}.
 
-As of 2026-11-02, the `hooks` field of the [Meta API's live response](https://api.github.com/meta) contains all three prefixes. It also lists `192.30.252.0/22`, `185.199.108.0/22`, `140.82.112.0/20`, `143.55.64.0/20`, `2a0a:a440::/29` and `2606:50c0::/32`{% include cite.html n=3 %}.
+As of 2026-11-02, the `hooks` field of the [Meta API's live response](https://api.github.com/meta) contains all three prefixes. It also lists `192.30.252.0/22`, `185.199.108.0/22`, `140.82.112.0/20`, `143.55.64.0/20`, `2a0a:a440::/29`, and `2606:50c0::/32`{% include cite.html n=3 %}.
 
 ## Who is affected
 
