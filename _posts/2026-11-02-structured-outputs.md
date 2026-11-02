@@ -28,6 +28,11 @@ sources:
     publisher: "Anthropic"
     accessed: "2026-11-02"
 corrections: []
+audio:
+  src: /assets/audio/2026-11-02-structured-outputs.mp3
+  duration: "11:07"
+  narrator: "George (ElevenLabs AI voice)"
+  narrated_from: a7fdd95ad1644abed522bde37a79165bcfa7e589
 ---
 Both the Claude API and the OpenAI API can constrain a model to a JSON Schema you supply, either for the response itself or for a tool call's arguments. By the providers' own docs, that still isn't the same as "every response matches". This piece covers how to turn it on, what each provider promises, which schema features each rejects, and the cases where you still get output that doesn't match. Everything below comes from each provider's documentation as checked on 2026-11-02.
 
