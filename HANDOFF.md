@@ -5,7 +5,8 @@ editorial rules win; tell tech-lead so this file can be updated. Editorial stand
 
 ## Steps
 1. **Reporter or writer** creates branch `article/<slug>` and adds `_posts/YYYY-MM-DD-<slug>.md`
-   (date = intended publish date). If they can't push, they put the whole file at wiki path
+   (the filed date is provisional: production-editor resets `date:` and the filename to the actual UTC merge
+   time, see "Publication date"). If they can't push, they put the whole file at wiki path
    `articles/<slug>.md` and tech-lead commits it.
 2. **Desk edit.** The approving editor reviews sourcing and fairness. For **news, briefings and digests**
    that's the **desk editor** (ai-, software-, security- or infra-editor). For **features**, it's the
