@@ -2,6 +2,9 @@
 title: "Prompt caching on Anthropic and OpenAI: how it works, what it costs, why hits miss"
 author: "Staff Writer"
 description: "How prompt caching is turned on, priced and invalidated on the Claude and OpenAI APIs, and the common reasons an expected cache hit turns into a miss."
+categories: [ai]
+subsection: applied
+kind: feature
 sources:
   - title: "Prompt caching"
     url: https://docs.claude.com/en/docs/build-with-claude/prompt-caching

@@ -40,8 +40,11 @@ merge, or later on a branch `audio/<slug>` cut from `main` once the post is live
 ---
 title: "Plain, specific headline"
 author: "Name"
-description: "One-sentence summary shown on the home page."
-date: 2026-11-03 14:05             # optional, UTC; orders same-day posts newest-first
+description: "One-sentence summary shown on the home page."   # required
+categories: [security]             # required: exactly ONE section, see below
+subsection: applied                # optional; only where the section has one (today: applied, under ai)
+kind: news                         # required: news | feature | briefing | digest
+date: 2026-11-03 14:05             # UTC; REQUIRED with a time for news, optional otherwise
 sources:
   - title: "Exact title of the source"
     url: https://example.com/primary-source
@@ -54,6 +57,36 @@ corrections: []                  # empty at publication
 Body in Markdown. Use `##` for section headings (the title is the `#`). No raw HTML, scripts or
 embeds. Images go in `assets/img/`, always with alt text. The Sources list at the end is generated
 from `sources:`; don't write one in the body.
+
+## Sections and kinds (from 2026-11-02; spec for T-42)
+The site is organised by desk. These fields drive the nav, the section pages, the home page, the
+badges and the per-section feeds. The allowed values live in `_data/sections.yml` and `_data/kinds.yml`,
+and `tools/check-citations.rb` rejects anything else.
+
+| `categories:` | Section | Page | Desk |
+|---|---|---|---|
+| `[ai]` | AI | /ai/ | ai-editor |
+| `[ai]` + `subsection: applied` | Applied AI (part of AI) | /ai/applied/ | ai-editor |
+| `[software]` | Software & Dev | /software/ | software-editor |
+| `[security]` | Security | /security/ | security-editor |
+| `[infra]` | Infra & Cloud | /infra/ | infra-editor |
+
+- **Exactly one section per post**, written as a one-item list (`categories: [infra]`). Applied AI
+  posts are `categories: [ai]` with `subsection: applied`, and they appear on both /ai/ and /ai/applied/.
+- **`kind:`** sets the badge and where the post sits on the home page:
+  - `news`: a report of something that happened. Listed first on the home page, newest first. Needs `date:`
+    **with a time** (UTC), e.g. `date: 2026-11-03 14:05`.
+  - `feature`: an in-depth, explanatory piece (like the three launch articles).
+  - `briefing`: a short explainer or backgrounder on a topic in the news.
+  - `digest`: a round-up of several items.
+  The standards editor owns these definitions; tell tech-lead if they change.
+- **URLs don't change.** Posts stay at `/YYYY/MM/DD/slug/` whatever their section, because the section
+  isn't part of the URL. Moving a post to another section later never breaks links.
+- Each section gets a feed at `/feeds/<slug>.xml` (Applied AI: `/feeds/ai-applied.xml`). The site-wide
+  feed stays at `/feed.xml`.
+- **You can file now.** The current site ignores these fields until the redesign lands (by Wed 11-04
+  12:00 UTC). Posts filed with them will slot into the right section automatically.
+- Everything else (sources, numbered citations, corrections, audio) is unchanged and applies to news too.
 
 ## Citations (house style from 2026-11-02, board instruction)
 - **Every factual claim is cited.**
@@ -123,6 +156,8 @@ audio:
   `audio:` are unchanged.
 
 ## Tech-lead checks (`tools/`)
+- `check-citations.rb` also checks sections and kinds: exactly one valid section, a subsection valid for
+  it, a valid kind, a `description:`, and a time on news dates.
 - `check-citations.rb REV PATH` checks a post against the rules above. It flags:
   - markers whose `n` doesn't exist;
   - sources with zero or more than one inline link, or never cited;

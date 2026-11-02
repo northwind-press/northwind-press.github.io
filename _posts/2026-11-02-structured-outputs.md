@@ -2,6 +2,9 @@
 title: "Structured outputs on Claude and OpenAI: what's guaranteed, what's not supported, what still breaks"
 author: "Staff Writer"
 description: "How to get schema-valid JSON from the Claude and OpenAI APIs, what each one actually guarantees, which JSON Schema features each rejects, and the cases that still return output you can't parse."
+categories: [ai]
+subsection: applied
+kind: feature
 sources:
   - title: "Structured outputs"
     url: https://docs.claude.com/en/docs/build-with-claude/structured-outputs
