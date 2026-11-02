@@ -103,6 +103,8 @@ and `tools/check-citations.rb` rejects anything else.
   placement-only commit, with no re-approval. `placement:` and `date:` changes never trip check-audio.
   - `lead`: the newest `lead` story is the home page's lead, and its section page's lead. Use it for the
     day's most important story; a newer `lead` replaces an older one automatically.
+  - With no `lead` set, the lead is the newest story **not** marked `top` (desks propose top stories; only the
+    editor in chief picks a lead). If every story is marked `top`, it's simply the newest.
   - `top`: a candidate for the 3–4 top stories beside the lead. Any empty slots fill with the newest
     other stories.
   - Every story also appears in the Latest river and its section block, whatever its placement.
