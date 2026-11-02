@@ -215,73 +215,86 @@ nav a[aria-current="page"] { font-weight: 600; box-shadow: inset 0 -2px 0 var(--
 .report { font-family: var(--sans); color: var(--muted); font-size: 0.95rem; border-top: 1px solid var(--rule); padding-top: var(--s0); margin-top: var(--s2); }
 
 /* ---------- Sections, kinds and news lists (T-42) ----------
-   Markup contract and rationale: wiki design/sections.md. No JS. */
+   Fits the markup on main (b6160b5): _includes/site-nav.html, post-card.html, post-list.html,
+   section layout, post-kicker in post.html. Notes: wiki design/sections.md. No JS. */
 
-/* Section colour for the quiet mark. Put data-section="ai|software|security|infra" on .post-card,
-   .post-kicker or .section-page; without it the mark falls back to Northwind blue. */
+/* Section colour for the quiet mark. Set by data-section="ai|software|security|infra" on
+   .post-card, .post-kicker or .section-page; without it the mark falls back to Northwind blue. */
 [data-section="ai"] { --section: var(--sec-ai); }
 [data-section="software"] { --section: var(--sec-software); }
 [data-section="security"] { --section: var(--sec-security); }
 [data-section="infra"] { --section: var(--sec-infra); }
 
-/* Section nav: a second masthead row. It wraps (no hidden items, no scroll cue needed); at 360px it
-   takes two lines. Each link is >= 32px tall for touch; the current section/page is bold + underlined
-   (aria-current), so it doesn't rely on colour. */
+/* Section nav: the masthead's second row. It wraps (nothing hidden, no scroll cue needed): two lines
+   at 360px, one at 1280. Links are >= 32px tall; the current page/section is shown by an underline
+   (aria-current="page" or "true"), not by colour alone. */
 .section-nav { flex-basis: 100%; border-top: 1px solid var(--rule); padding-top: 0.25rem; }
 .section-nav ul { gap: 0 1.25rem; font-size: 0.95rem; align-items: baseline; }
-.section-nav a { padding: 0.4rem 0; font-weight: 600; white-space: nowrap; }
 .section-nav li { display: flex; align-items: baseline; }
+.section-nav a { padding: 0.4rem 0; font-weight: 600; white-space: nowrap; }
 .section-nav__sub { display: flex; gap: 0 1rem; margin: 0 0 0 0.6rem; }
 .section-nav__sub li::before { content: "›"; color: var(--muted); margin-right: 0.45rem; } /* decorative */
 .section-nav__sub a { font-weight: 400; }
 .section-nav a[aria-current] { box-shadow: inset 0 -2px 0 var(--link); }
 
-/* Kind badge: the label text (News / Feature / Briefing / Digest) is the cue; colour and fill only
-   reinforce it. News is filled (ink), the others outlined; digest also uses a dashed border. */
+/* Kind badge: the label text (News / Feature / Briefing / Digest) is the cue; fill and border only
+   reinforce it. News is filled (ink); the others are outlined; digest is dashed. */
 .badge { display: inline-block; font-family: var(--sans); font-size: 0.75rem; font-weight: 700; line-height: 1.4; letter-spacing: 0.07em; text-transform: uppercase; padding: 0 0.4em; border: 1px solid currentColor; border-radius: 2px; white-space: nowrap; }
 .badge--news { background: var(--badge-news-bg); color: var(--badge-news-fg); border-color: var(--badge-news-bg); }
 .badge--feature { color: var(--badge-feature); }
 .badge--briefing { color: var(--badge-briefing); }
 .badge--digest { color: var(--badge-digest); border-style: dashed; }
 
-/* Kicker line above a headline (cards and articles): badge · section · time. */
-.post-card__kicker, .post-kicker { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.6rem; font-family: var(--sans); font-size: var(--step--1); color: var(--muted); margin: 0 0 0.35rem; line-height: 1.4; }
-.post-card__kicker a, .post-kicker a { color: var(--fg); font-weight: 600; text-decoration: none; padding: 0.2rem 0; }
-.post-card__kicker a:hover, .post-kicker a:hover { text-decoration: underline; }
-/* Quiet section mark: a small square in the section colour before the section link (decorative). */
-.post-card__kicker a:first-of-type::before, .post-kicker a:first-of-type::before { content: ""; display: inline-block; width: 0.55em; height: 0.55em; margin-right: 0.4em; background: var(--section, var(--link)); vertical-align: 0.05em; }
-/* Subsection link after the section: "AI › Applied AI". */
-.post-card__kicker a + a::before, .post-kicker a + a::before { content: "›"; display: inline; color: var(--muted); margin-right: 0.35em; }
+/* Kicker above a headline: badge, section, time, separated by "·" in the markup.
+   Cards: <p class="post-card__kicker kicker label"> badge <span.nowrap>Section</span> · <span.nowrap><time>.
+   Article: <p class="post-kicker" data-section="ai"> badge <a>Section</a> <a>Subsection</a>. */
+.post-card__kicker, .post-kicker { font-family: var(--sans); font-size: var(--step--1); font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--muted); line-height: 1.6; margin: 0 0 0.35rem; }
+.post-card__kicker .badge, .post-kicker .badge { margin-right: 0.35rem; vertical-align: 0.08em; }
+/* Section name: ink, semibold, with a small square mark in the section colour (decorative). */
+.post-card__kicker .badge + .nowrap, .post-kicker a { color: var(--fg); font-weight: 600; }
+.post-card__kicker .badge + .nowrap::before, .post-kicker .badge + a::before { content: ""; display: inline-block; width: 0.55em; height: 0.55em; margin-right: 0.4em; background: var(--section, var(--link)); vertical-align: 0.05em; }
+.post-kicker a { text-decoration: none; display: inline-block; padding: 0.2rem 0; }
+/* Article kicker lists section then subsection as two bare links: draw "AI › Applied AI". */
+.post-kicker a + a { margin-left: 0.3em; }
+.post-kicker a + a::before { content: "›"; display: inline-block; color: var(--muted); font-weight: 400; margin-right: 0.35em; }
+.post-kicker a:hover { text-decoration: underline; }
 .post-card__kicker time, .post-kicker time { font-variant-numeric: tabular-nums; }
 .post-header .post-kicker { margin-top: var(--s0); }
 .post-kicker + h1 { margin-top: var(--s-1); }
 
-/* Cards in lists. Features: big serif headline + summary. News (.post-card--news): compact, so a
-   phone shows ~4 items per screen: kicker, 22px headline, one short summary line. */
-.post-card { padding: var(--s1) 0; border-bottom: 1px solid var(--rule); }
+/* Cards. Each card sits in <li> of ul.post-list, which already draws the padding and hairline, so
+   the card itself adds none. Features: 26px headline + summary. News: compact (22px headline, one
+   muted summary line). News is detected from its badge (:has, all current browsers) or from an
+   optional .post-card--news class; older browsers show news at feature size, which is fine. */
+.post-card { margin: 0; }
 .post-card h2, .post-card h3 { font-size: var(--step-2); line-height: 1.2; margin: 0 0 var(--s-1); }
 .post-card h2 a, .post-card h3 a { color: var(--fg); text-decoration: none; }
 .post-card h2 a:hover, .post-card h3 a:hover { color: var(--link); text-decoration: underline; text-decoration-thickness: 2px; }
-.post-card p:not(.post-card__kicker) { margin: 0; }
+.post-card .summary { margin: 0; }
 .post-card .meta { margin-top: var(--s-1); }
-.post-card--news, .post-list > .post-card--news { padding: var(--s0) 0; } /* beats the older .post-list > li */
-.post-card--news h2, .post-card--news h3 { font-size: var(--step-1); margin-bottom: 0.25rem; }
-.post-card--news p:not(.post-card__kicker) { font-size: 1rem; line-height: 1.5; color: var(--muted); }
-ul.post-list > li.post-card, ol.post-list > li.post-card { padding-left: 0; }
+.post-list > li:has(.badge--news) { padding: var(--s0) 0; }
+.post-card--news h2, .post-card--news h3, .post-card:has(.badge--news) :is(h2, h3) { font-size: var(--step-1); margin-bottom: 0.25rem; }
+.post-card--news .summary, .post-card:has(.badge--news) .summary { font-size: 1rem; line-height: 1.5; color: var(--muted); }
 
 /* List headings on the home page ("Latest news", "Features & analysis") and section pages. */
+.home-section + .home-section { margin-top: var(--s1); }
 .section-list-heading { font-family: var(--sans); font-size: var(--step--1); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; border-top: 2px solid var(--rule-strong); padding-top: var(--s-1); margin: var(--s2) 0 0; }
-.section-list-heading + .post-list > :first-child, .section-list-heading + .post-card { padding-top: var(--s0); }
+.section-list-heading + .post-list > li:first-child { padding-top: var(--s0); }
 .home-more, .section-more { font-family: var(--sans); font-size: 0.95rem; margin: var(--s0) 0 0; }
 .home-more a, .section-more a { display: inline-block; padding: 0.3rem 0; }
 
-/* Section page header: a 4px rule in the section colour, title, one-line description, links. */
-.section-intro { border-top: 4px solid var(--section, var(--link)); margin-top: var(--s2); padding-top: var(--s0); }
-.section-intro h1 { margin: 0 0 var(--s-1); }
-.section-intro p { font-size: var(--step-1); line-height: 1.4; color: var(--muted); margin: 0 0 var(--s-1); }
-.section-intro .meta, .section-intro .section-links { font-family: var(--sans); font-size: 0.95rem; }
-.section-intro .section-links a { display: inline-block; padding: 0.3rem 0; }
-.section-page .post-list { margin-top: 0; }
+/* Section page: <div.section-page> <header.section-header> h1 + <p.section-intro> text <a.section-feed>.
+   A 4px rule in the section colour marks the page. */
+.section-header { border-top: 4px solid var(--section, var(--link)); margin-top: var(--s2); padding-top: var(--s0); }
+.section-header h1 { margin: 0 0 var(--s-1); }
+.section-intro { font-size: var(--step-1); line-height: 1.4; color: var(--muted); margin: 0; }
+.section-feed { display: inline-block; font-family: var(--sans); font-size: 0.95rem; padding: 0.3rem 0; margin-left: 0.35em; white-space: nowrap; }
+.section-page > p { font-family: var(--sans); color: var(--muted); margin-top: var(--s2); } /* "No stories yet." */
+
+/* Footer nav (About · Corrections · RSS): plain links, underlined so they read as links. */
+.footer-nav p { margin: 0 0 0.25rem; }
+.footer-nav a { display: inline-block; padding: 0.3rem 0; color: var(--link); text-decoration: underline; }
+.footer-nav a[aria-current] { font-weight: 600; box-shadow: none; }
 
 /* ---------- Footer ---------- */
 .site-footer { border-top: 1px solid var(--rule-strong); color: var(--muted); font-family: var(--sans); font-size: 0.9rem; padding: var(--s1) 0 var(--s2); }
