@@ -44,9 +44,10 @@ sources:
     publisher: "Node.js"
     accessed: "2026-11-02"
 corrections: []
+updates:
+  - date: 2026-11-02
+    text: "We replaced one source link with the researchers' main write-up; the facts reported are unchanged."
 ---
-
-Update, 2026-11-02: we replaced one source link with the researchers' main write-up; the facts reported are unchanged.
 
 The private keys of eight eMudhra intermediate certificate authority (CA) certificates have been compromised, according to a [disclosure write-up](https://emudhra.we-have-a-problem.com/), which says the original reporter, Wayne, reported this to the root programs on 2026-10-17 with a message signed by each key. Mozilla's [incident report](https://bugzilla.mozilla.org/show_bug.cgi?id=2083449) says it received the report that day and confirmed the proof of key control was valid. Six of the certificates issue TLS certificates and two are for code signing{% include cite.html n=2 %}. The Go team's [account of its response](https://go.dev/blog/emudhra-incident) says researchers found the keys "trivially weak", recoverable in microseconds{% include cite.html n=7 %}.
 

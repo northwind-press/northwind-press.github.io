@@ -45,9 +45,10 @@ sources:
     date: "2026-11-02"
     accessed: "2026-11-02"
 corrections: []
+updates:
+  - date: 2026-11-02
+    text: "We added a link to our Security desk's related report; the facts reported are unchanged."
 ---
-
-Update, 2026-11-02: we added a link to our Security desk's related report; the facts reported are unchanged.
 
 Go and Python have shipped security releases that make their TLS code reject certificates chaining to [compromised eMudhra intermediate CA keys](https://northwind-press.github.io/2026/11/02/emudhra-ca-compromise/), according to the [Go team's account](https://go.dev/blog/emudhra-incident) and the [Python 3.15.2 release page](https://www.python.org/downloads/release/python-3152/). On 2026-10-17, Mozilla added eight eMudhra-issued intermediate certificates, six used for TLS and two for code signing, to OneCRL, blocking their use in Firefox{% include cite.html n=1 %}.
 
