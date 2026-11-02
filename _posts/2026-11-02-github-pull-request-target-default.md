@@ -1,6 +1,6 @@
 ---
 title: "GitHub Actions to block pull_request_target by default in public repos from 2026-12-02"
-author: "Software & Dev Reporter"
+author: "Northwind Software & Dev Desk"
 description: "Check Insights for blocked pull_request_target runs before the first brownout on 2026-11-09, then keep the block or allow specific workflows in an Actions event policy."
 categories: [software]
 kind: news

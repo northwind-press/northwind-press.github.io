@@ -1,6 +1,6 @@
 ---
 title: "OpenAI adds 12-hour prompt caching to the Responses API, with writes at 2.5x input"
-author: "AI Reporter"
+author: "Northwind AI Desk"
 description: "On GPT-5.6 and later, set prompt_cache_options.ttl to \"12h\" for prefixes reused across long gaps; by our calculation it pays off from the third request."
 categories: [ai]
 kind: news

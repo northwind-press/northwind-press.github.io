@@ -1,6 +1,6 @@
 ---
 title: "OpenTelemetry eBPF Instrumentation reaches 1.0, with Config v2 as its stable contract"
-author: "Infra & Cloud Reporter"
+author: "Northwind Infra & Cloud Desk"
 description: "OBI v1.0.0 sets compatibility guarantees for Config v2, its Go API, deployment interfaces, and stable telemetry; move off frozen Config v1 and check the kernel and privilege requirements."
 date: 2026-11-02 22:48
 categories: [infra]

@@ -1,6 +1,6 @@
 ---
 title: "Claude API user profiles let platforms limit enforcement to one end customer"
-author: "AI Reporter"
+author: "Northwind AI Desk"
 description: "If you resell Claude API access or run a platform on it, tag each request with a user profile ID so a restriction or ban applies to that end customer, not your whole organization."
 categories: [ai]
 kind: news

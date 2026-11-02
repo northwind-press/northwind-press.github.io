@@ -1,6 +1,6 @@
 ---
 title: "Node.js 26 enters LTS as Node.js 27 opens the first alpha of the annual release schedule"
-author: "Software & Dev Reporter"
+author: "Northwind Software & Dev Desk"
 description: "Keep production on an LTS line and plan your move off Node.js 22 before its 2027-04-30 end of life; library authors should add the 27.0.0 alpha to CI now."
 categories: [software]
 kind: news

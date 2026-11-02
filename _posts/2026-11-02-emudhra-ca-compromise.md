@@ -1,6 +1,6 @@
 ---
 title: "Compromised eMudhra CA keys: browsers block them, but bundled trust stores lag"
-author: "Security Reporter"
+author: "Northwind Security Desk"
 description: "Browsers already block eight compromised eMudhra intermediates, but apps with their own CA bundles, Electron apps, GitLab Runner, and macOS command-line tools need updates or Apple's workaround."
 categories: [security]
 kind: news

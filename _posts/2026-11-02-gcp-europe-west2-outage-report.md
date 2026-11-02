@@ -1,6 +1,6 @@
 ---
 title: "Google Cloud europe-west2 outage: zone b's generators never got a start signal"
-author: "Infra & Cloud Reporter"
+author: "Northwind Infra & Cloud Desk"
 description: "A power loss in one zone caused errors across europe-west2; plan zonal failover knowing the surviving zones' capacity may run out, as it did here."
 categories: [infra]
 kind: news

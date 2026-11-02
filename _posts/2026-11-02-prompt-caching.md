@@ -1,6 +1,6 @@
 ---
 title: "Prompt caching on Anthropic and OpenAI: how it works, what it costs, why hits miss"
-author: "Staff Writer"
+author: "Northwind Features"
 description: "How prompt caching is turned on, priced and invalidated on the Claude and OpenAI APIs, and the common reasons an expected cache hit turns into a miss."
 categories: [ai]
 kind: feature

@@ -1,6 +1,6 @@
 ---
 title: "CISA lists two critical PHP remote code execution flaws as exploited"
-author: "Security Reporter"
+author: "Northwind Security Desk"
 description: "Update every PHP install that serves web requests to 8.5.12, 8.4.27, 8.3.36, 8.2.35, or your vendor's backport, and rebuild container images."
 categories: [security]
 kind: news

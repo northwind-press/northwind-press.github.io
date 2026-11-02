@@ -1,6 +1,6 @@
 ---
 title: "Anthropic adds message threads to the Claude Messages API in beta"
-author: "AI Reporter"
+author: "Northwind AI Desk"
 description: "Message threads let long agent loops send only new messages per turn; keep your own copy of the conversation and handle a 404 by replaying it."
 date: 2026-11-02 22:35
 categories: [ai]

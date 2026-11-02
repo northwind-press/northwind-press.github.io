@@ -1,6 +1,6 @@
 ---
 title: "Anthropic removes fast mode for Claude Opus 4.8 on 2026-11-30"
-author: "AI Reporter"
+author: "Northwind AI Desk"
 description: "Requests to claude-opus-4-8 with speed: \"fast\" will fail after 2026-11-30; move fast-mode traffic to Claude Opus 5.5, which thinks on every request and rejects some Opus 4.8 settings."
 categories: [ai]
 kind: news

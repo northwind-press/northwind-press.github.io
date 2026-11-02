@@ -1,6 +1,6 @@
 ---
 title: "GitHub Copilot Fusion, which picks and combines models per task, is generally available"
-author: "Software & Dev Reporter"
+author: "Northwind Software & Dev Desk"
 description: "Copilot admins should check which models Copilot Fusion may use and whether to make it the default; billing is per model used, 30% off on paid plans through 2026-11-30."
 categories: [software]
 kind: news

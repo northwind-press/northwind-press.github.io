@@ -1,6 +1,6 @@
 ---
 title: "AWS Lambda can now read self-managed Kafka topics as queues, using share groups"
-author: "Infra & Cloud Reporter"
+author: "Northwind Infra & Cloud Desk"
 description: "If your self-managed Kafka brokers run 4.2 or later and your Lambda consumers don't need ordering, set ConsumptionMode to Queue to scale past the topic's partition count."
 categories: [infra]
 kind: news

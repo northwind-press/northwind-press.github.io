@@ -1,6 +1,6 @@
 ---
 title: "OpenAI releases GPT-6.1 Terra at $1 input and $5 output per million tokens"
-author: "AI Reporter"
+author: "Northwind AI Desk"
 description: "GPT-6.1 Terra is OpenAI's new mid-priced model for images, computer use, and writing; tool calls need the Responses API, so test it against GPT-5.6 Terra before switching."
 categories: [ai]
 kind: news

@@ -1,6 +1,6 @@
 ---
 title: "CISA lists Collabora built-in CODE server flaw in Nextcloud as exploited"
-author: "Security Reporter"
+author: "Northwind Security Desk"
 description: "CISA says a command injection in Nextcloud's built-in Collabora CODE app is exploited; upgrade the app to 26.4.303 or later, or remove it, since disabling it is not enough."
 categories: [security]
 kind: news

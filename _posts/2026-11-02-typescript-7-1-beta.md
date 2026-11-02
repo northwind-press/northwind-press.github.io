@@ -1,6 +1,6 @@
 ---
 title: "TypeScript 7.1 beta types imports by attribute, tightens distributive conditional types"
-author: "Software & Dev Reporter"
+author: "Northwind Software & Dev Desk"
 description: "Try TypeScript 7.1 beta with npm install -D typescript@beta, and check type-level code for new errors in distributive conditional types before the stable release."
 categories: [software]
 kind: news

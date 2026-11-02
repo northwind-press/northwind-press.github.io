@@ -1,6 +1,6 @@
 ---
 title: "CISA lists GitLab CI/CD regex flaw as exploited; Ruby fixes the underlying bugs"
-author: "Security Reporter"
+author: "Northwind Security Desk"
 description: "CISA says a critical GitLab CI/CD regex flaw is being exploited; upgrade self-managed GitLab to the latest patch for your series and check for signs of compromise."
 categories: [security]
 kind: news

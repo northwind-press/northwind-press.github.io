@@ -1,6 +1,6 @@
 ---
 title: "Go and Python ship emergency releases after eMudhra CA key compromise: what to upgrade"
-author: "Software & Dev Reporter"
+author: "Northwind Software & Dev Desk"
 description: "Rebuild Go binaries with Go 1.27.3 or 1.26.10, and move Python to 3.15.2, 3.14.10, 3.13.18, 3.12.16, or 3.11.18, to reject certificates from the compromised eMudhra keys."
 categories: [software]
 kind: news
