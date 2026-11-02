@@ -18,13 +18,13 @@ A power failure at the facility hosting Google Cloud zone europe-west2-b took th
 
 ## What broke
 
-The facility normally runs on two utility feeds, A and B, backed by generators under a dual-redundant programmable logic controller (PLC), with UPS batteries good for 5 minutes{% include cite.html n=1 %}. After problems found in a quarterly generator load test on 2026-10-14, the feed-B breaker was opened and locked out for repairs, leaving feed A carrying the whole load{% include cite.html n=1 %}.
+The facility has two utility feeds, A and B, generators started by redundant programmable logic controllers (PLCs), and 5 minutes of UPS battery{% include cite.html n=1 %}. After problems found in a quarterly generator load test on 2026-10-14, the feed-B breaker was opened and locked out for repairs, leaving feed A carrying the whole load{% include cite.html n=1 %}.
 
-At 22:53 PT on 19 Oct (05:53 UTC on 20 Oct), an underground cable fault outside the facility cut feed A{% include cite.html n=1 %}. The PLCs' undervoltage sensing was wired upstream of the open feed-B breaker, where the line was still live, so both PLCs saw a healthy source and never commanded a generator start{% include cite.html n=1 %}. Google says the logic did not check breaker position as well as voltage{% include cite.html n=1 %}. The PLC blocked a remote load transfer, and the batteries ran out while the onsite team moved the facility to a standby utility source{% include cite.html n=1 %}.
+At 22:53 PT on 19 Oct (05:53 UTC on 20 Oct), an underground cable fault outside the facility cut feed A{% include cite.html n=1 %}. The PLCs' undervoltage sensing was wired upstream of the open feed-B breaker, where the line was still live, so both PLCs saw a healthy source and never commanded a generator start; Google says the logic didn't also check breaker position{% include cite.html n=1 %}. The PLC blocked a remote load transfer, and the batteries ran out while the onsite team moved the facility to a standby utility source{% include cite.html n=1 %}.
 
 ## Impact
 
-Zone b lost power at 23:00 PT (06:00 UTC){% include cite.html n=1 %}. Zonal resources there were unavailable, including Compute Engine VMs, zonal disks, zonal GKE control planes and non-HA Cloud SQL instances{% include cite.html n=1 %}. In zones a and c, failover demand exhausted compute capacity and control-plane calls to the offline zone timed out, causing latency, HTTP 500 and 503 errors, and failed create, update or delete operations on some regional resources{% include cite.html n=1 %}. Some failovers failed because of capacity constraints{% include cite.html n=1 %}.
+Zone b lost power at 23:00 PT (06:00 UTC){% include cite.html n=1 %}. Zonal resources there were unavailable, including Compute Engine VMs, zonal disks, zonal GKE control planes and non-HA Cloud SQL instances{% include cite.html n=1 %}. In zones a and c, failover demand exhausted compute capacity and control-plane calls to the offline zone timed out, causing latency, HTTP 500 and 503 errors, and failed changes to some regional resources{% include cite.html n=1 %}. Some failovers failed because of capacity constraints{% include cite.html n=1 %}.
 
 Standby power returned at 23:54 PT (06:54 UTC), but storage recovering from unclean shutdowns held back service restoration{% include cite.html n=1 %}. Core platform disruption ended at 04:29 PT (11:29 UTC), and by 05:08 PT (12:08 UTC) over 99% of Compute Engine VMs were healthy{% include cite.html n=1 %}. Google found no impact outside europe-west2{% include cite.html n=1 %}.
 
@@ -43,6 +43,6 @@ The report doesn't say whether the 30 and 31 Oct estimates were met.
 
 ## What to do
 
-- Google says zonal resources such as VMs need customer-provisioned failover or cross-zone recovery{% include cite.html n=1 %}. Anything that lived only in europe-west2-b went down with it.
+- Google says zonal resources such as VMs need customer-provisioned failover or cross-zone recovery{% include cite.html n=1 %}.
 - Don't assume spare capacity in the surviving zones. Here it ran out, and Google prioritised active customer reservations{% include cite.html n=1 %}.
 - Multi-zone isn't region-proof: regional services degraded too, so workloads that must ride out such an event need a path to another region{% include cite.html n=1 %}.
