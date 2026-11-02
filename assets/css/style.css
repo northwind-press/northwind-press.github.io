@@ -232,9 +232,6 @@ nav a[aria-current="page"] { font-weight: 600; box-shadow: inset 0 -2px 0 var(--
 .section-nav ul { gap: 0 1.25rem; font-size: 0.95rem; align-items: baseline; }
 .section-nav li { display: flex; align-items: baseline; }
 .section-nav a { padding: 0.4rem 0; font-weight: 600; white-space: nowrap; }
-.section-nav__sub { display: flex; gap: 0 1rem; margin: 0 0 0 0.6rem; }
-.section-nav__sub li::before { content: "›"; color: var(--muted); margin-right: 0.45rem; } /* decorative */
-.section-nav__sub a { font-weight: 400; }
 .section-nav a[aria-current] { box-shadow: inset 0 -2px 0 var(--link); }
 
 /* Kind badge: the label text (News / Feature / Briefing / Digest) is the cue; fill and border only
@@ -246,7 +243,7 @@ nav a[aria-current="page"] { font-weight: 600; box-shadow: inset 0 -2px 0 var(--
 .badge--digest { color: var(--badge-digest); border-style: dashed; }
 
 /* Kicker above a headline: badge, section (+ subsection), time. Works with both markups in play:
-   (a) dev/sections 647d858 / design/sections.md: badge <a>Section</a> <a>Subsection</a> <time>;
+   (a) dev/sections 647d858 / design/sections.md: badge <a>Section</a> <time>;
    (b) older: badge <span.nowrap>AI · Applied AI</span> · <span.nowrap><time></span>, and article
        kickers with a literal " · " between two links.
    The kicker's own font-size is 0, so bare text between children (spaces, "·") takes no room and
@@ -262,9 +259,6 @@ nav a[aria-current="page"] { font-weight: 600; box-shadow: inset 0 -2px 0 var(--
 .post-card__kicker a, .post-kicker a { display: inline-block; padding: 0.2rem 0; text-decoration: none; }
 .post-card__kicker a:hover, .post-kicker a:hover { text-decoration: underline; }
 .post-card__kicker .badge + a::before, .post-kicker .badge + a::before, .post-card__kicker .badge + .nowrap::before { content: ""; display: inline-block; width: 0.55em; height: 0.55em; margin-right: 0.4em; background: var(--section, var(--link)); vertical-align: 0.05em; }
-/* Subsection: "AI › Applied AI" (decorative chevron). */
-.post-card__kicker a + a, .post-kicker a + a { margin-left: -0.25em; }
-.post-card__kicker a + a::before, .post-kicker a + a::before { content: "›"; display: inline-block; color: var(--muted); font-weight: 400; margin-right: 0.35em; }
 .post-card__kicker time, .post-kicker time { font-variant-numeric: tabular-nums; white-space: nowrap; } /* "3 November 2026, 14:05 UTC" stays on one line */
 .post-header .post-kicker { margin-top: var(--s0); }
 .post-kicker + h1 { margin-top: var(--s-1); }
