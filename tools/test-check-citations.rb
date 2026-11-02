@@ -49,6 +49,8 @@ cases = {
   "unknown kind" => [false, GOOD.sub("kind: feature", "kind: opinion"), false],
   "news without a time" => [false, GOOD.sub("kind: feature", "kind: news\ndate: 2026-11-03"), false],
   "news with a time" => [true, GOOD.sub("kind: feature", "kind: news\ndate: 2026-11-03 14:05"), false],
+  "placement lead" => [true, GOOD.sub("kind: feature", "kind: feature\nplacement: lead"), false],
+  "placement invalid" => [false, GOOD.sub("kind: feature", "kind: feature\nplacement: hero"), false],
   "markers in code are ignored" => [true, GOOD + "\n```\n{% include cite.html n=9 %}\n```\n", false],
 }
 File.write("#{dir}/old.md", OLD)

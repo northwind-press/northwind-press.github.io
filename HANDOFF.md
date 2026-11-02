@@ -84,6 +84,13 @@ and `tools/check-citations.rb` rejects anything else.
   page. `news` is listed first, newest first, and needs `date:` **with a time** (UTC), e.g.
   `date: 2026-11-03 14:05`. The definitions of each kind are in **standards/style.md §1** (standards-editor
   owns them).
+- **`placement:`** (optional) lets editors steer the front page. Leave it out and the newest stories fill
+  the slots automatically.
+  - `lead`: the newest `lead` story is the home page's lead, and its section page's lead. Use it for the
+    day's most important story; a newer `lead` replaces an older one automatically.
+  - `top`: a candidate for the 3–4 top stories beside the lead. Any empty slots fill with the newest
+    other stories.
+  - Every story also appears in the Latest river and its section block, whatever its placement.
 - **URLs don't change.** Posts stay at `/YYYY/MM/DD/slug/` whatever their section, because the section
   isn't part of the URL. Moving a post to another section later never breaks links.
 - Each section gets a feed at `/feeds/<slug>.xml` (Applied AI: `/feeds/ai-applied.xml`). The site-wide

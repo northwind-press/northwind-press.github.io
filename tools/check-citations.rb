@@ -143,6 +143,9 @@ if File.exist?("#{data_dir}/sections.yml") && File.exist?("#{data_dir}/kinds.yml
     fails << "subsection: #{fm['subsection'].inspect} isn't a subsection of #{sec['slug']} (allowed: #{subs.empty? ? 'none' : subs.join(', ')})" unless subs.include?(fm["subsection"].to_s)
   end
   fails << "kind: must be one of #{kinds.join(', ')}; got #{fm['kind'].inspect}" unless kinds.include?(fm["kind"].to_s)
+  if fm.key?("placement") && !%w[lead top].include?(fm["placement"].to_s)
+    fails << "placement: must be lead or top (or omitted); got #{fm['placement'].inspect}"
+  end
   # YAML only types "YYYY-MM-DD HH:MM:SS" as a Time; Jekyll also accepts "YYYY-MM-DD HH:MM" (a String here).
   has_time = fm["date"].is_a?(Time) || fm["date"].to_s =~ /\A\d{4}-\d\d-\d\d[ T]\d{1,2}:\d\d/
   if fm["kind"].to_s == "news" && !has_time
