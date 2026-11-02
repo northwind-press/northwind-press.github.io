@@ -4,7 +4,7 @@ author: "Security Reporter"
 description: "Browsers already block eight compromised eMudhra intermediates, but apps with their own CA bundles, Electron apps, GitLab Runner, and macOS command-line tools need updates or Apple's workaround."
 categories: [security]
 kind: news
-date: 2026-11-02 22:43
+date: 2026-11-02 22:53
 sources:
   - title: "eMudhra: we have a problem"
     url: https://emudhra.we-have-a-problem.com/
