@@ -71,11 +71,10 @@ Until Apple's update ships, Apple says administrators can remove the root certif
 
 ## What to do
 
-- Update operating system CA packages, and apps and libraries that ship their own CA bundle. The write-up keeps a list of patched versions{% include cite.html n=1 %}.
-- Update Electron apps once their vendors ship builds on a patched Electron{% include cite.html n=1 %}.
+- Update OS CA packages, bundled CA stores and Electron apps; the write-up keeps a list of patched versions{% include cite.html n=1 %}.
 - Upgrade GitLab and Runner, and rebuild CI images{% include cite.html n=6 %}.
 - On macOS, apply Apple's workaround or install its update when it ships{% include cite.html n=4 %}.
 
 ## What is not known
 
-The write-up says no Certificate Transparency (CT) entries exist for these intermediates, so CT-enforcing browsers could not have been attacked, but that it is not known whether attackers used the keys against clients that don't enforce CT{% include cite.html n=1 %}. The Chrome Root Program says no certificates from them were logged to CT before its block{% include cite.html n=3 %}. eMudhra says its investigation is continuing{% include cite.html n=2 %}.
+The write-up says no Certificate Transparency (CT) entries exist for these intermediates, so CT-enforcing browsers could not have been attacked, but that it is not known whether attackers used the keys against clients that don't enforce CT{% include cite.html n=1 %}. The Chrome Root Program says no certificates from them were logged to CT before its block{% include cite.html n=3 %}.
