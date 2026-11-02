@@ -52,6 +52,21 @@ from `sources:`; don't write one in the body.
 - Rendering: the include shows a small superscript number linking to `#source-n`
   (aria-label "Source n"). The Sources entry gets a "↩" link back to the first marker.
 
+## Audio edition (optional; proposal 2026-11-02, pending the editor's wiki wording)
+```yaml
+audio:
+  src: /assets/audio/2026-11-02-slug.mp3   # repo path, or a full https:// URL
+  duration: "12:34"                        # QUOTED m:ss or h:mm:ss, or plain seconds (754)
+  narrator: "Name"                         # optional
+```
+Shorthand: `audio: /assets/audio/2026-11-02-slug.mp3`.
+- Files live in `assets/audio/`, named like the post. Use MP3, mono, 64–96 kbps: a 15-minute read is
+  about 7–10 MB. GitHub rejects files over 100 MB and the repo should stay well under 1 GB, so host
+  long or frequent episodes externally and give the full URL.
+- Always quote durations. Unquoted, YAML reads `12:34` as 12 hours 34 minutes. The checker rejects it.
+- The page shows "Listen to this article (12:34)", "Read by …", a native player that loads nothing until
+  play is pressed, a download link, and a link to the article text. Posts without `audio:` are unchanged.
+
 ## Tech-lead checks (`tools/`)
 - `check-citations.rb REV PATH` checks a post against the rules above. It flags:
   - markers whose `n` doesn't exist;

@@ -1,0 +1,51 @@
+{%- comment -%}
+  Audio edition player (T-27). Used by _layouts/post.html only when page.audio is set.
+  Front matter: audio: {src, duration, narrator, type}  or the shorthand  audio: /assets/audio/x.mp3
+  src may be a repo path (/assets/audio/...) or a full https:// URL.
+{%- endcomment -%}
+{%- assign au_src = page.audio.src | default: page.audio -%}
+{%- if au_src contains '://' -%}{%- assign au_url = au_src -%}{%- else -%}{%- assign au_url = au_src | relative_url -%}{%- endif -%}
+{%- assign au_ext = au_src | split: '?' | first | split: '#' | first | split: '.' | last | downcase -%}
+{%- assign au_type = page.audio.type -%}
+{%- unless au_type -%}
+  {%- case au_ext -%}
+    {%- when 'mp3' -%}{%- assign au_type = 'audio/mpeg' -%}
+    {%- when 'm4a', 'aac', 'mp4' -%}{%- assign au_type = 'audio/mp4' -%}
+    {%- when 'ogg', 'oga', 'opus' -%}{%- assign au_type = 'audio/ogg' -%}
+    {%- when 'wav' -%}{%- assign au_type = 'audio/wav' -%}
+  {%- endcase -%}
+{%- endunless -%}
+{%- assign au_format = au_ext | upcase -%}
+{%- assign au_dur = page.audio.duration | append: '' | strip -%}
+{%- comment -%} A plain number is seconds (also what YAML makes of an unquoted 1:02:03). Format it as m:ss or h:mm:ss. {%- endcomment -%}
+{%- unless au_dur == '' or au_dur contains ':' -%}
+  {%- assign au_secs = au_dur | plus: 0 -%}
+  {%- assign au_h = au_secs | divided_by: 3600 -%}
+  {%- assign au_m = au_secs | modulo: 3600 | divided_by: 60 -%}
+  {%- assign au_s = au_secs | modulo: 60 | prepend: '0' | slice: -2, 2 -%}
+  {%- if au_h > 0 -%}
+    {%- assign au_m2 = au_m | prepend: '0' | slice: -2, 2 -%}
+    {%- capture au_dur -%}{{ au_h }}:{{ au_m2 }}:{{ au_s }}{%- endcapture -%}
+  {%- else -%}
+    {%- capture au_dur -%}{{ au_m }}:{{ au_s }}{%- endcapture -%}
+  {%- endif -%}
+{%- endunless -%}
+{%- if au_dur != '' -%}
+  {%- assign au_parts = au_dur | split: ':' -%}
+  {%- if au_parts.size == 3 -%}
+    {%- capture au_iso -%}PT{{ au_parts[0] | plus: 0 }}H{{ au_parts[1] | plus: 0 }}M{{ au_parts[2] | plus: 0 }}S{%- endcapture -%}
+  {%- elsif au_parts.size == 2 -%}
+    {%- capture au_iso -%}PT{{ au_parts[0] | plus: 0 }}M{{ au_parts[1] | plus: 0 }}S{%- endcapture -%}
+  {%- endif -%}
+{%- endif %}
+  <section class="audio" aria-labelledby="audio-heading">
+    <h2 id="audio-heading" class="audio-label">Listen to this article{% if au_dur != '' %} <span class="audio-duration">({% if au_iso %}<time datetime="{{ au_iso }}">{{ au_dur }}</time>{% else %}{{ au_dur }}{% endif %})</span>{% endif %}</h2>
+    {%- if page.audio.narrator %}
+    <p class="audio-meta">Read by {{ page.audio.narrator }}</p>
+    {%- endif %}
+    <audio controls preload="none" aria-labelledby="audio-heading">
+      <source src="{{ au_url }}"{% if au_type %} type="{{ au_type }}"{% endif %}>
+      <p>Your browser can’t play this audio. <a href="{{ au_url }}">Download it</a> instead.</p>
+    </audio>
+    <p class="audio-links"><a href="{{ au_url }}" download>Download audio{% if au_format != '' and au_format.size <= 4 %} ({{ au_format }}){% endif %}</a> · <a href="#article-text">Transcript: read the article text</a></p>
+  </section>

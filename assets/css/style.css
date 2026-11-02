@@ -163,6 +163,18 @@ nav a[aria-current="page"] { font-weight: 600; box-shadow: inset 0 -2px 0 var(--
 
 .post-body > p:first-child { font-size: 1.2rem; }
 
+/* Audio edition player (_includes/audio-player.html), shown only for posts with `audio:`.
+   Native controls: keyboard-operable, and they follow color-scheme light/dark. */
+.audio { margin: 0 0 var(--s1); padding: var(--s0); border: 1px solid var(--rule); border-radius: 4px; background: var(--code-bg); font-family: var(--sans); font-size: 0.95rem; }
+.audio .audio-label { font-family: var(--sans); font-size: var(--step--1); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 var(--s-1); }
+.audio .audio-duration { font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--muted); }
+.audio .audio-meta { color: var(--muted); margin: 0 0 var(--s-1); }
+.audio audio { display: block; width: 100%; min-height: 2.5rem; margin: 0 0 var(--s-1); }
+.audio audio:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.audio .audio-links { margin: 0; }
+.audio .audio-links a { display: inline-block; padding: 0.35rem 0; } /* ~24px+ tap height */
+#article-text { scroll-margin-top: var(--s2); }
+
 /* Numbered citations ({% include cite.html n=N %}): small, quiet, but a real link.
    The visible glyph stays small; an invisible ::after enlarges the tap/click area to ~24px
    (WCAG 2.5.8) without changing line spacing. Focus uses the global 3px ring. */
@@ -207,7 +219,7 @@ nav a[aria-current="page"] { font-weight: 600; box-shadow: inset 0 -2px 0 var(--
   :root { --bg: #fff; --fg: #000; --muted: #333; --link: #000; --rule: #999; --rule-strong: #000; --note-bg: #fff; --note-border: #000; --note-label: #000; --code-bg: #fff; }
   body { font-size: 11pt; line-height: 1.45; }
   .wrap { max-width: none; padding: 0; }
-  .skip-link, nav, .report, .cite-back { display: none; }
+  .skip-link, nav, .report, .cite-back, .audio { display: none; }
   .site-header { border-top: 0; }
   a { color: inherit; }
   /* Inline links all point to the Sources list, which prints its URLs. */

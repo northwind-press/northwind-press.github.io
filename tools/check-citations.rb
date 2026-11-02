@@ -113,7 +113,22 @@ if flag == "--against"
   end
 end
 
-cited_counts = sources.each_index.map { |i| markers.count { |m, _| m.to_i == i + 1 } }
+# 7. audio: an unquoted m:ss duration is read by YAML as h:mm (12:34 -> 45240 s). Require quotes or seconds.
+raw_fm = show(rev, path)[/\A---\n(.*?)\n---/m, 1].to_s
+if raw_fm =~ /^\s*duration:\s*\d+:\d+(:\d+)?\s*(#.*)?$/
+  fails << "audio duration must be quoted (\"12:34\") or given in seconds; unquoted YAML reads 12:34 as 12 h 34 min"
+end
+if fm["audio"]
+  a = fm["audio"]
+  src = a.is_a?(Hash) ? a["src"] : a
+  fails << "audio: has no src" if src.to_s.strip.empty?
+  if src.to_s.start_with?("/")
+    present = IO.popen(["git", "cat-file", "-e", "#{rev}:#{src.sub(%r{\A/}, '')}"], err: File::NULL, &:read) && $?.success?
+    fails << "audio file #{src} isn't in the commit" unless rev.start_with?("file=") || present
+  end
+end
+
+cited_counts =sources.each_index.map { |i| markers.count { |m, _| m.to_i == i + 1 } }
 puts "sources: #{sources.size}; inline links: #{links.size}; markers: #{markers.size} (per source: #{cited_counts.join(', ')})"
 warns.each { |w| puts "WARN #{w}" }
 fails.each { |f| puts "FAIL #{f}" }
