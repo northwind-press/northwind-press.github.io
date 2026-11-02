@@ -1,0 +1,32 @@
+{%- comment -%}
+  Picks the lead and top stories for a front (home or a section page), per HANDOFF "placement".
+  Usage: {% include front-select.html %}                                (whole site)
+         {% include front-select.html section="ai" %}                   (AI, incl. Applied AI)
+         {% include front-select.html section="ai" subsection="applied" top=3 %}
+  Params: section (slug, optional), subsection (slug, optional; blank or "none" = whole section),
+          top (number of top stories, default 4).
+  Sets (global assigns, read them right after the include):
+    front_pool  all posts in scope, newest first
+    front_lead  newest placement: lead post in scope, else the newest post in scope (nil if none)
+    front_top   up to `top` posts, excluding the lead: newest placement: top posts first,
+                then the newest other posts
+  Every post still belongs in the river and section blocks; this only picks the promoted ones.
+{%- endcomment -%}
+{%- assign fs_n = include.top | default: 4 | plus: 0 -%}
+{%- assign front_pool = site.posts -%}
+{%- if include.section and include.section != '' -%}
+  {%- assign fs_section = include.section -%}
+  {%- assign front_pool = front_pool | where_exp: 'p', 'p.categories contains fs_section' -%}
+  {%- if include.subsection and include.subsection != '' and include.subsection != 'none' -%}
+    {%- assign front_pool = front_pool | where: 'subsection', include.subsection -%}
+  {%- endif -%}
+{%- endif -%}
+{%- assign front_lead = front_pool | where: 'placement', 'lead' | first -%}
+{%- unless front_lead -%}
+  {%- assign front_lead = front_pool | first -%}
+{%- endunless -%}
+{%- assign fs_lead_url = front_lead.url -%}
+{%- assign fs_rest = front_pool | where_exp: 'p', 'p.url != fs_lead_url' -%}
+{%- assign fs_tagged = fs_rest | where: 'placement', 'top' -%}
+{%- assign fs_others = fs_rest | where_exp: 'p', "p.placement != 'top'" -%}
+{%- assign front_top = fs_tagged | concat: fs_others | slice: 0, fs_n -%}
