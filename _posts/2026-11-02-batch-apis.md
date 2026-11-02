@@ -32,6 +32,11 @@ sources:
     publisher: "OpenAI"
     accessed: "2026-11-02"
 corrections: []
+audio:
+  src: /assets/audio/2026-11-02-batch-apis.mp3
+  duration: "9:44"
+  narrator: "George (ElevenLabs AI voice)"
+  narrated_from: 3d74eed4f2f1a1d6806ebdd5dedd2077c7ff221e
 ---
 Anthropic and OpenAI both let you submit a large set of requests at once and collect the results later, at half the normal price. In return you give up immediate answers and some features, and you have to handle results that arrive out of order, fail or expire. Everything below comes from each provider's documentation as checked on 2026-11-02.
 
