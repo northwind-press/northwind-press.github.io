@@ -32,13 +32,14 @@ Threads are available on the Claude API, Claude Platform on AWS, Claude Models o
 
 - **Send `system` and `tools` on create only.** Including either on a continue request, even as `null`, returns a 400 error{% include cite.html n=2 %}.
 - **Keep fixed fields identical.** Fields such as `model`, `tool_choice`, `thinking`, `output_config`, the top-level `cache_control` and the set of beta headers must match the create request, or the API returns `thread_fingerprint_mismatch`{% include cite.html n=2 %}. To change one, start a new thread{% include cite.html n=2 %}.
-- **Build the replay path first.** Threads are best-effort: one expires 5 minutes after its last request and is deleted no more than 1 hour after its last use{% include cite.html n=1 %}. A continue request that can't be served returns a 404 with `thread_not_found`, and the fix is to resend the full conversation in a new create request{% include cite.html n=2 %}. No response says whether the turn was stored, so the guide tells you to keep your own copy of every message{% include cite.html n=2 %}.
+- **Build the replay path first.** Threads are best-effort{% include cite.html n=2 %}: one expires 5 minutes after its last request and is deleted no more than 1 hour after its last use{% include cite.html n=1 %}. A continue request that can't be served returns a 404 with `thread_not_found`, and the fix is to resend the full conversation in a new create request{% include cite.html n=2 %}. No response says whether the turn was stored, so the guide tells you to keep your own copy of every message{% include cite.html n=2 %}.
 - **Turn on caching yourself.** Threads don't cache your prompt{% include cite.html n=2 %}. Send a top-level `cache_control` on every request, or place breakpoints yourself, up to 4 per request{% include cite.html n=2 %}.
+- **Don't continue after a refusal.** On `stop_reason: "refusal"`, start a new thread that leaves out or rephrases the refused turn{% include cite.html n=2 %}. Each response `id` can be continued only once{% include cite.html n=2 %}.
 - **Check what's unsupported.** Message Batches, token counting, compaction on demand, most context editing, and organizations with HIPAA readiness or Inference hooks turned on can't use threads{% include cite.html n=2 %}.
 
 ## Pricing and data retention
 
-The docs say threads don't change pricing or rate limits{% include cite.html n=2 %}. They aren't eligible for zero data retention (ZDR). The API keeps a thread in memory, encrypted under a server-managed key, and never writes it to durable storage{% include cite.html n=2 %}.
+The docs say threads don't change pricing or rate limits{% include cite.html n=2 %}. They aren't eligible for zero data retention (ZDR){% include cite.html n=2 %}. The API keeps a thread in memory, encrypted under a server-managed key, and never writes it to durable storage{% include cite.html n=2 %}.
 
 ## What's still unknown
 
