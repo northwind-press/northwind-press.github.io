@@ -41,13 +41,17 @@ h2 { font-size: 1.4rem; margin-top: 2rem; }
 img { max-width: 100%; height: auto; }
 pre, code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.9em; }
 pre { overflow-x: auto; padding: 1rem; border: 1px solid var(--rule); border-radius: 4px; }
-table { border-collapse: collapse; display: block; overflow-x: auto; }
+table { border-collapse: collapse; }
+/* Scroll wide tables on narrow screens only: display:block drops table semantics in some screen readers. */
+@media (max-width: 42rem) {
+  table { display: block; overflow-x: auto; }
+}
 th, td { border: 1px solid var(--rule); padding: 0.4rem 0.6rem; text-align: left; }
 blockquote { margin: 1rem 0; padding-left: 1rem; border-left: 4px solid var(--rule); color: var(--muted); }
 
 .skip-link { position: absolute; left: -999px; top: 0; padding: 0.5rem 1rem; background: var(--bg); color: var(--link); z-index: 10; }
 .skip-link:focus { left: 0.5rem; top: 0.5rem; }
-.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 .site-header { border-bottom: 1px solid var(--rule); }
 .site-header .wrap { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem 1.5rem; padding-top: 1rem; padding-bottom: 1rem; }
