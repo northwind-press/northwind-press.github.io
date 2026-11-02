@@ -1,7 +1,7 @@
 ---
 title: "Go and Python ship emergency releases after eMudhra CA key compromise: what to upgrade"
 author: "Software & Dev Reporter"
-description: "Rebuild Go binaries with Go 1.27.3 or 1.26.10, and move Python to 3.15.2, 3.14.10, 3.13.18, 3.12.16 or 3.11.18, to reject certificates from the compromised eMudhra keys."
+description: "Rebuild Go binaries with Go 1.27.3 or 1.26.10, and move Python to 3.15.2, 3.14.10, 3.13.18, 3.12.16, or 3.11.18, to reject certificates from the compromised eMudhra keys."
 categories: [software]
 kind: news
 date: 2026-11-02 22:45
@@ -52,8 +52,8 @@ The Go team says it was told about the problem on 2026-10-19 and shipped a fix t
 
 Python 3.15.2, released 2026-10-25, is an expedited security release in which the `ssl` module blocks the compromised keys "as a last resort against their use"{% include cite.html n=3 %}. Normal uses of `pip`, including upgrading `pip` itself, are protected from attacks using those keys even before `pip` is updated{% include cite.html n=3 %}.
 
-The release pages for [3.14.10](https://www.python.org/downloads/release/python-31410/), [3.13.18](https://www.python.org/downloads/release/python-31318/), [3.12.16](https://www.python.org/downloads/release/python-31216/) and [3.11.18](https://www.python.org/downloads/release/python-31118/), all dated 2026-10-25, each list the same fix, CVE-2026-115557. For the 3.13, 3.12 and 3.11 series, python.org now publishes source releases only, with no binary installers{% include cite.html n=5 %}{% include cite.html n=6 %}{% include cite.html n=7 %}.
+The release pages for [3.14.10](https://www.python.org/downloads/release/python-31410/), [3.13.18](https://www.python.org/downloads/release/python-31318/), [3.12.16](https://www.python.org/downloads/release/python-31216/), and [3.11.18](https://www.python.org/downloads/release/python-31118/), all dated 2026-10-25, each list the same fix, CVE-2026-115557. For the 3.13, 3.12, and 3.11 series, python.org now publishes source releases only, with no binary installers{% include cite.html n=5 %}{% include cite.html n=6 %}{% include cite.html n=7 %}.
 
 ## What to do
 
-Rebuild Go binaries that make TLS connections, whether directly through `net/http` or `crypto/tls` or through a dependency such as gRPC, with Go 1.27.3 or 1.26.10; the Go team says rebuilt binaries reject certificates issued by the compromised intermediates{% include cite.html n=1 %}. To see which Go version built a binary, run `go version -m <binary>`, or check it with `govulncheck -mode=binary`{% include cite.html n=1 %}. On Python, move to 3.15.2, 3.14.10, 3.13.18, 3.12.16 or 3.11.18, whichever matches your series{% include cite.html n=3 %}{% include cite.html n=4 %}{% include cite.html n=5 %}{% include cite.html n=6 %}{% include cite.html n=7 %}.
+Rebuild Go binaries that make TLS connections, whether directly through `net/http` or `crypto/tls` or through a dependency such as gRPC, with Go 1.27.3 or 1.26.10; the Go team says rebuilt binaries reject certificates issued by the compromised intermediates{% include cite.html n=1 %}. To see which Go version built a binary, run `go version -m <binary>`, or check it with `govulncheck -mode=binary`{% include cite.html n=1 %}. On Python, move to 3.15.2, 3.14.10, 3.13.18, 3.12.16, or 3.11.18, whichever matches your series{% include cite.html n=3 %}{% include cite.html n=4 %}{% include cite.html n=5 %}{% include cite.html n=6 %}{% include cite.html n=7 %}.
