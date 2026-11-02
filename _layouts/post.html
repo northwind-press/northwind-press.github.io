@@ -19,9 +19,9 @@ layout: default
       </ul>
     </aside>
     {% endif %}
-  </header>
+  </header>{% if page.audio %}{% include audio-player.html %}{% endif %}
 
-  <div class="post-body">
+  <div class="post-body"{% if page.audio %} id="article-text"{% endif %}>
   {%- comment -%}
     Markers never sit inside a quotation (HANDOFF rule), so a quote mark directly before a marker is
     always a closing one. kramdown's smart quotes turn a straight quote between a code span and a

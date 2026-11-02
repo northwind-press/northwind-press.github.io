@@ -43,6 +43,34 @@ const srcItems = sources.map((s, i) => {
   return `<li id="source-${n}"><a href="${esc(s.url)}">${esc(s.title)}</a>${s.publisher ? ", " + esc(s.publisher) : ""}${s.date ? ` (<span class="nowrap">${fmtDate(s.date)}</span>)` : ""}.${s.accessed ? ` Accessed <span class="nowrap">${fmtDate(s.accessed)}</span>.` : ""}${back}</li>`;
 }).join("\n");
 
+// Re-implementation of _includes/audio-player.html (keep in sync).
+function audioBlock(a) {
+  if (!a) return "";
+  const src = typeof a === "string" ? a : a.src;
+  const url = src;
+  const ext = src.split("?")[0].split("#")[0].split(".").pop().toLowerCase();
+  const type = (typeof a === "object" && a.type) || { mp3: "audio/mpeg", m4a: "audio/mp4", aac: "audio/mp4", mp4: "audio/mp4", ogg: "audio/ogg", oga: "audio/ogg", opus: "audio/ogg", wav: "audio/wav" }[ext];
+  let dur = (typeof a === "object" && a.duration != null) ? String(a.duration).trim() : "";
+  if (dur && !dur.includes(":")) { // plain number = seconds
+    const t = Number(dur), h = Math.floor(t / 3600), m = Math.floor((t % 3600) / 60), s = String(t % 60).padStart(2, "0");
+    dur = h > 0 ? `${h}:${String(m).padStart(2, "0")}:${s}` : `${m}:${s}`;
+  }
+  const parts = dur.split(":").map(Number);
+  const iso = parts.length === 3 ? `PT${parts[0]}H${parts[1]}M${parts[2]}S` : parts.length === 2 ? `PT${parts[0]}M${parts[1]}S` : "";
+  const narr = typeof a === "object" && a.narrator;
+  return `
+  <section class="audio" aria-labelledby="audio-heading">
+    <h2 id="audio-heading" class="audio-label">Listen to this article${dur ? ` <span class="audio-duration">(${iso ? `<time datetime="${iso}">${esc(dur)}</time>` : esc(dur)})</span>` : ""}</h2>${narr ? `
+    <p class="audio-meta">Read by ${esc(narr)}</p>` : ""}
+    <audio controls preload="none" aria-labelledby="audio-heading">
+      <source src="${esc(url)}"${type ? ` type="${type}"` : ""}>
+      <p>Your browser can’t play this audio. <a href="${esc(url)}">Download it</a> instead.</p>
+    </audio>
+    <p class="audio-links"><a href="${esc(url)}" download>Download audio${ext && ext.length <= 4 ? ` (${ext.toUpperCase()})` : ""}</a> · <a href="#article-text">Transcript: read the article text</a></p>
+  </section>
+`;
+}
+
 const page = css => `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="${css}"><title>${esc(fm.title)}</title></head><body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -50,8 +78,8 @@ const page = css => `<!doctype html><html lang="en"><head><meta charset="utf-8">
 <nav aria-label="Main"><ul><li><a href="#">Articles</a></li><li><a href="#">About</a></li><li><a href="#">Corrections</a></li></ul></nav></div></header>
 <main id="main" class="wrap" tabindex="-1"><article class="post"><header class="post-header"><h1>${esc(fm.title)}</h1>
 ${fm.description ? `<p class="dek">${esc(fm.description)}</p>` : ""}
-<p class="meta">By <span class="byline">${esc(fm.author || "Northwind Press")}</span> · <span class="nowrap"><time>${fmtDate(date)}</time></span> · <span class="nowrap">${sources.length} sources</span></p></header>
-<div class="post-body">${html}</div>
+<p class="meta">By <span class="byline">${esc(fm.author || "Northwind Press")}</span> · <span class="nowrap"><time>${fmtDate(date)}</time></span> · <span class="nowrap">${sources.length} sources</span></p></header>${audioBlock(fm.audio)}
+<div class="post-body"${fm.audio ? ' id="article-text"' : ""}>${html}</div>
 <section class="sources" aria-labelledby="sources-heading"><h2 id="sources-heading">Sources</h2><ol>${srcItems}</ol></section>
 <p class="report">Spotted an error? See our <a href="#">corrections policy</a>.</p></article></main>
 <footer class="site-footer"><div class="wrap"><p>Northwind Press</p></div></footer>

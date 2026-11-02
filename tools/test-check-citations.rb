@@ -35,6 +35,8 @@ cases = {
   "straight-quoted sentences each with a marker" => [true, GOOD + "\nIt says \"A is true.\"{% include cite.html n=1 %} \"B is true.\"{% include cite.html n=1 %}\n", false],
   "list items each with a marker" => [true, GOOD + "\n- **One.** A holds{% include cite.html n=1 %}.\n- **Two.** B holds{% include cite.html n=1 %}.\n", false],
   "sentence starting with code" => [true, GOOD + "\nA holds{% include cite.html n=1 %}. `x` also holds{% include cite.html n=1 %}.\n", false],
+  "audio duration unquoted m:ss" => [false, GOOD.sub("corrections:", "audio:\n  src: https://cdn.example.org/a.mp3\n  duration: 12:34\ncorrections:"), false],
+  "audio duration quoted" => [true, GOOD.sub("corrections:", "audio:\n  src: https://cdn.example.org/a.mp3\n  duration: \"12:34\"\ncorrections:"), false],
   "markers in code are ignored" => [true, GOOD + "\n```\n{% include cite.html n=9 %}\n```\n", false],
 }
 File.write("#{dir}/old.md", OLD)
