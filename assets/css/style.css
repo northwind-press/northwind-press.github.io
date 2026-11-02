@@ -389,6 +389,9 @@ header.section-intro > p:not(.section-links), p.section-intro { font-size: var(-
   .front > .section-blocks { grid-column: 5 / -1; grid-row: 2 / span 2; align-self: start; }
   .section-front { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: var(--s2); align-items: start; }
   .section-front > .river { border-left: 1px solid var(--rule); padding-left: var(--s2); }
+  /* A section with only its lead (no river block): the lead spans the row, its dek capped for reading. */
+  .section-front > .story--lead:only-child { grid-column: 1 / -1; }
+  .section-front > .story--lead:only-child .story__dek { max-width: 40rem; }
 }
 
 /* ---------- Footer ---------- */
