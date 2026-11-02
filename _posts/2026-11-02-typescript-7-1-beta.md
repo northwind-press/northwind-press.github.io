@@ -35,7 +35,7 @@ Projects that import CSS, text or binary files have typed them with wildcard dec
 
 ## Schedule
 
-The post says a release candidate is due in about a month, with the final release shortly after{% include cite.html n=1 %}. As of 2026-11-02, the [7.1 iteration plan](https://github.com/microsoft/TypeScript/issues/63703) lists the RC for 2026-11-10 and the stable release for 2026-11-24. The same plan dated the beta 2026-10-06, two weeks before it shipped, so those dates may slip{% include cite.html n=1 %}{% include cite.html n=2 %}.
+The post says a release candidate is due in about a month, with the final release shortly after{% include cite.html n=1 %}. As of 2026-11-02, the [7.1 iteration plan](https://github.com/microsoft/TypeScript/issues/63703) lists the RC for 2026-11-10 and the stable release for 2026-11-24. The same plan lists the beta for 2026-10-06{% include cite.html n=2 %}; it shipped on 2026-10-20{% include cite.html n=1 %}.
 
 ## What to do
 
