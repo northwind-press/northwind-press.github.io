@@ -11,12 +11,12 @@ layout: default
 {%- include front-select.html section=page.section subsection=page.subsection -%}
 {%- assign on_subsection = false -%}
 {%- if page.subsection and page.subsection != '' and page.subsection != 'none' -%}{%- assign on_subsection = true -%}{%- endif -%}
-<div class="section-page" data-section="{{ page.section }}">
+<div class="section-page" data-section="{{ page.section | escape }}">
   <header class="section-intro">
     <h1>{{ section_name | escape }}</h1>
-    {% if page.intro %}<p>{{ page.intro }}</p>{% endif %}
+    {% if page.intro %}<p>{{ page.intro | smartify }}</p>{% endif %}
     <p class="section-links"><a href="{{ section_feed | relative_url }}">RSS feed</a>
-      {%- unless on_subsection %}{% for sub in section_data.subsections %} · <a href="{{ sub.url | relative_url }}">{{ sub.title }}</a>{% endfor %}{% endunless -%}
+      {%- unless on_subsection %}{% for sub in section_data.subsections %} · <a href="{{ sub.url | relative_url }}">{{ sub.title | escape }}</a>{% endfor %}{% endunless -%}
     </p>
   </header>
   {%- if front_lead %}
@@ -24,7 +24,7 @@ layout: default
     {% include story.html post=front_lead variant="lead" %}
     {%- if front_river.size > 0 %}
     <section class="river" aria-labelledby="sec-latest-h">
-      <h2 class="block-heading" id="sec-latest-h">Latest in {{ section_name }}</h2>
+      <h2 class="block-heading" id="sec-latest-h">Latest in {{ section_name | escape }}</h2>
       <ol class="river__list">
         {%- for post in front_river %}
         {% include river-item.html post=post %}
