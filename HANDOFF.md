@@ -1,6 +1,6 @@
 # Article hand-off: editorial → web
 
-Mirror of the editor's wiki `engineering/article-handoff.md` (v6, 2026-11-02). If they differ, the wiki's
+Mirror of the editor's wiki `engineering/article-handoff.md` (v7, 2026-11-02). If they differ, the wiki's
 editorial rules win; tell tech-lead so this file can be updated.
 
 ## Steps
@@ -93,6 +93,9 @@ audio:
     dates, quotes and values are read exactly. Nothing is added, cut or paraphrased.
   - **Inline code names:** said the way an engineer would, e.g. `output_config.format` → "output config
     dot format", `max_tokens: 0` → "max tokens zero". Don't say "underscore" or "open brace".
+  - **Acronyms:** wherever an acronym should be read as letters, the TTS input spells it letter by letter:
+    A-P-I, A-P-Is, J-S-O-N, S-D-K, T-T-L, U-R-L, K-V, P-H-I. Other spelling hints are allowed (e.g. "cash"
+    for "cache"). They change only how words are pronounced, never which words are spoken.
   - **Tables:** one sentence saying what the table shows. It isn't read row by row, adds no claims, and
     uses figures only if the article's text states them.
   - **Code blocks and long code-like literals (e.g. JSON):** one sentence saying what they are or do.
@@ -101,7 +104,9 @@ audio:
 - **Check before merge:** the audio producer runs speech-to-text (Whisper) on the finished MP3 and posts
   every pass raw and unedited at wiki `audio/transcripts/<slug>.md`, with each table and code description
   word for word. The editor diffs it against the text and checks each description. Any departure means
-  re-recording. If no independent check is possible, the post carries
+  re-recording or re-splicing the passage. Whisper tends to write what it expects to hear, so a clean
+  transcript can hide a mispronunciation. An oddity that appears **the same way in every pass** (e.g. "AP is"
+  for "APIs") counts as real until an isolated clip, or a listener, shows otherwise. If no independent check is possible, the post carries
   `audio_note: "This narration has not yet been independently checked against the text; the text is authoritative."`
 - `narrator:` must say if the voice is synthetic.
 - check-audio's speaking-rate estimate follows these rules: tables and code blocks count as about 15 words

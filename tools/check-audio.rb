@@ -54,7 +54,9 @@ if t && a
     mref = full.(main_ref)
     on_main = mref && git(repo, "merge-base", "--is-ancestor", p_sha, mref)[1]
     has_text = git(repo, "merge-base", "--is-ancestor", t, p_sha)[1]
-    same_post = git(repo, "show", "#{p_sha}:#{path}")[0] == git(repo, "show", "#{t}:#{path}")[0]
+    # Ignore an existing audio: block, so a re-record on top of an earlier audio commit is allowed.
+    no_audio = ->(s) { s.to_s.sub(/\A(---\n.*?)^audio:\n(?:[ \t]+[^\n]*\n)*(.*?^---\n)/m) { "#{$1}#{$2}" } }
+    same_post = no_audio.(git(repo, "show", "#{p_sha}:#{path}")[0]) == no_audio.(git(repo, "show", "#{t}:#{path}")[0])
     if on_main && has_text && same_post
       puts "after-publication flow: audio commit sits on #{main_ref} commit #{p_sha[0, 7]}; post unchanged since text sha #{t[0, 7]}"
     else
@@ -75,7 +77,7 @@ if t && a
     live, live_ok = git(repo, "show", "#{mref_now}:#{path}")
     if live_ok
       text_post, = git(repo, "show", "#{t}:#{path}")
-      strip_block = ->(s) { s.to_s.sub(/\A(---\n.*?)^audio:\n(?:[ \t]+.*\n?)*(.*?\n---\n)/m) { "#{$1}#{$2}" } }
+      strip_block = ->(s) { s.to_s.sub(/\A(---\n.*?)^audio:\n(?:[ \t]+[^\n]*\n)*(.*?^---\n)/m) { "#{$1}#{$2}" } }
       if strip_block.(live) != strip_block.(text_post)
         fails << "the post on #{main_ref} (#{mref_now[0, 7]}) differs from the narrated text #{t[0, 7]}: merging would attach audio of an older or different text"
       else

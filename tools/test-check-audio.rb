@@ -93,5 +93,14 @@ check.("after publication, narrated from a pre-correction sha", false, gate.(TEX
 g("checkout", "-q", "-B", "audio-oldbase", main_tip); add_ok.(); g("add", "-A"); g("commit", "-qm", "audio on old main")
 stale = head.()
 check.("audio cut from older main, live post changed since", false, gate.(TEXT, stale, "--main", "main"))
+# re-record: audio already merged to main, a new single commit on top replaces the MP3 and duration
+g("checkout", "-q", "-B", "main2", TEXT); add_ok.(); g("add", "-A"); g("commit", "-qm", "audio v1 merged")
+v1 = head.()
+g("checkout", "-q", "-B", "rerecord", v1); write("assets/audio/2026-11-05-example.mp3", "ID3v2-rerender")
+write(POST, File.read("#{R}/#{POST}").sub('duration: "11:42"', 'duration: "11:43"')); g("add", "-A"); g("commit", "-qm", "re-render")
+rr_out = IO.popen(["ruby", File.join(__dir__, "check-audio.rb"), TEXT, head.(), POST, "--repo", R, "--main", "main2", "--branch", "rerecord"], &:read)
+rr_ok = $?.success?
+check.("re-record on top of merged audio", true, rr_ok)
+puts rr_out.gsub(/^/, "      ") unless rr_ok
 puts(pass ? "ALL AUDIO GATE TESTS PASS" : "SOME AUDIO GATE TESTS FAILED")
 exit(pass ? 0 : 1)
