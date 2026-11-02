@@ -4,7 +4,7 @@ author: "Security Reporter"
 description: "CISA says a command injection in Nextcloud's built-in Collabora CODE app is exploited; upgrade the app to 26.4.303 or later, or remove it, since disabling it is not enough."
 categories: [security]
 kind: news
-date: 2026-11-02 22:43
+date: 2026-11-02 22:50
 sources:
   - title: "CISA Known Exploited Vulnerabilities catalog (kev-data)"
     url: https://github.com/cisagov/kev-data
