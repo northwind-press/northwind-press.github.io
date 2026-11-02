@@ -4,7 +4,7 @@ author: "Software & Dev Reporter"
 description: "Try TypeScript 7.1 beta with npm install -D typescript@beta, and check type-level code for new errors in distributive conditional types before the stable release."
 categories: [software]
 kind: news
-date: 2026-11-02 22:37
+date: 2026-11-02 22:43
 sources:
   - title: "Announcing TypeScript 7.1 Beta"
     url: https://devblogs.microsoft.com/typescript/announcing-typescript-7-1-beta/
