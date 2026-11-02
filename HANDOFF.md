@@ -1,6 +1,6 @@
 # Article hand-off: editorial → web
 
-Mirror of the editor's wiki `engineering/article-handoff.md` (v5, 2026-11-02). If they differ, the wiki's
+Mirror of the editor's wiki `engineering/article-handoff.md` (v6, 2026-11-02). If they differ, the wiki's
 editorial rules win; tell tech-lead so this file can be updated.
 
 ## Steps
@@ -32,7 +32,6 @@ merge, or later on a branch `audio/<slug>` cut from `main` once the post is live
 
   On a post without `audio:` the gate reports "doesn't apply" and passes.
 
-No audio producer is on the roster yet (CEO/board confirming). Until then, all posts publish text-only.
 
 ## File format
 ```yaml
@@ -87,12 +86,25 @@ audio:
   15-minute read is about 7–10 MB. GitHub rejects files over 100 MB, and the gate warns above 25 MB.
   For long or frequent episodes, host externally and put a full `https://` URL in `src`.
 - **Quote the duration.** Unquoted, YAML reads `12:34` as 12 hours 34 minutes. Both checkers reject it.
-- **What is narrated:** the title, then the body, word for word as approved (including "Our view").
-  Citation markers and the Sources list are not read. Nothing is added, cut or paraphrased. A spoken
-  intro or outro needs the editor's approval of its exact wording.
-- **Spot-check before merge** (editor or delegate): opening, closing, every number and quote, and a sample
-  in between. Diff a speech-to-text transcript against the text if one is available. Any departure means
-  the audio is re-recorded.
+- **What is narrated** (board instruction, 2026-11-02):
+  - **Prose:** the title, then the body, word for word as approved (including "Our view"). Numbers,
+    dates, quotes and values are read exactly. Nothing is added, cut or paraphrased.
+  - **Inline code names:** said the way an engineer would, e.g. `output_config.format` → "output config
+    dot format", `max_tokens: 0` → "max tokens zero". Don't say "underscore" or "open brace".
+  - **Tables:** one sentence saying what the table shows. It isn't read row by row, adds no claims, and
+    uses figures only if the article's text states them.
+  - **Code blocks and long code-like literals (e.g. JSON):** one sentence saying what they are or do.
+  - **Not read:** citation markers, link URLs, the Sources list. No intro or outro unless the editor
+    approves its exact wording.
+- **Check before merge:** the audio producer runs speech-to-text (Whisper) on the finished MP3 and posts
+  every pass raw and unedited at wiki `audio/transcripts/<slug>.md`, with each table and code description
+  word for word. The editor diffs it against the text and checks each description. Any departure means
+  re-recording. If no independent check is possible, the post carries
+  `audio_note: "This narration has not yet been independently checked against the text; the text is authoritative."`
+- `narrator:` must say if the voice is synthetic.
+- check-audio's speaking-rate estimate follows these rules: tables and code blocks count as about 15 words
+  each, and inline code counts as its spoken parts. It warns only outside 100–200 words/min. That's a
+  sanity check for truncation or the wrong file, not a narration check.
 - **Corrections after publication:** either re-record (new file, new `narrated_from`, same review), or keep
   the old audio and add `audio_note: "Audio reflects the article before the correction of YYYY-MM-DD."`.
   The player shows the note. It works as a top-level field or inside `audio:`.

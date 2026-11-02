@@ -130,10 +130,28 @@ if t && a
               stated = d.to_s.split(":").map(&:to_i).reverse.each_with_index.sum { |v, i| v * 60**i }
               puts format("  afinfo: %.0f s (stated %s = %d s); %s%s", real, d, stated, fmt, bitrate ? "; #{bitrate.to_i / 1000} kbps" : "")
               fails << format("real duration %.0f s differs from stated %s by more than 5 s", real, d) if stated > 0 && (real - stated).abs > 5
-              words = (nfm["title"].to_s + " " + nbody.to_s.gsub(/\{%.*?%\}/m, "").gsub(/\[([^\]]*)\]\([^)]*\)/, '\1').gsub(/[#*`|>_-]/, " ")).split.size
+              # Spoken-word estimate under the v6 narration rules: tables and code blocks are replaced by a
+              # one-sentence description (~15 words each); inline code is said as its parts
+              # ("output_config.format" -> "output config dot format"); markers, URLs, Sources not read.
+              body = nbody.to_s.gsub(/\{%.*?%\}/m, "").gsub(/\[([^\]]*)\]\([^)]*\)/, '\1')
+              blocks = 0
+              body = body.gsub(/^(```|~~~).*?^\1[^\n]*$/m) { blocks += 1; " " }
+              tables = body.scan(/(?:^\s*\|.*\n?)+/).size
+              body = body.lines.reject { |l| l.lstrip.start_with?("|") }.join
+              code_words = 0
+              body = body.gsub(/`([^`\n]+)`/) do
+                code = Regexp.last_match(1) # capture first: split/scan below reset $1
+                code_words += code.split(/[^A-Za-z0-9]+/).reject(&:empty?).size + code.scan(/[.\/:]/).size
+                " "
+              end
+              prose = (nfm["title"].to_s + " " + body.gsub(/[#*|>_]/, " ")).split.size
+              words = prose + code_words + 15 * (tables + blocks)
               wpm = words / (real / 60.0)
-              puts format("  %d words read (title + body, markers excluded) -> %.0f words/min", words, wpm)
-              warns << format("%.0f words/min is outside the usual 120–190 for narration: possible cuts, additions or wrong file", wpm) unless wpm.between?(120, 190)
+              puts format("  ~%d spoken words (prose %d + inline code %d + %d table/code descriptions × 15) -> %.0f words/min",
+                          words, prose, code_words, tables + blocks, wpm)
+              # Wide band on purpose: synthetic voices run ~110–160 wpm and the spoken count is an
+              # estimate. Truncated or heavily cut audio shows up far above it, long additions far below.
+              warns << format("%.0f words/min is outside 100–200: possible truncation, large cuts or additions, or wrong file", wpm) unless wpm.between?(100, 200)
             end
             File.delete(tmp) if File.exist?(tmp)
           else
