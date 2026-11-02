@@ -33,7 +33,7 @@ The model has a 1,050,000-token context window, a 128,000-token output limit and
 
 ## Where it sits
 
-OpenAI's [GPT-6 guide](https://platform.openai.com/docs/guides/latest-model) ranks four models. GPT-6 Astra is labeled "Highest intelligence", GPT-6.1 Sol "Balanced speed, cost, and intelligence", Terra "Fast and efficient", and GPT-6 Luna "Fastest and most cost-effective"{% include cite.html n=3 %}. On price, Terra sits between the other two. The changelog lists GPT-6.1 Sol at $2 input and $10 output, and GPT-6 Luna at $0.10 input and $0.50 output, per million tokens for prompts up to 272,000 tokens{% include cite.html n=1 %}.
+OpenAI's [GPT-6 guide](https://platform.openai.com/docs/guides/latest-model) lists four models. GPT-6 Astra is labeled "Highest intelligence", GPT-6.1 Sol "Balanced speed, cost, and intelligence", Terra "Fast and efficient", and GPT-6 Luna "Fastest and most cost-effective"{% include cite.html n=3 %}. On price, Terra sits between the other two. The changelog lists GPT-6.1 Sol at $2 input and $10 output, and GPT-6 Luna at $0.10 input and $0.50 output, per million tokens for prompts up to 272,000 tokens{% include cite.html n=1 %}.
 
 Terra supports reasoning effort `none`, `low`, `medium` (the default), `high`, `xhigh` and `max`. GPT-6 Astra and GPT-6.1 Sol do not support `none`{% include cite.html n=3 %}.
 
