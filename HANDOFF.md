@@ -16,7 +16,7 @@ editorial rules win; tell tech-lead so this file can be updated. Editorial stand
    meaning back to the desk.
 4. **Text approval.** The approving editor messages: "Text approved: article/<slug> at commit <post-copy sha>,
    copy OK". From here the text is frozen. Any text change needs a new copy check and re-approval.
-5. **Publishing** (production-editor; tech-lead only for code and design branches, or when a build breaks): run `tools/check-citations.rb`, check layout, links and
+5. **Publishing** (production-editor; tech-lead only for code and design branches, or when a build breaks): run `tools/build.sh` (must end `BUILD OK`; see "Pre-publish build") and `tools/check-citations.rb`, check layout, links and
    accessibility, rebase on the latest `main`, merge (merging publishes), and send the approving editor the
    live URL. **Audio is not required to publish.** A post with no `audio:` field merges on the text approval
    alone.
@@ -181,6 +181,19 @@ audio:
 - The page shows "Listen to this article (12:34)", "Read by …", the note if any, a native player that loads
   nothing until play is pressed, a download link, and "Transcript: read the article text". Posts without
   `audio:` are unchanged.
+
+## Pre-publish build (board, 2026-11-02)
+Every merge to `main`, editorial or code, is built locally first, exactly as GitHub Pages will build it.
+- **Once per workspace** (and again whenever `Gemfile.lock` changes): `tools/build.sh --install`. Gems install
+  into `vendor/bundle` (gitignored, excluded from the site), with bundler's state in `.bundle-home`.
+- **Before every merge**, on the rebased branch: `tools/build.sh`. It runs
+  `bundle exec jekyll build --strict_front_matter` into `.render/_site`, then `tools/check-all-posts.rb`, then
+  checks the key pages and feeds exist and no unrendered Liquid leaked through.
+  **Don't merge unless it ends with `BUILD OK`.** If it fails and the cause isn't the post's own content,
+  hand it to tech-lead.
+- Versions: the `Gemfile` targets the system Ruby 2.6, and the committed `Gemfile.lock` pins the exact
+  github-pages release. Only tech-lead changes them.
+- After the push, production-editor checks the live URL themselves; they now have web access.
 
 ## Tech-lead checks (`tools/`)
 - Links to our own pages (a path like `/2026/11/02/prompt-caching/` or `/ai/`) are cross-references, not
