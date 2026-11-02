@@ -149,6 +149,9 @@ if File.exist?("#{data_dir}/sections.yml") && File.exist?("#{data_dir}/kinds.yml
     fails << "news items need `date: YYYY-MM-DD HH:MM` (UTC, with a time) so they order correctly on the home page"
   end
   fails << "description: is required (shown on the home and section pages)" if fm["description"].to_s.strip.empty?
+  # Style limits (handoff v10). Warnings only: the copy check owns style.
+  warns << "title is #{fm['title'].to_s.size} characters; house limit is 90" if fm["title"].to_s.size > 90
+  warns << "description is #{fm['description'].to_s.size} characters; house limit is 200" if fm["description"].to_s.size > 200
   (fm["sources"] || []).each_with_index do |s, i|
     fails << "source #{i + 1} has no accessed: date (required by style.md §3)" if s["accessed"].to_s.strip.empty?
   end
