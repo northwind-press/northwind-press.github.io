@@ -51,6 +51,7 @@ description: "One-sentence summary shown on the home page."   # required, ≤ 20
 categories: [security]             # required: exactly ONE section, see below
 subsection: applied                # optional; only where the section has one (today: applied, under ai)
 kind: news                         # required: news | feature | briefing | digest
+placement: lead                    # optional: lead | top. Promotes the story on the front page (see below)
 date: 2026-11-03 14:05             # UTC; REQUIRED with a time for news, optional otherwise
 sources:
   - title: "Exact title of the source"
