@@ -1,26 +1,38 @@
 # Article hand-off: editorial → web
 
-Mirror of the editor's wiki `engineering/article-handoff.md` (v4, 2026-11-02). If they differ, the wiki's
+Mirror of the editor's wiki `engineering/article-handoff.md` (v5, 2026-11-02). If they differ, the wiki's
 editorial rules win; tell tech-lead so this file can be updated.
 
 ## Steps
 1. **Writer** creates branch `article/<slug>` and adds `_posts/YYYY-MM-DD-<slug>.md`
    (date = intended publish date). If the writer can't push, put the whole file at wiki path
    `articles/<slug>.md` and tech-lead commits it.
-2. **Editor** reviews and messages tech-lead and the audio producer: "Text approved: article/<slug> at
-   commit <sha>". From here the text is frozen. Any text change needs re-approval and new audio.
-3. **Audio producer** narrates exactly that text (see Audio). They add the MP3 and the `audio:` block in
-   **one commit** on the same branch that touches nothing else, and tell the editor its sha.
-4. **Editor (or a delegate)** spot-checks the narration and messages tech-lead: "Audio approved:
-   article/<slug> at commit <sha>".
-5. **Tech-lead** merges only if `tools/check-audio.rb TEXT_SHA AUDIO_SHA _posts/… --branch origin/article/<slug>`
-   passes. That means: `narrated_from` equals the text-approved sha; exactly one commit after it; that
-   commit changes only `assets/audio/<file>` and the `audio:` block; the tip is the audio-approved sha.
-   Tech-lead also runs `tools/check-citations.rb`, merges to `main` (merging publishes) and sends the
-   editor the live URL.
+2. **Editor** reviews and messages tech-lead: "Text approved: article/<slug> at commit <sha>".
+   From here the text is frozen. Any text change needs re-approval.
+3. **Tech-lead** runs `tools/check-citations.rb`, checks layout, links and accessibility, merges to `main`
+   (merging publishes) and sends the editor the live URL. **Audio is not required to publish.** A post with
+   no `audio:` field merges on the text approval alone.
 
-Until the audio producer is confirmed (board/CEO), articles may publish text-only. The editor then writes
-"Approved (no audio): …", steps 3–4 are skipped, and tech-lead runs `check-citations.rb` only.
+### Adding audio (optional; before or after publication)
+Audio is gated **only for posts that have an `audio:` field**. It can be added on the article branch before
+merge, or later on a branch `audio/<slug>` cut from `main` once the post is live.
+- A. The **audio producer** narrates exactly the text-approved version (for a live post, the version on `main`).
+  They add the MP3 and the `audio:` block in **one commit** that touches nothing else, and tell the editor its sha.
+- B. The **editor (or a delegate)** spot-checks the narration and messages tech-lead:
+  "Audio approved: <branch> at commit <sha>".
+- C. **Tech-lead** merges only if this passes:
+  `tools/check-audio.rb TEXT_SHA AUDIO_SHA _posts/… --branch origin/<branch>`
+  TEXT_SHA is the text-approved sha, or for a live post the last approved commit of that post on `main`.
+  The gate requires:
+  - the tip is the audio-approved sha;
+  - it's a single commit sitting either directly on TEXT_SHA, or on a `main` commit where the post is
+    byte-identical to TEXT_SHA;
+  - it changes only `assets/audio/<file>` and the `audio:` block;
+  - `narrated_from` equals TEXT_SHA.
+
+  On a post without `audio:` the gate reports "doesn't apply" and passes.
+
+No audio producer is on the roster yet (CEO/board confirming). Until then, all posts publish text-only.
 
 ## File format
 ```yaml
@@ -98,7 +110,7 @@ audio:
 - `check-citations.rb REV PATH --against OLD_REV` also confirms the visible text is unchanged
   apart from removed link markup and added markers.
 - `check-link-revision.rb OLD NEW PATH` is for link-only revisions.
-- `check-audio.rb TEXT_SHA AUDIO_SHA PATH --branch REF` is the audio merge gate (Steps 5).
+- `check-audio.rb TEXT_SHA AUDIO_SHA PATH --branch REF` is the audio merge gate ("Adding audio" C). It passes, as not applicable, on posts without `audio:`.
 
 ## Corrections
 Editor sends tech-lead the correction text. It is added to front matter and the body is fixed in

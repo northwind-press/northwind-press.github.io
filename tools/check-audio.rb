@@ -1,18 +1,24 @@
-# Audio merge gate (HANDOFF "Steps" 5 / editor wiki v4). Merge only if this passes.
-# Usage: ruby tools/check-audio.rb TEXT_SHA AUDIO_SHA PATH [--branch REF] [--repo DIR]
-#   TEXT_SHA  = the editor's "Text approved" sha
+# Audio merge gate (HANDOFF "Adding audio" C / editor wiki v5). Merge only if this passes.
+# Usage: ruby tools/check-audio.rb TEXT_SHA AUDIO_SHA PATH [--branch REF] [--main REF] [--repo DIR]
+#   TEXT_SHA  = the editor's "Text approved" sha (for a live post: its last approved commit on main)
 #   AUDIO_SHA = the editor's "Audio approved" sha
 #   PATH      = _posts/YYYY-MM-DD-slug.md
-#   --branch  = check the branch tip equals AUDIO_SHA (e.g. origin/article/slug)
-# Checks: tip; exactly one commit after the text sha; that commit touches only the post and its audio
-# file; in the post only the `audio:` block was added (front matter otherwise and body byte-identical);
-# audio fields complete; narrated_from == TEXT_SHA; duration format; file present, MP3, size limits.
+#   --branch  = check the branch tip equals AUDIO_SHA (e.g. origin/article/slug or origin/audio/slug)
+#   --main    = the published branch, default origin/main (for the after-publication flow)
+# If the post at AUDIO_SHA has no `audio:` field, the gate does not apply: exit 0 (text-only publishing).
+# Otherwise AUDIO_SHA must be a single commit whose parent P is either
+#   (a) TEXT_SHA itself (audio added on the article branch), or
+#   (b) a commit on main that contains TEXT_SHA, with the post byte-identical at P and TEXT_SHA
+#       (audio added later on audio/<slug> cut from main; nothing unreviewed in between).
+# The commit may touch only the post and its audio file, and only the `audio:` block in the post.
+# Also: fields complete; narrated_from == TEXT_SHA; duration format; file present, MP3, size limits.
 require "yaml"
 require "date"
 
 args = ARGV.dup
 opt = ->(name) { i = args.index(name); i ? args.slice!(i, 2)[1] : nil }
 branch = opt.("--branch")
+main_ref = opt.("--main") || "origin/main"
 repo = opt.("--repo") || "."
 text_sha, audio_sha, path = args
 abort "usage: TEXT_SHA AUDIO_SHA PATH [--branch REF] [--repo DIR]" unless path
@@ -33,17 +39,38 @@ if t && a
     tip = full.(branch)
     fails << "branch #{branch} tip is #{tip&.slice(0, 7)}, not the audio-approved #{a[0, 7]}" unless tip == a
   end
-  _, anc = git(repo, "merge-base", "--is-ancestor", t, a)
-  fails << "text sha isn't an ancestor of the audio sha" unless anc
-  n = git(repo, "rev-list", "--count", "#{t}..#{a}")[0].to_i
-  fails << "expected exactly 1 commit after the text sha, found #{n}" unless n == 1
+  new_src, = git(repo, "show", "#{a}:#{path}")
+  new_fm_raw = new_src.to_s[/\A---\n(.*?)\n---\n/m, 1]
+  if new_fm_raw && !(YAML.safe_load(new_fm_raw, [Date, Time]) || {}).key?("audio")
+    puts "No audio: field in #{path} at #{a[0, 7]}. The audio gate doesn't apply; publish on text approval + check-citations."
+    exit 0
+  end
+
+  parents = git(repo, "rev-list", "--parents", "-n", "1", a)[0].split[1..] || []
+  fails << "the audio commit must be a single commit with one parent (has #{parents.size})" unless parents.size == 1
+  p_sha = parents.first
+  if p_sha && p_sha != t
+    mref = full.(main_ref)
+    on_main = mref && git(repo, "merge-base", "--is-ancestor", p_sha, mref)[1]
+    has_text = git(repo, "merge-base", "--is-ancestor", t, p_sha)[1]
+    same_post = git(repo, "show", "#{p_sha}:#{path}")[0] == git(repo, "show", "#{t}:#{path}")[0]
+    if on_main && has_text && same_post
+      puts "after-publication flow: audio commit sits on #{main_ref} commit #{p_sha[0, 7]}; post unchanged since text sha #{t[0, 7]}"
+    else
+      why = []
+      why << "its parent #{p_sha[0, 7]} isn't the text sha and isn't on #{main_ref}" unless on_main
+      why << "the text sha isn't in its history" unless has_text
+      why << "the post changed between the text sha and the audio commit's parent" unless same_post
+      fails << "audio commit isn't directly on the approved text: #{why.join('; ')}"
+    end
+  end
+  base = p_sha || t
 
   split = lambda do |src|
     m = src.to_s.match(/\A---\n(.*?)\n---\n(.*)\z/m)
     m ? [m[1], m[2]] : [nil, nil]
   end
-  old_src, = git(repo, "show", "#{t}:#{path}")
-  new_src, = git(repo, "show", "#{a}:#{path}")
+  old_src, = git(repo, "show", "#{base}:#{path}")
   ofm_raw, obody = split.(old_src)
   nfm_raw, nbody = split.(new_src)
   if ofm_raw.nil? || nfm_raw.nil?
@@ -52,12 +79,13 @@ if t && a
     ofm = YAML.safe_load(ofm_raw, [Date, Time])
     nfm = YAML.safe_load(nfm_raw, [Date, Time])
     fails << "body changed after text approval" if obody != nbody
-    fails << "text-approved version already has an audio: block" if ofm.key?("audio")
+    # An existing audio: block (re-record after a correction) may be replaced; nothing else may change.
     rest_new = nfm.reject { |k, _| k == "audio" }
-    fails << "front matter changed outside the audio: block (#{(rest_new.keys | ofm.keys).reject { |k| rest_new[k] == ofm[k] }.join(', ')})" if rest_new != ofm
+    rest_old = ofm.reject { |k, _| k == "audio" }
+    fails << "front matter changed outside the audio: block (#{(rest_new.keys | rest_old.keys).reject { |k| rest_new[k] == rest_old[k] }.join(', ')})" if rest_new != rest_old
     # raw-text check too, so comments/formatting outside the block don't change either
-    stripped = nfm_raw.sub(/^audio:\n(?:[ \t]+.*\n?)*/, "").sub(/\n+\z/, "")
-    warns << "front matter text outside audio: differs in formatting" if stripped != ofm_raw.sub(/\n+\z/, "") && rest_new == ofm
+    strip_audio = ->(raw) { raw.sub(/^audio:\n(?:[ \t]+.*\n?)*/, "").sub(/\n+\z/, "") }
+    warns << "front matter text outside audio: differs in formatting" if strip_audio.(nfm_raw) != strip_audio.(ofm_raw) && rest_new == rest_old
 
     au = nfm["audio"]
     if !au.is_a?(Hash)
@@ -69,7 +97,7 @@ if t && a
       d = au["duration"]
       fails << "audio.duration must be a quoted \"m:ss\" or \"h:mm:ss\" (got #{d.inspect})" unless d.is_a?(String) && d =~ /\A\d{1,3}:[0-5]\d(:[0-5]\d)?\z/
       src = au["src"].to_s
-      files, = git(repo, "diff", "--name-only", t, a)
+      files, = git(repo, "diff", "--name-only", base, a)
       allowed = [path]
       if src.start_with?("/")
         file = src.sub(%r{\A/}, "")

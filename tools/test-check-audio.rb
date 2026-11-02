@@ -63,5 +63,30 @@ write("README.md", "late"); g("add", "-A"); g("commit", "-qm", "late")
 out = IO.popen(["ruby", File.join(__dir__, "check-audio.rb"), TEXT, approved, POST, "--repo", R, "--branch", "tip-moved"], &:read)
 good = !$?.success?; pass &&= good
 puts "#{good ? 'pass' : 'FAIL'}  branch tip moved past approved sha: expected reject, got #{good ? 'reject' : 'OK'}"
+gate = lambda do |text, sha, *extra|
+  IO.popen(["ruby", File.join(__dir__, "check-audio.rb"), text, sha, POST, "--repo", R, *extra], &:read)
+  $?.success?
+end
+head = -> { IO.popen(["git", "-C", R, "rev-parse", "HEAD"], &:read).strip }
+check = lambda do |name, expect_ok, ok|
+  good = ok == expect_ok
+  pass &&= good
+  puts "#{good ? 'pass' : 'FAIL'}  #{name}: expected #{expect_ok ? 'OK' : 'reject'}, got #{ok ? 'OK' : 'reject'}"
+end
+# post without audio: gate doesn't apply
+check.("no audio: field (text-only publishing)", true, gate.(TEXT, TEXT, "--main", "main"))
+# after publication: main moves on (other post merged), audio/<slug> cut from main later
+g("checkout", "-q", "main"); write("_posts/2026-11-06-other.md", "---\ntitle: o\n---\nx\n"); g("add", "-A"); g("commit", "-qm", "other post")
+main_tip = head.()
+g("checkout", "-q", "-B", "audio-later", main_tip); add_ok.(); g("add", "-A"); g("commit", "-qm", "audio later")
+check.("after publication, audio branch from main", true, gate.(TEXT, head.(), "--main", "main", "--branch", "audio-later"))
+# after publication, but an unreviewed commit sits between main and the audio commit
+g("checkout", "-q", "-B", "audio-sneaky", main_tip); write("README.md", "sneaky"); g("add", "-A"); g("commit", "-qm", "sneaky")
+add_ok.(); g("add", "-A"); g("commit", "-qm", "audio")
+check.("after publication with an unreviewed commit before audio", false, gate.(TEXT, head.(), "--main", "main"))
+# after publication, but the post changed on main since the editor's text sha (e.g. a correction)
+g("checkout", "-q", "main"); write(POST, File.read("#{R}/#{POST}").sub("Body text.", "Corrected body text.")); g("add", "-A"); g("commit", "-qm", "correction")
+g("checkout", "-q", "-B", "audio-stale", head.()); write("assets/audio/2026-11-05-example.mp3", "ID3"); write(POST, File.read("#{R}/#{POST}").sub(/---\n(?=Corrected)/, audio_block(TEXT) + "---\n")); g("add", "-A"); g("commit", "-qm", "audio stale")
+check.("after publication, narrated from a pre-correction sha", false, gate.(TEXT, head.(), "--main", "main"))
 puts(pass ? "ALL AUDIO GATE TESTS PASS" : "SOME AUDIO GATE TESTS FAILED")
 exit(pass ? 0 : 1)
