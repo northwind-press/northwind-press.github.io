@@ -55,7 +55,7 @@ The private keys of eight eMudhra intermediate certificate authority (CA) certif
 
 ## Who is protected
 
-The write-up says Firefox and Chrome have blocked the certificates since 2026-10-17, Microsoft platforms since 2026-10-20 and Apple products since 2026-10-22{% include cite.html n=1 %}. Mozilla and the Chrome Root Program describe their 2026-10-17 blocks, through OneCRL and CRLSets, in [Mozilla's policy forum](https://groups.google.com/a/mozilla.org/g/dev-security-policy/c/0R3XLJL6FuE). [Apple's support article](https://support.apple.com/en-us/149555) dates its own block from 2026-10-19. We have not found a Microsoft statement. eMudhra marked all eight revoked on 2026-10-18, and Sectigo later revoked its cross-signed copies{% include cite.html n=2 %}.
+Mozilla and the Chrome Root Program describe their 2026-10-17 blocks, through OneCRL and CRLSets, in [Mozilla's policy forum](https://groups.google.com/a/mozilla.org/g/dev-security-policy/c/0R3XLJL6FuE). [Apple's support article](https://support.apple.com/en-us/149555) dates its own block from 2026-10-19. Microsoft platforms have blocked them since 2026-10-20, according to the write-up; Microsoft has not published a notice we could find{% include cite.html n=1 %}. eMudhra marked all eight revoked on 2026-10-18, and Sectigo later revoked its cross-signed copies{% include cite.html n=2 %}.
 
 ## Who is not
 
