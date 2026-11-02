@@ -309,6 +309,83 @@ header.section-intro > p:not(.section-links), p.section-intro { font-size: var(-
 .footer-nav a { display: inline-block; padding: 0.3rem 0; color: var(--link); text-decoration: underline; }
 .footer-nav a[aria-current] { font-weight: 600; box-shadow: none; }
 
+/* ---------- News front and section fronts (T-58) ----------
+   Markup contract: wiki design/front.md. Phone first; DOM order = reading/Tab order, the grid only
+   places blocks. Kickers reuse .post-card__kicker (badge · section › sub · time), cards reuse .meta/.tag. */
+.wrap--wide { max-width: 72rem; }
+
+/* Masthead: date, wordmark, section nav. Phone: stacked. >=48rem: wordmark left, date right, nav below. */
+.masthead__date { flex-basis: 100%; margin: 0; font-family: var(--sans); font-size: 0.8125rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.site-header--front .site-title { font-size: clamp(1.75rem, 1.1rem + 2.6vw, 2.75rem); }
+@media (min-width: 48rem) {
+  .masthead .site-title { order: 1; }
+  .masthead__date { order: 2; flex-basis: auto; margin-left: auto; }
+  .masthead .section-nav { order: 3; }
+}
+
+/* Block headings: small uppercase sans label under a 2px rule (same voice as .section-list-heading).
+   In a section block the rule takes the section colour (the section's quiet mark). */
+.block-heading { font-family: var(--sans); font-size: var(--step--1); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; border-top: 2px solid var(--rule-strong); padding-top: var(--s-1); margin: 0 0 var(--s-1); }
+.block-heading a { color: var(--fg); text-decoration: none; display: inline-block; padding: 0.15rem 0; }
+.block-heading a:hover { text-decoration: underline; }
+.section-block .block-heading { border-top: 3px solid var(--section, var(--rule-strong)); }
+.block-more, .block-empty { font-family: var(--sans); font-size: 0.95rem; margin: var(--s-1) 0 0; }
+.block-more a { display: inline-block; padding: 0.3rem 0; }
+.block-empty { color: var(--muted); }
+
+/* Stories. Headlines carry the page: lead 30–48px, top 22px, compact 18px; all serif, tight leading. */
+.front { display: grid; gap: var(--s2); padding-top: var(--s1); }
+.front-top { display: grid; gap: var(--s1); }
+.story { min-width: 0; margin: 0; }
+.story__title { font-family: var(--serif); font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; margin: 0 0 0.35rem; }
+.story__title a { color: var(--fg); text-decoration: none; }
+.story__title a:hover { color: var(--link); text-decoration: underline; text-decoration-thickness: 2px; }
+.story__dek { color: var(--muted); margin: 0 0 var(--s-1); }
+.story .meta { font-size: var(--step--1); margin: 0; }
+.story--lead .story__title { font-size: clamp(1.875rem, 1.25rem + 2.6vw, 3rem); letter-spacing: -0.015em; margin-bottom: var(--s-1); }
+.story--lead .story__dek { font-size: var(--step-1); line-height: 1.4; }
+.top-stories, .section-block__list, .river__list { list-style: none; padding: 0; margin: 0; }
+.top-stories > li, .section-block__list > li { margin: 0; padding: var(--s0) 0; border-top: 1px solid var(--rule); }
+.story--top .story__title { font-size: var(--step-1); }
+.story--top .story__dek { display: none; font-size: 1rem; line-height: 1.5; } /* phones: kicker + headline only */
+.story--compact .story__title { font-size: 1.125rem; line-height: 1.25; margin: 0; }
+.section-block__list > li:first-child { border-top: 0; padding-top: var(--s-1); }
+
+/* Latest river: time first, then section, headline, and a badge only for non-news kinds. */
+.river__item { display: grid; grid-template-columns: 3.25rem minmax(0, 1fr); column-gap: 0.75rem; align-items: baseline; margin: 0; padding: 0.6rem 0; border-bottom: 1px solid var(--rule); font-family: var(--sans); }
+.river__item > * { grid-column: 2; }
+.river__time { grid-column: 1; grid-row: 1 / span 3; font-size: var(--step--1); font-weight: 600; color: var(--fg); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.river__section { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.river__section::before { content: ""; display: inline-block; width: 0.55em; height: 0.55em; margin-right: 0.4em; background: var(--section, var(--link)); vertical-align: 0.05em; } /* decorative */
+.river__title { font-family: var(--serif); font-size: 1.0625rem; font-weight: 600; line-height: 1.3; color: var(--fg); text-decoration: none; padding: 0.1rem 0; }
+.river__title:hover { color: var(--link); text-decoration: underline; }
+.river__item .badge, .river__item .tag { justify-self: start; margin-top: 0.25rem; }
+.river .block-heading + .river__list { border-top: 0; }
+
+.section-blocks { display: grid; gap: var(--s2); }
+.section-front { display: grid; gap: var(--s2); margin-top: var(--s1); }
+
+/* Tablet: two-column top stories and section blocks; top-story deks return. */
+@media (min-width: 48rem) {
+  .top-stories { display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--s1); }
+  .story--top .story__dek { display: block; }
+  .section-blocks { grid-template-columns: 1fr 1fr; column-gap: var(--s2); }
+}
+/* Desktop (>=64rem): 12-column front. Row 1 lead (7) | top stories (5) with a vertical rule.
+   Row 2+: Latest and the briefing on the left (4), section blocks 2×2 on the right (8). */
+@media (min-width: 64rem) {
+  .front { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s2); row-gap: var(--s2); }
+  .front-top { grid-column: 1 / -1; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: var(--s2); }
+  .front-top .top-stories { grid-template-columns: 1fr; border-left: 1px solid var(--rule); padding-left: var(--s2); }
+  .front-top .top-stories > li:first-child { border-top: 0; padding-top: 0; }
+  .front-top .top-stories > li + li .story__dek { display: none; } /* keep the column about as tall as the lead */
+  .front > .river { grid-column: 1 / 5; grid-row: 2; }
+  .front > .front-briefing { grid-column: 1 / 5; grid-row: 3; align-self: start; }
+  .front > .section-blocks { grid-column: 5 / -1; grid-row: 2 / span 2; align-self: start; }
+  .section-front { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: var(--s2); align-items: start; }
+  .section-front > .river { border-left: 1px solid var(--rule); padding-left: var(--s2); }
+}
+
 /* ---------- Footer ---------- */
 .site-footer { border-top: 1px solid var(--rule-strong); color: var(--muted); font-family: var(--sans); font-size: 0.9rem; padding: var(--s1) 0 var(--s2); }
 .site-footer p { margin: 0 0 0.25rem; }
