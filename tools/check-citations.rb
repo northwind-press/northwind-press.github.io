@@ -128,7 +128,33 @@ if fm["audio"]
   end
 end
 
-cited_counts =sources.each_index.map { |i| markers.count { |m, _| m.to_i == i + 1 } }
+# 8. section and kind (HANDOFF "Sections and kinds"; values from _data/sections.yml and _data/kinds.yml)
+data_dir = File.expand_path("../_data", __dir__)
+if File.exist?("#{data_dir}/sections.yml") && File.exist?("#{data_dir}/kinds.yml")
+  secs = YAML.load_file("#{data_dir}/sections.yml")
+  kinds = YAML.load_file("#{data_dir}/kinds.yml").map { |k| k["slug"] }
+  cats = Array(fm["categories"] || fm["category"])
+  if cats.size != 1
+    fails << "categories: must list exactly one section (one of #{secs.map { |s| s['slug'] }.join(', ')}); got #{cats.inspect}"
+  elsif (sec = secs.find { |s| s["slug"] == cats.first.to_s }).nil?
+    fails << "categories: #{cats.first.inspect} isn't a section (one of #{secs.map { |s| s['slug'] }.join(', ')})"
+  elsif fm["subsection"]
+    subs = (sec["subsections"] || []).map { |x| x["slug"] }
+    fails << "subsection: #{fm['subsection'].inspect} isn't a subsection of #{sec['slug']} (allowed: #{subs.empty? ? 'none' : subs.join(', ')})" unless subs.include?(fm["subsection"].to_s)
+  end
+  fails << "kind: must be one of #{kinds.join(', ')}; got #{fm['kind'].inspect}" unless kinds.include?(fm["kind"].to_s)
+  # YAML only types "YYYY-MM-DD HH:MM:SS" as a Time; Jekyll also accepts "YYYY-MM-DD HH:MM" (a String here).
+  has_time = fm["date"].is_a?(Time) || fm["date"].to_s =~ /\A\d{4}-\d\d-\d\d[ T]\d{1,2}:\d\d/
+  if fm["kind"].to_s == "news" && !has_time
+    fails << "news items need `date: YYYY-MM-DD HH:MM` (UTC, with a time) so they order correctly on the home page"
+  end
+  fails << "description: is required (shown on the home and section pages)" if fm["description"].to_s.strip.empty?
+  (fm["sources"] || []).each_with_index do |s, i|
+    fails << "source #{i + 1} has no accessed: date (required by style.md §3)" if s["accessed"].to_s.strip.empty?
+  end
+end
+
+cited_counts = sources.each_index.map { |i| markers.count { |m, _| m.to_i == i + 1 } }
 puts "sources: #{sources.size}; inline links: #{links.size}; markers: #{markers.size} (per source: #{cited_counts.join(', ')})"
 warns.each { |w| puts "WARN #{w}" }
 fails.each { |f| puts "FAIL #{f}" }

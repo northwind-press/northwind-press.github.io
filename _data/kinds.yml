@@ -1,0 +1,9 @@
+# Allowed values for a post's `kind:` and the badge label shown on the site (T-42).
+- slug: news
+  label: News
+- slug: feature
+  label: Feature
+- slug: briefing
+  label: Briefing
+- slug: digest
+  label: Digest

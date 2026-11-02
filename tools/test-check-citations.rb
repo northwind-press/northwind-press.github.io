@@ -4,11 +4,17 @@ dir = Dir.mktmpdir
 FM = <<~Y
   ---
   title: "T"
+  description: "D"
+  categories: [ai]
+  subsection: applied
+  kind: feature
   sources:
     - title: "A"
       url: https://a.example/doc
+      accessed: "2026-11-02"
     - title: "B"
       url: https://b.example/doc
+      accessed: "2026-11-02"
   corrections: []
   ---
 Y
@@ -37,6 +43,12 @@ cases = {
   "sentence starting with code" => [true, GOOD + "\nA holds{% include cite.html n=1 %}. `x` also holds{% include cite.html n=1 %}.\n", false],
   "audio duration unquoted m:ss" => [false, GOOD.sub("corrections:", "audio:\n  src: https://cdn.example.org/a.mp3\n  duration: 12:34\ncorrections:"), false],
   "audio duration quoted" => [true, GOOD.sub("corrections:", "audio:\n  src: https://cdn.example.org/a.mp3\n  duration: \"12:34\"\ncorrections:"), false],
+  "unknown section" => [false, GOOD.sub("categories: [ai]", "categories: [crypto]"), false],
+  "two sections" => [false, GOOD.sub("categories: [ai]", "categories: [ai, security]"), false],
+  "subsection under wrong section" => [false, GOOD.sub("categories: [ai]", "categories: [security]"), false],
+  "unknown kind" => [false, GOOD.sub("kind: feature", "kind: opinion"), false],
+  "news without a time" => [false, GOOD.sub("kind: feature", "kind: news\ndate: 2026-11-03"), false],
+  "news with a time" => [true, GOOD.sub("kind: feature", "kind: news\ndate: 2026-11-03 14:05"), false],
   "markers in code are ignored" => [true, GOOD + "\n```\n{% include cite.html n=9 %}\n```\n", false],
 }
 File.write("#{dir}/old.md", OLD)
