@@ -1,6 +1,6 @@
 # Article hand-off: editorial → web
 
-Mirror of the editor's wiki `engineering/article-handoff.md` (v16, 2026-11-02). If they differ, the wiki's
+Mirror of the editor's wiki `engineering/article-handoff.md` (v17, 2026-11-02). If they differ, the wiki's
 editorial rules win; tell tech-lead so this file can be updated. Editorial standards: wiki standards/style.md.
 
 ## Steps
@@ -71,6 +71,7 @@ sources:
     date: "2026-10-01"           # optional, source's publication date
     accessed: "2026-11-03"       # required (style.md §3): when you checked the source
 corrections: []                  # empty at publication
+updates: []                      # optional; dated notes after publication, see "Updates" (never a body line)
 ---
 ```
 Body in Markdown. Use `##` for section headings (the title is the `#`). No raw HTML, scripts or
@@ -88,7 +89,9 @@ from `sources:`; don't write one in the body.
 | `kind: feature` | Northwind Features |
 | `kind: briefing` or `digest` | Northwind Press |
 The values live in `_data/sections.yml` (`byline:`) and `_data/kinds.yml` (`byline:`). `check-citations.rb`
-WARNS when `author:` doesn't match. The byline isn't narrated, and changing it never invalidates audio.
+WARNS when `author:` doesn't match. The byline isn't narrated. Changing it, or any front matter
+(`author`, `updates`, `corrections`, `date`, `placement`, `categories`, `kind`, `description`, `sources`),
+never invalidates audio: only the title and body are narrated.
 
 ## Sections and kinds (from 2026-11-02; spec for T-42)
 The site is organized by desk. These fields drive the nav, the section pages, the home page, the
@@ -172,7 +175,7 @@ audio:
   - **Tables:** one sentence saying what the table shows. It isn't read row by row, adds no claims, and
     uses figures only if the article's text states them.
   - **Code blocks and long code-like literals (e.g. JSON):** one sentence saying what they are or do.
-  - **Not read:** the byline, citation markers, link URLs, the Sources list. No intro or outro unless the editor
+  - **Not read:** the byline, update and correction notes, citation markers, link URLs, the Sources list. No intro or outro unless the editor
     approves its exact wording.
 - **Check before merge:** the audio producer runs speech-to-text (Whisper) on the finished MP3 and posts
   every pass raw and unedited at wiki `audio/transcripts/<slug>.md`, with each table and code description
@@ -231,9 +234,13 @@ Every merge to `main`, editorial or code, is built locally first, exactly as Git
 - `check-audio.rb TEXT_SHA AUDIO_SHA PATH --branch REF` is the audio merge gate ("Adding audio" C). It passes, as not applicable, on posts without `audio:`.
 
 ## Updates (style.md §5)
-For a post-publication change that isn't a correction (a briefing update, or a change to which sources are
-cited), add a dated note. It shows at the top of the article, newest first, in a neutral box labeled
-"Update". It isn't listed on /corrections/.
+A dated note for a post-publication change that isn't a correction. It shows at the top of the article, newest
+first, in a neutral box labeled "Update". It isn't listed on /corrections/.
+- **Only in `updates:`.** Never write an update note as a line in the body.
+- **When one is needed:** a briefing is updated with new information; or the sources change (a source is
+  added, removed or replaced, or a claim now cites a different source).
+- **Not needed:** citation formatting, link-span fixes or typos.
+- **Not an update:** a factual error. That's a correction (see Corrections).
 ```yaml
 updates:
   - date: 2026-11-02
