@@ -31,7 +31,7 @@ Prompts shorter than the model's minimum are "processed without caching, and no 
 
 Entries last 5 minutes by default and are refreshed at no cost each time they are used{% include cite.html n=1 %}. You can opt into a 1-hour TTL with `ttl`{% include cite.html n=1 %}. The lifetime is counted from the start of the request, so generation time uses part of it{% include cite.html n=1 %}. The docs give an example: "if a response takes 4 minutes to stream, a follow-up request that reuses the same cached prefix must start within about 1 minute of that response completing."{% include cite.html n=1 %} If you mix TTLs, 1-hour entries must come before 5-minute ones{% include cite.html n=1 %}.
 
-A 5-minute write costs 1.25x the base input price and a 1-hour write costs 2x{% include cite.html n=1 %}. A read costs 10% of base input, except 0.05x on Opus 5.5 and Sonnet 5.5 and 0.025x on Fable 5.1 and Mythos 5.1{% include cite.html n=1 %}. Prices per million tokens as of 2026-11-02 (source){% include cite.html n=1 %}:
+A 5-minute write costs 1.25x the base input price and a 1-hour write costs 2x{% include cite.html n=1 %}. A read costs 10% of base input, except 0.05x on Opus 5.5 and Sonnet 5.5 and 0.025x on Fable 5.1 and Mythos 5.1{% include cite.html n=1 %}. Prices per million tokens as of 2026-11-02{% include cite.html n=1 %}:
 
 | Model | Input | 5m write | 1h write | Hit |
 |---|---|---|---|---|
@@ -50,7 +50,7 @@ Haiku 5.5 prompts over 100,000 tokens are billed at higher rates{% include cite.
 
 **Earlier models.** These models cache implicitly only, with breakpoints at model-dependent intervals (every 2,048 tokens on GPT-5.5){% include cite.html n=2 %}. Their minimum "varies by request settings", and no fixed number is given{% include cite.html n=2 %}. Retention is set with `prompt_cache_retention`{% include cite.html n=2 %}. `in_memory` means "around 5 to 10 minutes of inactivity, up to one hour"{% include cite.html n=2 %}. `24h` "typically keeps entries available for around 30 minutes and can retain them for up to 24 hours"{% include cite.html n=2 %}. The default depends on whether your org has Zero Data Retention{% include cite.html n=2 %}. These are typical and maximum lifetimes, not the guaranteed minimums of GPT-5.6+, so the two sets of figures can't be compared directly.
 
-On GPT-5.6+, a write costs 1.25x the uncached input rate (30m) or 2.5x (12h){% include cite.html n=2 %}. These are "total write rates, not surcharges"{% include cite.html n=2 %}. A read costs 0.1x on most models and 0.05x on GPT-6.1 Sol and GPT-6.1 Terra{% include cite.html n=2 %}. Earlier models have "No additional cache-write charge"{% include cite.html n=2 %}. Standard-tier prices per million tokens as of 2026-11-02 ([source](https://platform.openai.com/docs/pricing)){% include cite.html n=3 %}:
+On GPT-5.6+, a write costs 1.25x the uncached input rate (30m) or 2.5x (12h){% include cite.html n=2 %}. These are "total write rates, not surcharges"{% include cite.html n=2 %}. A read costs 0.1x on most models and 0.05x on GPT-6.1 Sol and GPT-6.1 Terra{% include cite.html n=2 %}. Earlier models have "No additional cache-write charge"{% include cite.html n=2 %}. [Standard-tier prices](https://platform.openai.com/docs/pricing) per million tokens as of 2026-11-02{% include cite.html n=3 %}:
 
 | Model | Input | Cached input | 30m write | 12h write |
 |---|---|---|---|---|
