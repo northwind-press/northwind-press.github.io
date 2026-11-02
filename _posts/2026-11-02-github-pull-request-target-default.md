@@ -26,7 +26,7 @@ A `pull_request_target` workflow runs in the context of the base repository and 
 
 ## Who is affected
 
-The rule applies to public repositories on GitHub Free, GitHub Team and GitHub Enterprise Cloud{% include cite.html n=1 %}. Private and internal repositories aren't affected, and neither is GitHub Enterprise Server{% include cite.html n=1 %}.
+The rule applies to public repositories on GitHub Free, GitHub Team, and GitHub Enterprise Cloud{% include cite.html n=1 %}. Private and internal repositories aren't affected, and neither is GitHub Enterprise Server{% include cite.html n=1 %}.
 
 ## Brownouts before enforcement
 
@@ -34,4 +34,4 @@ The rule is in evaluate mode now, so you can see which runs it would block befor
 
 ## What to do
 
-Before the first brownout on 2026-11-09, use Insights to see which workflow runs the rule would block{% include cite.html n=1 %}. GitHub's [guide to controlling workflow execution](https://docs.github.com/actions/how-tos/administer/control-workflow-execution) puts the Policy insights page under the Actions policies page of a repository, organization or enterprise. Then pick one of two options: keep the default rule and the block, or, if your workflows depend on the trigger, explicitly allow `pull_request_target` in an applicable Actions event policy, using workflow file targeting to allow only specific workflows{% include cite.html n=1 %}. In a repository or organization, policies are under **Settings**, then **Actions**, then **Policies**{% include cite.html n=2 %}.
+Before the first brownout on 2026-11-09, use Insights to see which workflow runs the rule would block{% include cite.html n=1 %}. GitHub's [guide to controlling workflow execution](https://docs.github.com/actions/how-tos/administer/control-workflow-execution) puts the Policy insights page under the Actions policies page of a repository, organization, or enterprise. Then pick one of two options: keep the default rule and the block, or, if your workflows depend on the trigger, explicitly allow `pull_request_target` in an applicable Actions event policy, using workflow file targeting to allow only specific workflows{% include cite.html n=1 %}. In a repository or organization, policies are under **Settings**, then **Actions**, then **Policies**{% include cite.html n=2 %}.
