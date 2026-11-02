@@ -2,15 +2,19 @@
 title: Articles
 ---
 <h1 class="visually-hidden">Articles</h1>
-<p class="lede">{{ site.description }}</p>
+<div class="intro">
+  <p class="lede">{{ site.description }}</p>
+  <p class="promise">Every claim sourced. Every correction published, dated, at the top of the article.</p>
+</div>
 {% if site.posts.size > 0 %}
 <ul class="post-list">
   {% for post in site.posts %}
   <li>
+    <p class="kicker label"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%-d %B %Y' }}</time></p>
     <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-    <p class="meta">By {{ post.author | default: 'Northwind Press' }} · <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%-d %B %Y' }}</time>{% if post.corrections and post.corrections.size > 0 %} · <span class="tag">Corrected</span>{% endif %}</p>
     {% assign summary = post.description | default: post.summary %}
-    {% if summary %}<p>{{ summary }}</p>{% endif %}
+    {% if summary %}<p class="summary">{{ summary }}</p>{% endif %}
+    <p class="meta">By <span class="byline">{{ post.author | default: 'Northwind Press' }}</span>{% if post.sources and post.sources.size > 0 %} · {{ post.sources.size }} source{% if post.sources.size != 1 %}s{% endif %}{% endif %}{% if post.corrections and post.corrections.size > 0 %} · <span class="tag">Corrected</span>{% endif %}</p>
   </li>
   {% endfor %}
 </ul>

@@ -2,11 +2,12 @@
 layout: default
 ---
 <article class="post">
-  <header>
+  <header class="post-header">
     <h1>{{ page.title }}</h1>
+    {% if page.description %}<p class="dek">{{ page.description }}</p>{% endif %}
     <p class="meta">
-      By {{ page.author | default: 'Northwind Press' }} ·
-      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%-d %B %Y' }}</time>
+      By <span class="byline">{{ page.author | default: 'Northwind Press' }}</span> ·
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%-d %B %Y' }}</time>{% if page.sources and page.sources.size > 0 %} · {{ page.sources.size }} source{% if page.sources.size != 1 %}s{% endif %}{% endif %}
     </p>
     {% if page.corrections and page.corrections.size > 0 %}
     <aside class="correction" aria-labelledby="corrections-heading">
@@ -20,7 +21,9 @@ layout: default
     {% endif %}
   </header>
 
+  <div class="post-body">
   {{ content }}
+  </div>
 
   {% if page.sources and page.sources.size > 0 %}
   <section class="sources" aria-labelledby="sources-heading">
