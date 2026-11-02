@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fbfaf6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#15181c" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
   {% seo %}
   {% feed_meta %}
@@ -11,7 +13,7 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="wrap">
-      <a class="site-title" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+      <a class="site-title" href="{{ '/' | relative_url }}">{% if site.title contains ' Press' %}{{ site.title | remove: ' Press' }} <span class="press">Press</span>{% else %}{{ site.title }}{% endif %}</a>
       <nav aria-label="Main">
         <ul>
           <li><a href="{{ '/' | relative_url }}"{% if page.url == '/' %} aria-current="page"{% endif %}>Articles</a></li>
@@ -26,7 +28,8 @@
   </main>
   <footer class="site-footer">
     <div class="wrap">
-      <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }}. Every claim sourced; every correction published. <a href="{{ '/feed.xml' | relative_url }}">RSS feed</a></p>
+      <p><span class="footer-mark">{{ site.title }}</span>: every claim sourced; every correction published.</p>
+      <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }} · <a href="{{ '/corrections/' | relative_url }}">Corrections</a> · <a href="{{ '/feed.xml' | relative_url }}">RSS feed</a></p>
     </div>
   </footer>
 </body>
