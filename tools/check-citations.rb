@@ -158,7 +158,12 @@ if File.exist?("#{data_dir}/sections.yml") && File.exist?("#{data_dir}/kinds.yml
     fails << "categories: #{cats.first.inspect} isn't a section (one of #{secs.map { |s| s['slug'] }.join(', ')})"
   elsif fm["subsection"]
     subs = (sec["subsections"] || []).map { |x| x["slug"] }
-    fails << "subsection: #{fm['subsection'].inspect} isn't a subsection of #{sec['slug']} (allowed: #{subs.empty? ? 'none' : subs.join(', ')})" unless subs.include?(fm["subsection"].to_s)
+    if subs.empty?
+      # Subsections were retired (board, 2026-11-02). The field is ignored by the site; remove it when convenient.
+      warns << "subsection: #{fm['subsection'].inspect} is retired (no section has subsections now); remove the line"
+    elsif !subs.include?(fm["subsection"].to_s)
+      fails << "subsection: #{fm['subsection'].inspect} isn't a subsection of #{sec['slug']} (allowed: #{subs.join(', ')})"
+    end
   end
   fails << "kind: must be one of #{kinds.join(', ')}; got #{fm['kind'].inspect}" unless kinds.include?(fm["kind"].to_s)
   # Publication date (handoff v12): dated at merge, never scheduled. _config has future: true, so a

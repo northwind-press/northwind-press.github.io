@@ -1,14 +1,11 @@
-# Single source of truth for desks/sections (T-42). Nav, section pages, feeds and
-# tools/check-citations.rb read this. Order = nav order. A post's `categories:` holds exactly one `slug`;
-# `subsection:` (optional) holds one of that section's subsection slugs.
+# Single source of truth for desks/sections. Nav, section pages, feeds and tools/check-citations.rb read
+# this. Order = nav order. A post's `categories:` holds exactly one `slug`.
+# Subsections were removed on 2026-11-02 (board): /ai/applied/ redirects to /ai/, and
+# /feeds/ai-applied.xml is kept as an alias of the AI feed for existing subscribers.
 - slug: ai
   title: AI
   url: /ai/
   desk: ai-editor
-  subsections:
-    - slug: applied
-      title: Applied AI
-      url: /ai/applied/
 - slug: software
   title: Software & Dev
   url: /software/

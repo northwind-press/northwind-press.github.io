@@ -35,7 +35,7 @@ def narration_view(src)
   s = src.to_s.sub(/\A(---\n.*?)^audio:\n(?:[ \t]+[^\n]*\n)*(.*?^---\n)/m) { "#{$1}#{$2}" }
   fm_end = s.index("\n---\n", 4)
   return s unless s.start_with?("---\n") && fm_end
-  s[0...fm_end].lines.reject { |l| l =~ /\A(date|placement):/ }.join + s[fm_end..]
+  s[0...fm_end].lines.reject { |l| l =~ /\A(date|placement|subsection):/ }.join + s[fm_end..]
 end
 
 # The post at REV: the same path, or, after a publish-time rename (date reset at merge), the file with the

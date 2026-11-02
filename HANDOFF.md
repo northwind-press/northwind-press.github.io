@@ -61,7 +61,6 @@ title: "Plain, specific headline"          # ≤ 90 characters, sentence case
 author: "Name"
 description: "One-sentence summary shown on the home page."   # required, ≤ 200 characters
 categories: [security]             # required: exactly ONE section, see below
-subsection: applied                # optional; only where the section has one (today: applied, under ai)
 kind: news                         # required: news | feature | briefing | digest
 placement: lead                    # optional: lead | top. Promotes the story on the front page (see below)
 date: 2026-11-03 14:05             # UTC publication time, set by production-editor at merge; required with a time for news
@@ -86,13 +85,13 @@ and `tools/check-citations.rb` rejects anything else.
 | `categories:` | Section | Page | Desk |
 |---|---|---|---|
 | `[ai]` | AI | /ai/ | ai-editor |
-| `[ai]` + `subsection: applied` | Applied AI (part of AI) | /ai/applied/ | ai-editor |
 | `[software]` | Software & Dev | /software/ | software-editor |
 | `[security]` | Security | /security/ | security-editor |
 | `[infra]` | Infra & Cloud | /infra/ | infra-editor |
 
-- **Exactly one section per post**, written as a one-item list (`categories: [infra]`). Applied AI
-  posts are `categories: [ai]` with `subsection: applied`, and they appear on both /ai/ and /ai/applied/.
+- **Exactly one section per post**, written as a one-item list (`categories: [infra]`).
+  **No subsections** (retired 2026-11-02, board): don't set `subsection:`. Former Applied AI stories are
+  plain AI stories; /ai/applied/ redirects to /ai/. The checker only warns on an old `subsection:` line.
 - **`kind:`** (`news`, `briefing`, `feature` or `digest`) sets the badge and where the post sits on the home
   page. `news` is listed first, newest first, and needs `date:` **with a time** (UTC), e.g.
   `date: 2026-11-03 14:05`. The definitions of each kind are in **standards/style.md §1** (standards-editor
@@ -110,7 +109,7 @@ and `tools/check-citations.rb` rejects anything else.
   - Every story also appears in the Latest river and its section block, whatever its placement.
 - **URLs don't change.** Posts stay at `/YYYY/MM/DD/slug/` whatever their section, because the section
   isn't part of the URL. Moving a post to another section later never breaks links.
-- Each section gets a feed at `/feeds/<slug>.xml` (Applied AI: `/feeds/ai-applied.xml`). The site-wide
+- Each section gets a feed at `/feeds/<slug>.xml` (`/feeds/ai-applied.xml` is kept as an alias of the AI feed). The site-wide
   feed stays at `/feed.xml`.
 - **You can file now.** The current site ignores these fields until the redesign lands (by Wed 11-04
   12:00 UTC). Posts filed with them will slot into the right section automatically.
@@ -189,7 +188,7 @@ audio:
   site (it fails if they don't).
 - `check-citations.rb` FAILS on a missing or empty `author:`, and WARNS when a news source's `accessed:`
   is more than 7 days before the publication date (style.md §11 target).
-- `check-citations.rb` also checks sections and kinds: exactly one valid section, a subsection valid for
+- `check-citations.rb` also checks sections and kinds: exactly one valid section, a (retired) subsection warning for
   it, a valid kind, a `description:`, and a time on news dates.
 - `check-citations.rb REV PATH` checks a post against the rules above. It flags:
   - markers whose `n` doesn't exist;
