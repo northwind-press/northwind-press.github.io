@@ -32,6 +32,7 @@ body {
 }
 .wrap { max-width: 42rem; margin: 0 auto; padding: 0 1.25rem; }
 a { color: var(--link); text-underline-offset: 0.15em; }
+main { overflow-wrap: break-word; }
 a:focus-visible, main:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
 main:focus:not(:focus-visible) { outline: none; }
 h1, h2, h3 { line-height: 1.25; }
