@@ -245,50 +245,63 @@ nav a[aria-current="page"] { font-weight: 600; box-shadow: inset 0 -2px 0 var(--
 .badge--briefing { color: var(--badge-briefing); }
 .badge--digest { color: var(--badge-digest); border-style: dashed; }
 
-/* Kicker above a headline: badge, section, time, separated by "·" in the markup.
-   Cards: <p class="post-card__kicker kicker label"> badge <span.nowrap>Section</span> · <span.nowrap><time>.
-   Article: <p class="post-kicker" data-section="ai"> badge <a>Section</a> <a>Subsection</a>. */
-.post-card__kicker, .post-kicker { font-family: var(--sans); font-size: var(--step--1); font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--muted); line-height: 1.6; margin: 0 0 0.35rem; }
-.post-card__kicker .badge, .post-kicker .badge { margin-right: 0.35rem; vertical-align: 0.08em; }
-/* Section name: ink, semibold, with a small square mark in the section colour (decorative). */
-.post-card__kicker .badge + .nowrap, .post-kicker a { color: var(--fg); font-weight: 600; }
-.post-card__kicker .badge + .nowrap::before, .post-kicker .badge + a::before { content: ""; display: inline-block; width: 0.55em; height: 0.55em; margin-right: 0.4em; background: var(--section, var(--link)); vertical-align: 0.05em; }
-.post-kicker a { text-decoration: none; display: inline-block; padding: 0.2rem 0; }
-/* Article kicker lists section then subsection as two bare links: draw "AI › Applied AI". */
-.post-kicker a + a { margin-left: 0.3em; }
-.post-kicker a + a::before { content: "›"; display: inline-block; color: var(--muted); font-weight: 400; margin-right: 0.35em; }
-.post-kicker a:hover { text-decoration: underline; }
-.post-card__kicker time, .post-kicker time { font-variant-numeric: tabular-nums; }
+/* Kicker above a headline: badge, section (+ subsection), time. Works with both markups in play:
+   (a) dev/sections 647d858 / design/sections.md: badge <a>Section</a> <a>Subsection</a> <time>;
+   (b) older: badge <span.nowrap>AI · Applied AI</span> · <span.nowrap><time></span>, and article
+       kickers with a literal " · " between two links.
+   The kicker's own font-size is 0, so bare text between children (spaces, "·") takes no room and
+   isn't seen; screen readers still read it. Children restore the size and are spaced by margins.
+   CSS draws the "›" between section and subsection links. */
+.post-card__kicker, .post-kicker { font-family: var(--sans); font-size: 0; font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--muted); line-height: 1.6; margin: 0 0 0.35rem; }
+.post-card__kicker > *, .post-kicker > * { font-size: var(--step--1); margin-right: 0.6em; }
+.post-card__kicker > :last-child, .post-kicker > :last-child { margin-right: 0; }
+.post-card__kicker > .badge, .post-kicker > .badge { font-size: 0.75rem; vertical-align: 0.08em; }
+/* Section name (link, or the text span right after the badge): ink, semibold, small square mark in
+   the section colour before it (decorative). */
+.post-card__kicker a, .post-kicker a, .post-card__kicker .badge + .nowrap { color: var(--fg); font-weight: 600; }
+.post-card__kicker a, .post-kicker a { display: inline-block; padding: 0.2rem 0; text-decoration: none; }
+.post-card__kicker a:hover, .post-kicker a:hover { text-decoration: underline; }
+.post-card__kicker .badge + a::before, .post-kicker .badge + a::before, .post-card__kicker .badge + .nowrap::before { content: ""; display: inline-block; width: 0.55em; height: 0.55em; margin-right: 0.4em; background: var(--section, var(--link)); vertical-align: 0.05em; }
+/* Subsection: "AI › Applied AI" (decorative chevron). */
+.post-card__kicker a + a, .post-kicker a + a { margin-left: -0.25em; }
+.post-card__kicker a + a::before, .post-kicker a + a::before { content: "›"; display: inline-block; color: var(--muted); font-weight: 400; margin-right: 0.35em; }
+.post-card__kicker time, .post-kicker time { font-variant-numeric: tabular-nums; white-space: nowrap; } /* "3 November 2026, 14:05 UTC" stays on one line */
 .post-header .post-kicker { margin-top: var(--s0); }
 .post-kicker + h1 { margin-top: var(--s-1); }
 
-/* Cards. Each card sits in <li> of ul.post-list, which already draws the padding and hairline, so
-   the card itself adds none. Features: 26px headline + summary. News: compact (22px headline, one
-   muted summary line). News is detected from its badge (:has, all current browsers) or from an
-   optional .post-card--news class; older browsers show news at feature size, which is fine. */
+/* Cards: either <li class="post-card post-card--KIND" data-section> (the li is the card) or
+   <li><article class="post-card"> (the li wraps it). ul.post-list > li draws padding + hairline in
+   both cases; the card adds none. Features: 26px headline + summary. News: compact (22px headline,
+   muted 16px summary, smaller meta line; "Corrected" stays visible). */
 .post-card { margin: 0; }
 .post-card h2, .post-card h3 { font-size: var(--step-2); line-height: 1.2; margin: 0 0 var(--s-1); }
 .post-card h2 a, .post-card h3 a { color: var(--fg); text-decoration: none; }
 .post-card h2 a:hover, .post-card h3 a:hover { color: var(--link); text-decoration: underline; text-decoration-thickness: 2px; }
 .post-card .summary { margin: 0; }
-.post-card .meta { margin-top: var(--s-1); }
-.post-list > li:has(.badge--news) { padding: var(--s0) 0; }
-.post-card--news h2, .post-card--news h3, .post-card:has(.badge--news) :is(h2, h3) { font-size: var(--step-1); margin-bottom: 0.25rem; }
+.post-card .meta { margin: var(--s-1) 0 0; }
+.post-list > .post-card--news, .post-list > li:has(.badge--news) { padding: var(--s0) 0; }
+.post-card--news :is(h2, h3), .post-card:has(.badge--news) :is(h2, h3) { font-size: var(--step-1); margin-bottom: 0.25rem; }
 .post-card--news .summary, .post-card:has(.badge--news) .summary { font-size: 1rem; line-height: 1.5; color: var(--muted); }
+.post-card--news .meta, .post-card:has(.badge--news) .meta { font-size: var(--step--1); margin-top: 0.35rem; }
 
 /* List headings on the home page ("Latest news", "Features & analysis") and section pages. */
-.home-section + .home-section { margin-top: var(--s1); }
+.home-section + .home-section, .section-page section + section { margin-top: var(--s1); }
 .section-list-heading { font-family: var(--sans); font-size: var(--step--1); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; border-top: 2px solid var(--rule-strong); padding-top: var(--s-1); margin: var(--s2) 0 0; }
 .section-list-heading + .post-list > li:first-child { padding-top: var(--s0); }
 .home-more, .section-more { font-family: var(--sans); font-size: 0.95rem; margin: var(--s0) 0 0; }
 .home-more a, .section-more a { display: inline-block; padding: 0.3rem 0; }
 
-/* Section page: <div.section-page> <header.section-header> h1 + <p.section-intro> text <a.section-feed>.
+/* Section page header, either markup:
+   (a) <header class="section-intro"> h1, <p> intro, <p class="section-links"> feed link
+   (b) <header class="section-header"> h1, <p class="section-intro"> intro <a class="section-feed">
    A 4px rule in the section colour marks the page. */
-.section-header { border-top: 4px solid var(--section, var(--link)); margin-top: var(--s2); padding-top: var(--s0); }
-.section-header h1 { margin: 0 0 var(--s-1); }
-.section-intro { font-size: var(--step-1); line-height: 1.4; color: var(--muted); margin: 0; }
-.section-feed { display: inline-block; font-family: var(--sans); font-size: 0.95rem; padding: 0.3rem 0; margin-left: 0.35em; white-space: nowrap; }
+header.section-intro, .section-header { border-top: 4px solid var(--section, var(--link)); margin-top: var(--s2); padding-top: var(--s0); }
+header.section-intro h1, .section-header h1 { margin: 0 0 var(--s-1); color: var(--fg); }
+header.section-intro > p:not(.section-links), p.section-intro { font-size: var(--step-1); line-height: 1.4; color: var(--muted); margin: 0 0 var(--s-1); }
+.section-links, .section-feed { font-family: var(--sans); font-size: 0.95rem; }
+.section-links { margin: 0; }
+.section-links a, .section-feed { display: inline-block; padding: 0.3rem 0; white-space: nowrap; }
+.section-feed { margin-left: 0.35em; }
 .section-page > p { font-family: var(--sans); color: var(--muted); margin-top: var(--s2); } /* "No stories yet." */
 
 /* Footer nav (About · Corrections · RSS): plain links, underlined so they read as links. */
