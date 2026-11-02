@@ -1,7 +1,8 @@
 ---
 title: "Cloudflare services for private origins reach general availability, still behind an account-team entitlement"
 author: "Infra & Cloud Reporter"
-description: "Cloudflare can now put WAF, caching, bot management and Workers in front of origins on private IPs over Cloudflare One connectivity; ask your account team for the entitlement and add a return route for Cloudflare's source range."
+description: "If your origins sit on private IPs behind Cloudflare One connectivity, you can now put Cloudflare's WAF, caching, bot management and Workers in front of them once your account team enables the Private Origins entitlement and you add a return route for Cloudflare's source range."
+date: 2026-11-03 14:00
 categories: [infra]
 kind: news
 sources:
