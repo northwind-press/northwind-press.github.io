@@ -23,17 +23,17 @@ sources:
 corrections: []
 ---
 
-Anthropic [deprecated fast mode for Claude Opus 4.8](https://docs.claude.com/en/release-notes/api) on 2026-10-30 and will remove it on 2026-11-30. After that, requests to `claude-opus-4-8` with `speed: "fast"` will return an error. Anthropic's advice for anyone who wants to keep fast mode is to move to Claude Opus 5.5{% include cite.html n=1 %}.
+Anthropic [deprecated fast mode for Claude Opus 4.8](https://docs.claude.com/en/release-notes/api) on 2026-10-30 and will remove it on 2026-11-30. After that, requests to `claude-opus-4-8` with `speed: "fast"` will return an error. To keep fast mode, Anthropic says to move to Claude Opus 5.5{% include cite.html n=1 %}.
 
 ## Who is affected
 
-[Fast mode](https://docs.claude.com/en/docs/build-with-claude/fast-mode) runs the same model with a faster inference configuration. It gives up to 2.5x higher output tokens per second at premium prices. As of 2026-11-02, fast mode on Opus 4.8 is a research preview, offered only on the Claude API, in the Messages API and Managed Agents, and it needs the `fast-mode-2026-02-01` beta header{% include cite.html n=2 %}. The notice is about fast mode only. It sets no date for Opus 4.8 at standard speed{% include cite.html n=1 %}.
+[Fast mode](https://docs.claude.com/en/docs/build-with-claude/fast-mode) runs the same model with a faster inference configuration. It gives up to 2.5x higher output tokens per second at premium prices. As of 2026-11-02, fast mode on Opus 4.8 is a research preview, offered only on the Claude API, in the Messages API and Managed Agents, and it needs the `fast-mode-2026-02-01` beta header{% include cite.html n=2 %}. The notice sets no date for Opus 4.8 at standard speed{% include cite.html n=1 %}.
 
 ## Where fast mode works today
 
 As of 2026-11-02, fast mode is generally available only on Claude Opus 5.5. It runs on the Claude API, Claude Models on Google Cloud (Anthropic managed), and Microsoft Foundry (hosted on Azure). In Managed Agents it runs on the Claude API only{% include cite.html n=2 %}. Claude Opus 5 and Opus 4.8 are research previews on the Claude API, and access to Opus 5 is through an account manager or a waitlist{% include cite.html n=2 %}. Fast mode isn't offered with the Batch API or under a Priority Tier commitment{% include cite.html n=2 %}.
 
-Fast mode on Opus 5.5 costs US$8 per million input tokens and US$40 per million output tokens. On Opus 4.8 and Opus 5 it costs US$10 and US$50{% include cite.html n=2 %}. Opus 5.5 has a default fast mode rate limit in the Start, Build, and Scale usage tiers. Organizations in the Evaluation tier must move up a tier first{% include cite.html n=2 %}.
+Fast mode on Opus 5.5 costs US$8 per million input tokens and US$40 per million output tokens. On Opus 4.8 and Opus 5 it costs US$10 and US$50{% include cite.html n=2 %}. Opus 5.5 has a default fast mode rate limit in the Start, Build, and Scale usage tiers. Evaluation-tier organizations must move up first{% include cite.html n=2 %}.
 
 ## What to change
 
@@ -47,7 +47,7 @@ The [Opus 5.5 migration guide](https://docs.claude.com/en/docs/models/opus-5-5/m
 - Set `effort` explicitly. The default is `medium`, while Opus 4.8 defaults to `high`{% include cite.html n=3 %}.
 - Plan Priority Tier capacity separately, because Opus 5.5 doesn't support Priority Tier{% include cite.html n=3 %}.
 
-The guide says Managed Agents users need to change only the model name{% include cite.html n=3 %}. Code that falls back from fast to standard speed should expect a prompt cache miss, because the two speeds don't share cached prefixes{% include cite.html n=2 %}.
+The guide says Managed Agents users need to change only the model name{% include cite.html n=3 %}. Falling back from fast to standard speed causes a prompt cache miss{% include cite.html n=2 %}.
 
 ## What we don't know
 
