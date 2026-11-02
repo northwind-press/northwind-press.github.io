@@ -1,0 +1,26 @@
+title: Northwind Press
+description: Well-sourced reporting on applied AI for working engineers.
+url: https://northwind-press.github.io
+baseurl: ""
+lang: en
+timezone: UTC
+permalink: /:year/:month/:day/:title/
+markdown: kramdown
+kramdown:
+  input: GFM
+  auto_ids: true
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+exclude:
+  - HANDOFF.md
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+defaults:
+  - scope: { path: "", type: posts }
+    values: { layout: post }
+  - scope: { path: "" }
+    values: { layout: default }

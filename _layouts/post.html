@@ -1,0 +1,37 @@
+---
+layout: default
+---
+<article class="post">
+  <header>
+    <h1>{{ page.title }}</h1>
+    <p class="meta">
+      By {{ page.author | default: 'Northwind Press' }} ·
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%-d %B %Y' }}</time>
+    </p>
+    {% if page.corrections and page.corrections.size > 0 %}
+    <aside class="correction" aria-labelledby="corrections-heading">
+      <h2 id="corrections-heading">Corrections</h2>
+      <ul>
+        {% for c in page.corrections %}
+        <li><time datetime="{{ c.date | date: '%Y-%m-%d' }}">{{ c.date | date: '%-d %B %Y' }}</time>: {{ c.text | markdownify | remove: '<p>' | remove: '</p>' | strip }}</li>
+        {% endfor %}
+      </ul>
+    </aside>
+    {% endif %}
+  </header>
+
+  {{ content }}
+
+  {% if page.sources and page.sources.size > 0 %}
+  <section class="sources" aria-labelledby="sources-heading">
+    <h2 id="sources-heading">Sources</h2>
+    <ol>
+      {% for s in page.sources %}
+      <li id="source-{{ forloop.index }}"><a href="{{ s.url }}">{{ s.title }}</a>{% if s.publisher %}, {{ s.publisher }}{% endif %}{% if s.date %} ({{ s.date }}){% endif %}.{% if s.accessed %} Accessed {{ s.accessed }}.{% endif %}</li>
+      {% endfor %}
+    </ol>
+  </section>
+  {% endif %}
+
+  <p class="report">Spotted an error? See our <a href="{{ '/about/' | relative_url }}#corrections-policy">corrections policy</a>.</p>
+</article>

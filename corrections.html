@@ -1,0 +1,23 @@
+---
+title: Corrections
+permalink: /corrections/
+---
+<h1>Corrections</h1>
+<p>When we get something wrong, we fix it and record it here and at the top of the article. See our <a href="{{ '/about/' | relative_url }}#corrections-policy">corrections policy</a>.</p>
+{% assign corrected = site.posts | where_exp: "p", "p.corrections" %}
+{% if corrected.size > 0 %}
+<ul class="post-list">
+  {% for post in corrected %}
+  <li>
+    <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+    <ul>
+      {% for c in post.corrections %}
+      <li><time datetime="{{ c.date | date: '%Y-%m-%d' }}">{{ c.date | date: '%-d %B %Y' }}</time>: {{ c.text | markdownify | remove: '<p>' | remove: '</p>' | strip }}</li>
+      {% endfor %}
+    </ul>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No corrections yet.</p>
+{% endif %}

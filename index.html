@@ -1,0 +1,18 @@
+---
+title: Articles
+---
+<h1 class="visually-hidden">Articles</h1>
+<p class="lede">{{ site.description }}</p>
+{% if site.posts.size > 0 %}
+<ul class="post-list">
+  {% for post in site.posts %}
+  <li>
+    <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+    <p class="meta">By {{ post.author | default: 'Northwind Press' }} · <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%-d %B %Y' }}</time>{% if post.corrections and post.corrections.size > 0 %} · <span class="tag">Corrected</span>{% endif %}</p>
+    {% if post.description %}<p>{{ post.description }}</p>{% endif %}
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>Our first article is on its way.</p>
+{% endif %}
