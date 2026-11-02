@@ -11,7 +11,7 @@ layout: default
 {%- assign longform_posts = section_posts | where_exp: 'p', 'longform_kinds contains p.kind' -%}
 <div class="section-page" data-section="{{ page.section }}">
   <header class="section-intro">
-    <h1>{{ section_name }}</h1>
+    <h1>{{ section_name | escape }}</h1>
     {% if page.intro %}<p>{{ page.intro }}</p>{% endif %}
     <p class="section-links"><a href="{{ section_feed | relative_url }}">RSS feed</a></p>
   </header>

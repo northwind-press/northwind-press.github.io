@@ -182,6 +182,8 @@ audio:
   `audio:` are unchanged.
 
 ## Tech-lead checks (`tools/`)
+- `check-citations.rb` FAILS on a missing or empty `author:`, and WARNS when a news source's `accessed:`
+  is more than 7 days before the publication date (style.md §11 target).
 - `check-citations.rb` also checks sections and kinds: exactly one valid section, a subsection valid for
   it, a valid kind, a `description:`, and a time on news dates.
 - `check-citations.rb REV PATH` checks a post against the rules above. It flags:
