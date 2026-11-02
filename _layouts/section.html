@@ -1,0 +1,32 @@
+---
+layout: default
+---
+{%- comment -%}
+  Section page. Front matter: section: <slug from _data/sections.yml>, subsection: <slug or none>,
+  intro: one line shown under the h1. Lists every post in the section (subsection posts included).
+{%- endcomment -%}
+{%- include section-posts.html section=page.section subsection=page.subsection -%}
+{%- assign news_posts = section_posts | where: 'kind', 'news' -%}
+{%- assign longform_kinds = 'feature,briefing,digest' | split: ',' -%}
+{%- assign longform_posts = section_posts | where_exp: 'p', 'longform_kinds contains p.kind' -%}
+<div class="section-page">
+  <header class="section-header">
+    <h1>{{ section_name }}</h1>
+    <p class="section-intro">{{ page.intro }} <a class="section-feed" href="{{ section_feed | relative_url }}">Atom feed</a></p>
+  </header>
+  {%- if news_posts.size == 0 and longform_posts.size == 0 %}
+  <p>No stories yet.</p>
+  {%- endif %}
+  {%- if news_posts.size > 0 %}
+  <section aria-labelledby="latest-news">
+    <h2 class="section-list-heading" id="latest-news">Latest news</h2>
+    {% include post-list.html posts=news_posts heading="h3" %}
+  </section>
+  {%- endif %}
+  {%- if longform_posts.size > 0 %}
+  <section aria-labelledby="features-analysis">
+    <h2 class="section-list-heading" id="features-analysis">Features &amp; analysis</h2>
+    {% include post-list.html posts=longform_posts heading="h3" %}
+  </section>
+  {%- endif %}
+</div>

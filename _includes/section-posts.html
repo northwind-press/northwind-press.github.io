@@ -1,0 +1,21 @@
+{%- comment -%}
+  Sets section_posts: posts in section `include.section` (slug), narrowed to `include.subsection`
+  unless it is blank or "none". Newest first. A section's list includes its subsections' posts.
+  Shared by _layouts/section.html and _layouts/section-feed.xml.
+{%- endcomment -%}
+{%- assign sp_section = include.section -%}
+{%- assign section_posts = site.posts | where_exp: 'p', 'p.categories contains sp_section' -%}
+{%- if include.subsection and include.subsection != 'none' -%}
+  {%- assign section_posts = section_posts | where: 'subsection', include.subsection -%}
+{%- endif -%}
+{%- assign section_data = site.data.sections | where: 'slug', include.section | first -%}
+{%- assign section_name = section_data.title -%}
+{%- assign section_url = section_data.url -%}
+{%- assign section_feed = '/feeds/' | append: include.section -%}
+{%- if include.subsection and include.subsection != 'none' -%}
+  {%- assign sub_data = section_data.subsections | where: 'slug', include.subsection | first -%}
+  {%- assign section_name = sub_data.title -%}
+  {%- assign section_url = sub_data.url -%}
+  {%- assign section_feed = section_feed | append: '-' | append: include.subsection -%}
+{%- endif -%}
+{%- assign section_feed = section_feed | append: '.xml' -%}
