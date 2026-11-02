@@ -3,7 +3,6 @@ title: "Batch APIs on Claude and OpenAI: half price, up to a day's wait, and how
 author: "Staff Writer"
 description: "How Anthropic's Message Batches API and OpenAI's Batch API work, what the 50% discount costs you in latency and features, and how errors, cancellations and expiry appear in results."
 categories: [ai]
-subsection: applied
 kind: feature
 sources:
   - title: "Batch processing"

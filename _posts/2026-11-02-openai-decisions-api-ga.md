@@ -3,7 +3,6 @@ title: "OpenAI's Decisions API leaves beta with prompt caching and 400 questions
 author: "AI Reporter"
 description: "OpenAI's v1/decisions endpoint for typed classification, routing, and scoring answers is out of beta on gpt-6-luna, adding prompt caching, JSON input, and up to 400 questions per request."
 categories: [ai]
-subsection: applied
 kind: news
 date: 2026-11-02 22:47
 sources:
