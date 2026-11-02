@@ -4,7 +4,7 @@ author: "Software & Dev Reporter"
 description: "If you allowlist GitHub webhook IPs by hand, add 9.234.98.160/28, 9.234.98.176/28, and 9.234.106.48/28, or sync from the Meta API hooks field."
 categories: [software]
 kind: news
-date: 2026-11-02 22:39
+date: 2026-11-02 22:44
 sources:
   - title: "Webhook IP ranges added to the Meta API"
     url: https://github.blog/changelog/2026-10-29-webhook-ip-ranges-added-to-the-meta-api
