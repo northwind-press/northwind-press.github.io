@@ -18,6 +18,9 @@
    ---
    ```
 
+   Optional: `date: 2026-11-02 14:30` (UTC) in front matter orders same-day posts
+   newest-first on the home page; without it, same-day posts sort by filename.
+
    Also accepted: `summary:` instead of `description:`, `slug:`, and a `## Sources`
    list written at the end of the body instead of `sources:` front matter (use one or the other, not both).
 
