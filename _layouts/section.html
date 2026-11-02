@@ -2,28 +2,38 @@
 layout: default
 ---
 {%- comment -%}
-  Section page. Front matter: section: <slug from _data/sections.yml>, subsection: <slug or none>,
-  intro: one line shown under the h1. Lists every post in the section (subsection posts included).
+  Section page: lead story, then a river of the section's other posts (wiki design/front.md §3).
+  Front matter: section: <slug from _data/sections.yml>, subsection: <slug or none>, intro: one line,
+  wide: true (opts the page into .wrap--wide; set on each page, as default.html reads page.wide).
+  Lead and river come from front-select.html (HANDOFF "placement"); a section includes its subsections.
 {%- endcomment -%}
 {%- include section-posts.html section=page.section subsection=page.subsection -%}
-{%- assign news_posts = section_posts | where: 'kind', 'news' -%}
-{%- assign longform_kinds = 'feature,briefing,digest' | split: ',' -%}
-{%- assign longform_posts = section_posts | where_exp: 'p', 'longform_kinds contains p.kind' -%}
+{%- include front-select.html section=page.section subsection=page.subsection -%}
+{%- assign on_subsection = false -%}
+{%- if page.subsection and page.subsection != '' and page.subsection != 'none' -%}{%- assign on_subsection = true -%}{%- endif -%}
 <div class="section-page" data-section="{{ page.section }}">
   <header class="section-intro">
     <h1>{{ section_name }}</h1>
     {% if page.intro %}<p>{{ page.intro }}</p>{% endif %}
-    <p class="section-links"><a href="{{ section_feed | relative_url }}">RSS feed</a></p>
+    <p class="section-links"><a href="{{ section_feed | relative_url }}">RSS feed</a>
+      {%- unless on_subsection %}{% for sub in section_data.subsections %} · <a href="{{ sub.url | relative_url }}">{{ sub.title }}</a>{% endfor %}{% endunless -%}
+    </p>
   </header>
-  {%- if news_posts.size == 0 and longform_posts.size == 0 %}
-  <p>No stories yet.</p>
-  {%- endif %}
-  {%- if news_posts.size > 0 %}
-  <h2 class="section-list-heading" id="latest-news">Latest news</h2>
-  {% include post-list.html posts=news_posts heading="h3" %}
-  {%- endif %}
-  {%- if longform_posts.size > 0 %}
-  <h2 class="section-list-heading" id="features-analysis">Features &amp; analysis</h2>
-  {% include post-list.html posts=longform_posts heading="h3" %}
+  {%- if front_lead %}
+  <div class="section-front">
+    {% include lead-story.html post=front_lead %}
+    {%- if front_river.size > 0 %}
+    <section class="river" aria-labelledby="sec-latest-h">
+      <h2 class="block-heading" id="sec-latest-h">Latest in {{ section_name }}</h2>
+      <ol class="river__list">
+        {%- for post in front_river %}
+        {% include river-item.html post=post %}
+        {%- endfor %}
+      </ol>
+    </section>
+    {%- endif %}
+  </div>
+  {%- else %}
+  <p class="block-empty">No stories yet.</p>
   {%- endif %}
 </div>
