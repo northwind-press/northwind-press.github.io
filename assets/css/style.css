@@ -81,12 +81,27 @@ strong { font-weight: 700; }
 
 code, pre { font-family: var(--mono); font-size: 0.85em; }
 :not(pre) > code { background: var(--code-bg); padding: 0.1em 0.3em; border-radius: 3px; }
+a code { background: none; padding: 0; color: inherit; }
 pre { overflow-x: auto; padding: var(--s0); background: var(--code-bg); border: 1px solid var(--rule); border-radius: 4px; line-height: 1.5; }
 
 table { border-collapse: collapse; font-family: var(--sans); font-size: 0.95rem; margin: var(--s1) 0; font-variant-numeric: tabular-nums; }
-/* Scroll wide tables on narrow screens only: display:block drops table semantics in some screen readers. */
-@media (max-width: 42rem) {
-  table { display: block; overflow-x: auto; }
+/* Wide tables scroll inside .table-wrap (added in post.html), which is focusable for keyboard scrolling.
+   The table keeps display:table so screen readers keep its semantics. Shadows hint at hidden columns. */
+.table-wrap {
+  overflow-x: auto;
+  margin: var(--s1) 0;
+  background:
+    linear-gradient(to right, var(--bg) 30%, transparent) left / 2rem 100% no-repeat local,
+    linear-gradient(to left, var(--bg) 30%, transparent) right / 2rem 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgb(0 0 0 / 0.18), transparent) left / 0.75rem 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgb(0 0 0 / 0.18), transparent) right / 0.75rem 100% no-repeat scroll;
+}
+.table-wrap:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 2px; }
+.table-wrap > table { margin: 0; }
+td code, th code { overflow-wrap: anywhere; }
+.post-body td:first-child { white-space: nowrap; }
+@media (max-width: 30rem) {
+  .post-body table { font-size: 0.875rem; }
 }
 th, td { border-bottom: 1px solid var(--rule); padding: 0.45rem 0.75rem 0.45rem 0; text-align: left; vertical-align: top; }
 th { border-bottom: 2px solid var(--rule-strong); font-weight: 600; }
@@ -180,6 +195,7 @@ nav a[aria-current="page"] { font-weight: 600; box-shadow: inset 0 -2px 0 var(--
   .sources a::after { content: " " attr(href); overflow-wrap: anywhere; }
   .correction { border: 1px solid #000; border-left-width: 4px; }
   h1, h2, h3 { break-after: avoid; }
+  .post-body a { text-decoration: none; }
+  .table-wrap { overflow: visible; background: none; }
   pre, table, blockquote, .correction, .sources li { break-inside: avoid; }
-  table { display: table; }
 }

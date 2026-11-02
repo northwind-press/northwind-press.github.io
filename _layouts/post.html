@@ -22,7 +22,7 @@ layout: default
   </header>
 
   <div class="post-body">
-  {{ content }}
+  {{ content | replace: '<table>', '<div class="table-wrap" role="region" aria-label="Table" tabindex="0"><table>' | replace: '</table>', '</table></div>' }}
   </div>
 
   {% if page.sources and page.sources.size > 0 %}
