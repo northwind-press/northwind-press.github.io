@@ -13,13 +13,18 @@
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header">
-    <div class="wrap">
+  <header class="site-header{% if page.url == '/' %} site-header--front{% endif %}">
+    <div class="wrap wrap--wide masthead">
+      <p class="masthead__date"><time id="masthead-date" datetime="{{ site.time | date_to_xmlschema }}">Updated {{ site.time | date: '%-d %B %Y, %H:%M' }} UTC</time></p>
       <a class="site-title" href="{{ '/' | relative_url }}">{% if site.title contains ' Press' %}{{ site.title | remove: ' Press' }} <span class="press">Press</span>{% else %}{{ site.title }}{% endif %}</a>
       {% include site-nav.html %}
     </div>
   </header>
-  <main id="main" class="wrap" tabindex="-1">
+  <script>/* masthead date: show the reader's local date; without JS the build time above stays true */
+  (function(){var t=document.getElementById('masthead-date');if(!t||!t.textContent)return;var d=new Date(),p=function(n){return(n<10?'0':'')+n;};
+  t.title=t.textContent;t.dateTime=d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate());
+  t.textContent=d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});})();</script>
+  <main id="main" class="wrap{% if page.wide %} wrap--wide{% endif %}" tabindex="-1">
     {{ content }}
   </main>
   <footer class="site-footer">

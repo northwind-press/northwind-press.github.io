@@ -1,0 +1,19 @@
+{%- comment -%}
+  STUB until developer-1's river-item.html lands (T-72); same name and params (post=, heading=). Whoever merges second rebases.
+  One line in the Latest river (an li inside ol.river__list). Contract: wiki design/front.md.
+  Time text: HH:MM if a news post is on the build's UTC date, else "2 Nov"; the full datetime is always kept.
+  Only news carries a real time (HANDOFF); other kinds are often dated without one, so they'd show a false "00:00".
+  heading: accepted for interface parity; river items have no heading.
+{%- endcomment -%}
+{%- assign ri = include.post -%}
+{%- include section-of.html post=ri -%}
+{%- assign ri_kind = site.data.kinds | where: 'slug', ri.kind | first -%}
+{%- assign ri_day = ri.date | date: '%Y-%m-%d' -%}
+{%- assign ri_today = site.time | date: '%Y-%m-%d' -%}
+<li class="river__item"{% if so_section %} data-section="{{ so_section.slug }}"{% endif %}>
+  <time class="river__time" datetime="{{ ri.date | date_to_xmlschema }}">{% if ri_day == ri_today and ri.kind == 'news' %}{{ ri.date | date: '%H:%M' }}{% else %}{{ ri.date | date: '%-d %b' }}{% endif %}</time>
+  {% if so_section %}<span class="river__section">{% if so_sub %}{{ so_sub.title }}{% else %}{{ so_section.title }}{% endif %}</span>{% endif %}
+  <a class="river__title" href="{{ ri.url | relative_url }}">{{ ri.title | smartify }}</a>
+  {%- if ri_kind and ri_kind.slug != 'news' %} <span class="badge badge--{{ ri_kind.slug }}">{{ ri_kind.label }}</span>{% endif %}
+  {%- if ri.corrections and ri.corrections.size > 0 %} <span class="tag">Corrected</span>{% endif %}
+</li>

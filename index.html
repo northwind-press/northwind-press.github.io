@@ -1,25 +1,72 @@
 ---
-title: Latest
+wide: true
 ---
-<h1 class="visually-hidden">{{ site.title }}: latest</h1>
-<div class="intro">
-  <p class="lede">{{ site.description }}</p>
-  <p class="promise">Every claim sourced. Every correction published, dated, at the top of the article.</p>
-</div>
-{%- assign home_news = site.posts | where: 'kind', 'news' %}
-{%- assign home_features = site.posts | where_exp: 'p', "p.kind != 'news'" %}
-{% if home_news.size > 0 %}
-<section class="home-section" aria-labelledby="latest-news">
-  <h2 class="section-list-heading" id="latest-news">Latest news</h2>
-  {% include post-list.html posts=home_news limit=10 heading="h3" %}
-</section>
-{% endif %}
-{% if home_features.size > 0 %}
-<section class="home-section" aria-labelledby="features-analysis">
-  <h2 class="section-list-heading" id="features-analysis">Features &amp; analysis</h2>
-  {% include post-list.html posts=home_features limit=10 heading="h3" %}
-</section>
-{% endif %}
-{% if site.posts.size == 0 %}
+{%- comment -%} News front. Markup contract: wiki design/front.md §2. Selection: _includes/front-select.html. {%- endcomment -%}
+<h1 class="visually-hidden">{{ site.title }}: news for working engineers</h1>
+{%- if site.posts.size == 0 %}
 <p>Our first article is on its way.</p>
-{% endif %}
+{%- else %}
+{%- include front-select.html top=4 -%}
+{%- assign home_lead = front_lead -%}
+{%- assign home_top = front_top -%}
+<div class="front">
+  <section class="front-top" aria-label="Top stories">
+    {% include story.html post=home_lead variant="lead" %}
+    {%- if home_top.size > 0 %}
+    <ul class="top-stories">
+      {%- for p in home_top %}
+      {% include story.html post=p variant="top" %}
+      {%- endfor %}
+    </ul>
+    {%- endif %}
+  </section>
+
+  <section class="river" aria-labelledby="latest-h">
+    <h2 class="block-heading" id="latest-h">Latest</h2>
+    <ol class="river__list">
+      {%- for p in site.posts limit: 15 %}
+      {% include river-item.html post=p %}
+      {%- endfor %}
+    </ol>
+  </section>
+
+  <section class="front-briefing" aria-labelledby="briefing-h">
+    <h2 class="block-heading" id="briefing-h">Today’s briefing</h2>
+    {%- comment -%} The heading says "Today’s", so only a briefing dated on the build's UTC day counts. {%- endcomment -%}
+    {%- assign home_today = site.time | date: '%Y-%m-%d' %}
+    {%- assign home_briefing = nil %}
+    {%- assign home_briefings = site.posts | where: 'kind', 'briefing' %}
+    {%- for b in home_briefings %}
+      {%- assign b_day = b.date | date: '%Y-%m-%d' %}
+      {%- if b_day == home_today %}{% assign home_briefing = b %}{% break %}{% endif %}
+    {%- endfor %}
+    {%- if home_briefing %}
+    <ul class="front-briefing__list">
+      {% include story.html post=home_briefing variant="top" %}
+    </ul>
+    {%- else %}
+    <p class="block-empty">No briefing yet today. The day’s briefing appears here when it’s published.</p>
+    {%- endif %}
+  </section>
+
+  <div class="section-blocks">
+    {%- for s in site.data.sections %}
+    {%- assign sb_slug = s.slug %}
+    {%- assign sb_posts = site.posts | where_exp: 'p', 'p.categories contains sb_slug' %}
+    <section class="section-block" data-section="{{ s.slug }}" aria-labelledby="sb-{{ s.slug }}">
+      <h2 class="block-heading" id="sb-{{ s.slug }}"><a href="{{ s.url | relative_url }}">{{ s.title }}</a></h2>
+      {%- if sb_posts.size > 0 %}
+      <ul class="section-block__list">
+        {%- for p in sb_posts limit: 4 %}
+        {% include story.html post=p variant="compact" %}
+        {%- endfor %}
+      </ul>
+      {%- else %}
+      <p class="block-empty">No {{ s.title }} stories yet.</p>
+      {%- endif %}
+      <p class="block-more"><a href="{{ s.url | relative_url }}">More in {{ s.title }}</a></p>
+    </section>
+    {%- endfor %}
+  </div>
+</div>
+{%- endif %}
