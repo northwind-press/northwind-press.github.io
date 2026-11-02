@@ -19,15 +19,11 @@ layout: default
   <p>No stories yet.</p>
   {%- endif %}
   {%- if news_posts.size > 0 %}
-  <section aria-labelledby="latest-news">
-    <h2 class="section-list-heading" id="latest-news">Latest news</h2>
-    {% include post-list.html posts=news_posts heading="h3" %}
-  </section>
+  <h2 class="section-list-heading" id="latest-news">Latest news</h2>
+  {% include post-list.html posts=news_posts heading="h3" %}
   {%- endif %}
   {%- if longform_posts.size > 0 %}
-  <section aria-labelledby="features-analysis">
-    <h2 class="section-list-heading" id="features-analysis">Features &amp; analysis</h2>
-    {% include post-list.html posts=longform_posts heading="h3" %}
-  </section>
+  <h2 class="section-list-heading" id="features-analysis">Features &amp; analysis</h2>
+  {% include post-list.html posts=longform_posts heading="h3" %}
   {%- endif %}
 </div>
