@@ -14,7 +14,7 @@ sources:
 corrections: []
 ---
 
-A power failure at the facility hosting Google Cloud zone europe-west2-b took the zone offline on 2026-10-20 because its backup generators were never told to start, according to Google's [incident report](https://status.cloud.google.com/incidents/Xs2XTHzAVC9YnafnPyzj) of 2026-10-27. Failover traffic then caused elevated errors across the europe-west2 region, and primary impact lasted 6 hours 8 minutes{% include cite.html n=1 %}.
+A power failure at the facility hosting Google Cloud zone europe-west2-b took the zone offline on 2026-10-20 because its backup generators were never told to start, according to Google's [incident report](https://status.cloud.google.com/incidents/Xs2XTHzAVC9YnafnPyzj) of 2026-10-27. Failover traffic then caused elevated errors across the region, and primary impact lasted 6 hours 8 minutes{% include cite.html n=1 %}.
 
 ## What broke
 
@@ -24,7 +24,7 @@ At 22:53 PT on 19 Oct (05:53 UTC on 20 Oct), an underground cable fault outside 
 
 ## Impact
 
-Zone b lost power at 23:00 PT (06:00 UTC){% include cite.html n=1 %}. Zonal resources there were unavailable, including Compute Engine VMs, zonal disks, zonal GKE control planes and non-HA Cloud SQL instances{% include cite.html n=1 %}. In zones a and c, failover demand exhausted compute capacity and control-plane calls to the offline zone timed out, causing latency, HTTP 500 and 503 errors, and failed changes to some regional resources{% include cite.html n=1 %}. Some failovers failed because of capacity constraints{% include cite.html n=1 %}.
+Zone b lost power at 23:00 PT (06:00 UTC){% include cite.html n=1 %}. Zonal resources there were unavailable, including Compute Engine VMs, zonal disks, zonal GKE control planes and non-HA Cloud SQL instances{% include cite.html n=1 %}. In zones a and c, failover demand exhausted compute capacity and control-plane calls to the offline zone timed out, causing latency, HTTP 500 and 503 errors, and failed changes to some regional resources{% include cite.html n=1 %}.
 
 Standby power returned at 23:54 PT (06:54 UTC), but storage recovering from unclean shutdowns held back service restoration{% include cite.html n=1 %}. Core platform disruption ended at 04:29 PT (11:29 UTC), and by 05:08 PT (12:08 UTC) over 99% of Compute Engine VMs were healthy{% include cite.html n=1 %}. Google found no impact outside europe-west2{% include cite.html n=1 %}.
 
