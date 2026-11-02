@@ -2,7 +2,7 @@
 wide: true
 ---
 {%- comment -%} News front. Markup contract: wiki design/front.md §2. Selection: _includes/front-select.html. {%- endcomment -%}
-<h1 class="visually-hidden">{{ site.title }}: news for working engineers</h1>
+<h1 class="visually-hidden">{{ site.title | escape }}: news for working engineers</h1>
 {%- if site.posts.size == 0 %}
 <p>Our first article is on its way.</p>
 {%- else %}
@@ -54,7 +54,7 @@ wide: true
     {%- assign sb_slug = s.slug %}
     {%- assign sb_posts = site.posts | where_exp: 'p', 'p.categories contains sb_slug' %}
     <section class="section-block" data-section="{{ s.slug }}" aria-labelledby="sb-{{ s.slug }}">
-      <h2 class="block-heading" id="sb-{{ s.slug }}"><a href="{{ s.url | relative_url }}">{{ s.title }}</a></h2>
+      <h2 class="block-heading" id="sb-{{ s.slug }}"><a href="{{ s.url | relative_url }}">{{ s.title | escape }}</a></h2>
       {%- if sb_posts.size > 0 %}
       <ul class="section-block__list">
         {%- for p in sb_posts limit: 4 %}
@@ -62,9 +62,9 @@ wide: true
         {%- endfor %}
       </ul>
       {%- else %}
-      <p class="block-empty">No {{ s.title }} stories yet.</p>
+      <p class="block-empty">No {{ s.title | escape }} stories yet.</p>
       {%- endif %}
-      <p class="block-more"><a href="{{ s.url | relative_url }}">More in {{ s.title }}</a></p>
+      <p class="block-more"><a href="{{ s.url | relative_url }}">More in {{ s.title | escape }}</a></p>
     </section>
     {%- endfor %}
   </div>
