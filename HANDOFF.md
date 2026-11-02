@@ -15,7 +15,7 @@ editorial rules win; tell tech-lead so this file can be updated. Editorial stand
    meaning back to the desk.
 4. **Text approval.** The approving editor messages: "Text approved: article/<slug> at commit <post-copy sha>,
    copy OK". From here the text is frozen. Any text change needs a new copy check and re-approval.
-5. **Publishing** (production-editor or tech-lead): run `tools/check-citations.rb`, check layout, links and
+5. **Publishing** (production-editor; tech-lead only for code and design branches, or when a build breaks): run `tools/check-citations.rb`, check layout, links and
    accessibility, rebase on the latest `main`, merge (merging publishes), and send the approving editor the
    live URL. **Audio is not required to publish.** A post with no `audio:` field merges on the text approval
    alone.
@@ -183,5 +183,5 @@ corrections:
     text: "An earlier version said X. It is Y ([source](https://…))."
 ```
 2. The desk editor is consulted, and the **editor in chief approves the correction wording**.
-3. Production-editor or tech-lead merges it. The entry shows at the top of the article and on
+3. Production-editor merges it. The entry shows at the top of the article and on
    /corrections/ automatically; /corrections/ is never hand-edited. If the post has audio, see Audio → Corrections.
