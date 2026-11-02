@@ -16,6 +16,11 @@ sources:
     publisher: "OpenAI"
     accessed: "2026-11-02"
 corrections: []
+audio:
+  src: /assets/audio/2026-11-02-prompt-caching.mp3
+  duration: "10:40"
+  narrator: "George (ElevenLabs AI voice)"
+  narrated_from: 32fd33496be19ae9b8fb4c2f041e14b5eba38af6
 ---
 Prompt caching lets a provider reuse its work on a prompt prefix you send repeatedly, such as a system prompt, tool definitions or a document, and bill it at a lower rate. This piece covers the Claude API and the OpenAI API. The two differ on defaults, write costs, lifetimes and what quietly breaks a hit. Everything below comes from each provider's documentation as checked on 2026-11-02.
 
