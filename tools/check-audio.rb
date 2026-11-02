@@ -67,6 +67,25 @@ if t && a
   end
   base = p_sha || t
 
+  # The live post must still be the narrated text. A branch cut from an older main can pass every
+  # check above while main has since moved on (e.g. a wording fix), so compare against current main
+  # too. Any existing audio: block is ignored, so re-records work. Run `git fetch` first.
+  mref_now = full.(main_ref)
+  if mref_now
+    live, live_ok = git(repo, "show", "#{mref_now}:#{path}")
+    if live_ok
+      text_post, = git(repo, "show", "#{t}:#{path}")
+      strip_block = ->(s) { s.to_s.sub(/\A(---\n.*?)^audio:\n(?:[ \t]+.*\n?)*(.*?\n---\n)/m) { "#{$1}#{$2}" } }
+      if strip_block.(live) != strip_block.(text_post)
+        fails << "the post on #{main_ref} (#{mref_now[0, 7]}) differs from the narrated text #{t[0, 7]}: merging would attach audio of an older or different text"
+      else
+        puts "live post on #{main_ref} #{mref_now[0, 7]} matches the narrated text"
+      end
+    end
+  else
+    warns << "#{main_ref} not found: couldn't compare with the live post"
+  end
+
   split = lambda do |src|
     m = src.to_s.match(/\A---\n(.*?)\n---\n(.*)\z/m)
     m ? [m[1], m[2]] : [nil, nil]

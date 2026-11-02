@@ -89,5 +89,9 @@ check.("after publication with an unreviewed commit before audio", false, gate.(
 g("checkout", "-q", "main"); write(POST, File.read("#{R}/#{POST}").sub("Body text.", "Corrected body text.")); g("add", "-A"); g("commit", "-qm", "correction")
 g("checkout", "-q", "-B", "audio-stale", head.()); write("assets/audio/2026-11-05-example.mp3", "ID3"); write(POST, File.read("#{R}/#{POST}").sub(/---\n(?=Corrected)/, audio_block(TEXT) + "---\n")); g("add", "-A"); g("commit", "-qm", "audio stale")
 check.("after publication, narrated from a pre-correction sha", false, gate.(TEXT, head.(), "--main", "main"))
+# stale branch: audio cut from an older main (post == text there), but main has since changed the post
+g("checkout", "-q", "-B", "audio-oldbase", main_tip); add_ok.(); g("add", "-A"); g("commit", "-qm", "audio on old main")
+stale = head.()
+check.("audio cut from older main, live post changed since", false, gate.(TEXT, stale, "--main", "main"))
 puts(pass ? "ALL AUDIO GATE TESTS PASS" : "SOME AUDIO GATE TESTS FAILED")
 exit(pass ? 0 : 1)

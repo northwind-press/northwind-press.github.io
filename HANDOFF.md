@@ -28,7 +28,9 @@ merge, or later on a branch `audio/<slug>` cut from `main` once the post is live
   - it's a single commit sitting either directly on TEXT_SHA, or on a `main` commit where the post is
     byte-identical to TEXT_SHA;
   - it changes only `assets/audio/<file>` and the `audio:` block;
-  - `narrated_from` equals TEXT_SHA.
+  - `narrated_from` equals TEXT_SHA;
+  - the post on **current** `main` (run `git fetch` first) is byte-identical to TEXT_SHA, ignoring any
+    existing `audio:` block, so audio of an older text can't be attached to a post that has since changed.
 
   On a post without `audio:` the gate reports "doesn't apply" and passes.
 
