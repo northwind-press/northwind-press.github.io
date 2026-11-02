@@ -1,0 +1,8 @@
+{%- comment -%}
+  For <head> in _layouts/default.html, after {% feed_meta %}: on section pages, links the section's own
+  Atom feed (the site-wide feed is linked by feed_meta). Outputs nothing on other pages.
+{%- endcomment -%}
+{%- if page.section -%}
+{%- include section-posts.html section=page.section subsection=page.subsection %}
+  <link rel="alternate" type="application/atom+xml" title="{{ site.title | escape }}: {{ section_name | escape }}" href="{{ section_feed | relative_url }}">
+{%- endif -%}

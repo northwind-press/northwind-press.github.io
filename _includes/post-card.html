@@ -1,0 +1,24 @@
+{%- comment -%}
+  One story in a list. Usage: {% include post-card.html post=post heading="h3" %}
+  heading: h2 (default) or h3 when the list sits under its own h2 (section pages).
+  Section, subsection and kind labels come from _data/sections.yml and _data/kinds.yml.
+{%- endcomment -%}
+{%- assign p = include.post -%}
+{%- assign hx = include.heading | default: 'h2' -%}
+{%- assign card_kind = site.data.kinds | where: 'slug', p.kind | first -%}
+{%- assign card_section = site.data.sections | where: 'slug', p.categories.first | first -%}
+{%- assign card_sub = nil -%}
+{%- if p.subsection and card_section.subsections -%}
+  {%- assign card_sub = card_section.subsections | where: 'slug', p.subsection | first -%}
+{%- endif -%}
+<article class="post-card">
+  <p class="post-card__kicker kicker label">
+    {%- if card_kind %}<span class="badge badge--{{ card_kind.slug }}">{{ card_kind.label }}</span> {% endif -%}
+    {%- if card_section %}<span class="nowrap">{{ card_section.title }}{% if card_sub %} · {{ card_sub.title }}{% endif %}</span> · {% endif -%}
+    <span class="nowrap"><time datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: '%-d %B %Y' }}{% if p.kind == 'news' %}, {{ p.date | date: '%H:%M' }} UTC{% endif %}</time></span>
+  </p>
+  <{{ hx }}><a href="{{ p.url | relative_url }}">{{ p.title | smartify }}</a></{{ hx }}>
+  {%- assign summary = p.description | default: p.summary %}
+  {% if summary %}<p class="summary">{{ summary | smartify }}</p>{% endif %}
+  <p class="meta">By <span class="byline">{{ p.author | default: 'Northwind Press' }}</span>{% if p.sources and p.sources.size > 0 %} · <span class="nowrap">{{ p.sources.size }} source{% if p.sources.size != 1 %}s{% endif %}</span>{% endif %}{% if p.corrections and p.corrections.size > 0 %} · <span class="tag">Corrected</span>{% endif %}</p>
+</article>

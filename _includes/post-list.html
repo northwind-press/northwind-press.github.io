@@ -1,0 +1,10 @@
+{%- comment -%}
+  List of post cards. Usage: {% include post-list.html posts=some_posts limit=10 heading="h3" %}
+  posts: newest first (as site.posts is). limit: optional, defaults to all. heading: passed to post-card.
+{%- endcomment -%}
+{%- assign list_limit = include.limit | default: 10000 -%}
+<ul class="post-list">
+  {%- for post in include.posts limit: list_limit %}
+  <li>{% include post-card.html post=post heading=include.heading %}</li>
+  {%- endfor %}
+</ul>
