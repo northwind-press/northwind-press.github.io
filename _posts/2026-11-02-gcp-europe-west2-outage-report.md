@@ -1,7 +1,7 @@
 ---
 title: "Google Cloud europe-west2 outage: zone b's generators never got a start signal"
 author: "Infra & Cloud Reporter"
-description: "If you run on Google Cloud in europe-west2 or any single region, check that zonal workloads have cross-zone recovery and that your failover plan survives capacity shortages in the remaining zones, as Google's report on the 2026-10-20 outage shows."
+description: "Google's report on the 2026-10-20 europe-west2 outage is a prompt to check that zonal workloads can recover in another zone, or region, when capacity there runs short."
 categories: [infra]
 kind: news
 date: 2026-11-02 22:40
@@ -24,7 +24,7 @@ At 22:53 PT on 19 Oct (05:53 UTC on 20 Oct), an underground cable fault outside 
 
 ## Impact
 
-Zone b lost power at 23:00 PT (06:00 UTC){% include cite.html n=1 %}. Zonal resources there were unavailable, including Compute Engine VMs, zonal Persistent Disk and Hyperdisk, zonal GKE control planes and non-HA Cloud SQL and AlloyDB instances{% include cite.html n=1 %}. In zones a and c, failover demand exhausted compute capacity and control-plane calls to the offline zone timed out, causing latency, HTTP 500 and 503 errors, and failed create, update or delete operations on some regional resources{% include cite.html n=1 %}. Some failovers failed because of capacity constraints{% include cite.html n=1 %}.
+Zone b lost power at 23:00 PT (06:00 UTC){% include cite.html n=1 %}. Zonal resources there were unavailable, including Compute Engine VMs, zonal disks, zonal GKE control planes and non-HA Cloud SQL instances{% include cite.html n=1 %}. In zones a and c, failover demand exhausted compute capacity and control-plane calls to the offline zone timed out, causing latency, HTTP 500 and 503 errors, and failed create, update or delete operations on some regional resources{% include cite.html n=1 %}. Some failovers failed because of capacity constraints{% include cite.html n=1 %}.
 
 Standby power returned at 23:54 PT (06:54 UTC), but storage recovering from unclean shutdowns held back service restoration{% include cite.html n=1 %}. Core platform disruption ended at 04:29 PT (11:29 UTC), and by 05:08 PT (12:08 UTC) over 99% of Compute Engine VMs were healthy{% include cite.html n=1 %}. Google found no impact outside europe-west2{% include cite.html n=1 %}.
 
@@ -32,12 +32,12 @@ Standby power returned at 23:54 PT (06:54 UTC), but storage recovering from uncl
 
 As stated in the report (all dates 2026){% include cite.html n=1 %}:
 
-- Locate the cable fault: completed 26 Oct. Repair feed A: estimated 30 Oct. Return the facility to feeds A and B: estimated 31 Oct.
-- Generator load transfer tests: completed 20 Oct and 26 Oct. A further test with both feeds restored: estimated 31 Oct.
-- PLC reconfigured and validated: completed 26 Oct. PLC code review with the facility vendor, and PLC telemetry validation: estimated 31 Oct. Check PLC configurations at all sites with similar topologies and PLC manufacturers: estimated 15 Nov.
-- Updated emergency operating procedures: completed 26 Oct. Practice twice per shift: completed 24 Oct, checked daily.
-- Freeze planned maintenance at similar sites, and require elevated approval for non-standard changes: estimated 30 Oct.
-- Automated alerts to customer communications, and wider platform testing: no dates given.
+- Utility: cable fault located, completed 26 Oct; feed A repaired, estimated 30 Oct; facility back on feeds A and B, estimated 31 Oct.
+- Generators: load transfer tests completed 20 and 26 Oct; another with both feeds, estimated 31 Oct.
+- PLC: reconfigured and validated, completed 26 Oct; vendor code review and telemetry validation, estimated 31 Oct; checks at all sites with similar topologies and PLC makers, estimated 15 Nov.
+- Procedures: emergency procedures updated, completed 26 Oct; drilled twice per shift, completed 24 Oct.
+- Change management: maintenance freeze and elevated approvals at similar sites, estimated 30 Oct.
+- Cloud services: automated incident communications and wider platform testing, undated.
 
 The report doesn't say whether the 30 and 31 Oct estimates were met.
 
@@ -45,5 +45,4 @@ The report doesn't say whether the 30 and 31 Oct estimates were met.
 
 - Google says zonal resources such as VMs need customer-provisioned failover or cross-zone recovery{% include cite.html n=1 %}. Anything that lived only in europe-west2-b went down with it.
 - Don't assume spare capacity in the surviving zones. Here it ran out, and Google prioritised active customer reservations{% include cite.html n=1 %}.
-- Multi-zone isn't fully region-proof. Regional services degraded too, so workloads that must ride out such an event need a path to another region{% include cite.html n=1 %}.
-- Allow for a recovery tail. New VM creation resumed only at 04:46 PT (11:46 UTC){% include cite.html n=1 %}.
+- Multi-zone isn't region-proof: regional services degraded too, so workloads that must ride out such an event need a path to another region{% include cite.html n=1 %}.
