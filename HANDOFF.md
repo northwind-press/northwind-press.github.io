@@ -66,7 +66,7 @@ embeds. Images go in `assets/img/`, always with alt text. The Sources list at th
 from `sources:`; don't write one in the body.
 
 ## Sections and kinds (from 2026-11-02; spec for T-42)
-The site is organised by desk. These fields drive the nav, the section pages, the home page, the
+The site is organized by desk. These fields drive the nav, the section pages, the home page, the
 badges and the per-section feeds. The allowed values live in `_data/sections.yml` and `_data/kinds.yml`,
 and `tools/check-citations.rb` rejects anything else.
 
