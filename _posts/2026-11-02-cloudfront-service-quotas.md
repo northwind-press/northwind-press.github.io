@@ -1,7 +1,7 @@
 ---
-title: "CloudFront quotas move to AWS Service Quotas, with auto-approval on Business Support"
+title: "CloudFront adds Service Quotas support, with auto-approved increases on Business Support"
 author: "Infra & Cloud Reporter"
-description: "Request CloudFront quota increases in Service Quotas instead of a support case, and set CloudWatch alarms on the quotas that publish usage metrics."
+description: "Request CloudFront quota increases in Service Quotas, auto-approved within thresholds on Business Support or higher, and alarm on the quotas that publish usage metrics."
 categories: [infra]
 kind: news
 date: 2026-11-02 22:40
