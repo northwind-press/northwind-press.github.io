@@ -27,7 +27,7 @@ sources:
 corrections: []
 ---
 
-Node.js 26 became a Long Term Support (LTS) line on 2026-10-28, and a day later the project shipped the first alpha of Node.js 27, the first line under its new one-major-a-year schedule. For teams planning upgrades, the production choice is unchanged: stay on LTS. The new work is for library authors.
+Node.js 26 became a Long Term Support (LTS) line on 2026-10-28{% include cite.html n=1 %}, and a day later the project shipped the first alpha of Node.js 27{% include cite.html n=2 %}, the first line under its new one-major-a-year schedule{% include cite.html n=3 %}. For teams planning upgrades, the production choice is unchanged: stay on LTS. The new work is for library authors.
 
 ## Node.js 26 'Lithium' is LTS
 
@@ -37,7 +37,7 @@ Node.js 26 became a Long Term Support (LTS) line on 2026-10-28, and a day later 
 
 The project's [announcement of the new schedule](https://nodejs.org/en/blog/announcements/evolving-the-nodejs-release-schedule) replaces two majors a year with one. Each line spends six months in Alpha (October to March), where semver-major changes are allowed, then six months as Current from April, then 30 months as LTS. The odd/even split ends, and every line becomes LTS{% include cite.html n=3 %}. Node.js 26 is the last line on the old model{% include cite.html n=3 %}.
 
-Alpha releases are signed, tagged and tested against popular packages, but their API and ABI may change between releases. The [Release working group's schedule](https://github.com/nodejs/release) says they are for library authors and CI pipelines, not production. The announcement gives `27.0.0-alpha.1` as an example version; the actual first tag is `27.0.0-alpha.0.0.0`{% include cite.html n=2 %}. As of 2026-11-02, the schedule puts 27.x at Current on 2027-04-22, LTS on 2027-10-20 and end of life on 2030-04-30{% include cite.html n=4 %}.
+Alpha releases are signed, tagged and tested against popular packages, but their API may change between releases{% include cite.html n=3 %}. The [Release working group's schedule](https://github.com/nodejs/release) says they are for library authors and CI pipelines, not production. As of 2026-11-02, the schedule puts 27.x at Current on 2027-04-22, LTS on 2027-10-20 and end of life on 2030-04-30{% include cite.html n=4 %}.
 
 ## What library authors should test in the alpha
 
