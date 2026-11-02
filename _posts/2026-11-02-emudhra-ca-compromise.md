@@ -1,5 +1,5 @@
 ---
-title: "Compromised eMudhra CA keys: browsers block them, but bundled trust stores and macOS command-line tools lag"
+title: "Compromised eMudhra CA keys: browsers block them, but bundled trust stores lag"
 author: "Security Reporter"
 description: "Update CA bundles, runtimes, Electron apps and CI images, and on macOS follow Apple's workaround for curl, git and python3 until Apple ships its fix."
 categories: [security]
@@ -47,7 +47,7 @@ The private keys of eight eMudhra intermediate certificate authority (CA) certif
 
 ## Who is protected
 
-Mozilla blocked the certificates in Firefox through OneCRL on 2026-10-17, and the Chrome Root Program blocked all six TLS intermediates by key through CRLSets the same day, which also covers Sectigo's cross-signed copies ([dev-security-policy](https://groups.google.com/a/mozilla.org/g/dev-security-policy/c/0R3XLJL6FuE)). [Apple](https://support.apple.com/en-us/149555) says it has blocked them since 2026-10-19 in Safari, Mail and apps using its networking frameworks. An incident [write-up site](https://emudhra.we-have-a-problem.com/) published by Dennis Jackson, who also speaks for Mozilla in its forum thread, says Microsoft platforms have blocked them since 2026-10-20; we have not found a Microsoft statement. eMudhra revoked all eight on 2026-10-18 and Sectigo revoked its cross-signs afterwards{% include cite.html n=2 %}.
+Mozilla blocked the certificates in Firefox through OneCRL on 2026-10-17, and the Chrome Root Program blocked all six TLS intermediates by key through CRLSets the same day, which also covers Sectigo's cross-signed copies ([dev-security-policy](https://groups.google.com/a/mozilla.org/g/dev-security-policy/c/0R3XLJL6FuE)). [Apple](https://support.apple.com/en-us/149555) says it has blocked them since 2026-10-19 in Safari, Mail and apps using its networking frameworks. An incident [write-up site](https://emudhra.we-have-a-problem.com/) published by Dennis Jackson says Microsoft platforms have blocked them since 2026-10-20; we have not found a Microsoft statement. eMudhra revoked all eight on 2026-10-18 and Sectigo revoked its cross-signs afterwards{% include cite.html n=2 %}.
 
 ## Who is not
 
