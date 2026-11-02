@@ -47,7 +47,7 @@ The [Opus 5.5 migration guide](https://docs.claude.com/en/docs/models/opus-5-5/m
 - Set `effort` explicitly. The default is `medium`, while Opus 4.8 defaults to `high`{% include cite.html n=3 %}.
 - Plan Priority Tier capacity separately, because Opus 5.5 doesn't support Priority Tier{% include cite.html n=3 %}.
 
-The guide says Managed Agents users need to change only the model name{% include cite.html n=3 %}. Falling back from fast to standard speed causes a prompt cache miss{% include cite.html n=2 %}.
+Falling back from fast to standard speed causes a prompt cache miss{% include cite.html n=2 %}.
 
 ## What we don't know
 
