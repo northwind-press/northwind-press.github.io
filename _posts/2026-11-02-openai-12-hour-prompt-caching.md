@@ -5,7 +5,7 @@ description: "On GPT-5.6 and later, set prompt_cache_options.ttl to \"12h\" for 
 categories: [ai]
 subsection: applied
 kind: news
-date: 2026-11-02 22:38
+date: 2026-11-02 22:43
 sources:
   - title: "Changelog"
     url: https://platform.openai.com/docs/changelog
