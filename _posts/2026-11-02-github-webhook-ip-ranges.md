@@ -38,7 +38,7 @@ As of 2026-11-02, the `hooks` field of the [Meta API's live response](https://ap
 
 ## Who is affected
 
-Teams that keep their allowlist current from the Meta API's `hooks` field need do nothing, GitHub says{% include cite.html n=1 %}. Anyone who copied the ranges into a firewall, security group or proxy configuration by hand needs to update it{% include cite.html n=1 %}.
+Teams that keep their allowlist current from the Meta API's `hooks` field need do nothing, GitHub says{% include cite.html n=1 %}. Anyone who maintains a static allowlist for incoming webhook deliveries needs to add the new prefixes{% include cite.html n=1 %}.
 
 ## What to do
 
