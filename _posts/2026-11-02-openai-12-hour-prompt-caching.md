@@ -49,8 +49,10 @@ As of 2026-11-02, OpenAI's [price list](https://platform.openai.com/docs/pricing
 
 ## When 12 hours pays off (our calculation)
 
-The guide advises comparing the higher 12-hour write rate with the cost of rewriting the prefix after 30-minute coverage expires{% include cite.html n=2 %}. Our method: take one prefix, fully reused, sent k times within 12 hours, with each gap long enough that a 30-minute entry has expired. With 30-minute caching, every request is a write: 1.25 × k. With 12-hour caching, it's one write and then reads: 2.5 + 0.1 × (k − 1). The two are equal at k ≈ 2.1. Two requests cost slightly less on 30 minutes (2.5x against 2.6x the input price), and from three requests the 12-hour option is cheaper. At the 0.05x read rate the crossover is also just over two. This counts input cost only, and assumes no extra misses.
+Our method: take one prefix, fully reused, sent k times within 12 hours, with each gap long enough that a 30-minute entry has expired. With 30-minute caching, every request is a write: 1.25 × k. With 12-hour caching, it's one write and then reads: 2.5 + 0.1 × (k − 1). The two are equal at k ≈ 2.1. Two requests cost slightly less on 30 minutes (2.5x against 2.6x the input price), and from three requests the 12-hour option is cheaper. At the 0.05x read rate the crossover is also just over two. This counts input cost only, and assumes no extra misses.
 
 ## What's unclear
 
 The guide doesn't say whether a read under a `"12h"` request restarts the 12-hour clock. It does say a 30-minute read on a 12-hour entry doesn't{% include cite.html n=2 %}.
+
+For how caching works on OpenAI and Anthropic, and why expected hits miss, see our explainer "Prompt caching on Anthropic and OpenAI", published 2026-11-02 in Applied AI.
