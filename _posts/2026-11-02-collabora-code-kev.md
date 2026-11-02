@@ -45,7 +45,7 @@ Collabora rates the flaw Critical, with a CVSS 4.0 score of 9.2 (per Collabora's
 ## What to do
 
 - **Upgrade the app to 26.4.303 or later.** Collabora fixed the bug in that release{% include cite.html n=2 %}. As of 2026-11-02, the [Nextcloud App Store](https://apps.nextcloud.com/apps/richdocumentscode) offers 26.4.502 for Nextcloud 30 through 35.
-- **On Nextcloud 29 or older, upgrade Nextcloud or remove the app.** The newest app release the store lists for Nextcloud 25 to 29 is 26.4.104, which is below the fixed version{% include cite.html n=5 %}. Collabora's advice for these end-of-life versions is to upgrade Nextcloud or remove the app{% include cite.html n=2 %}.
+- **On Nextcloud 29 or older, upgrade Nextcloud or remove the app.** The newest app release the store lists for Nextcloud 25 through 29 is 26.4.104, which is below the fixed version{% include cite.html n=5 %}. Collabora's advice for these end-of-life versions is to upgrade Nextcloud or remove the app{% include cite.html n=2 %}.
 - **Don't rely on disabling the app.** Collabora says disabling it is not enough; it must be upgraded or removed{% include cite.html n=2 %}.
 - **Check for compromise.** CISA flags the entry for forensic triage under Binding Operational Directive 26-04, and set a remediation due date of 2026-10-26{% include cite.html n=1 %}. Because commands run as the web server user, we suggest reviewing the Nextcloud installation for files you did not put there, and the credentials that user can read.
 
