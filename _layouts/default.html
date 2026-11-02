@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#fbfaf6" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#15181c" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="{{ '/favicon.svg' | relative_url }}" type="image/svg+xml">
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
   {% seo %}
   {% feed_meta %}
@@ -29,7 +30,7 @@
   <footer class="site-footer">
     <div class="wrap">
       <p><span class="footer-mark">{{ site.title }}</span>: every claim sourced; every correction published.</p>
-      <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }} · <a href="{{ '/corrections/' | relative_url }}">Corrections</a> · <a href="{{ '/feed.xml' | relative_url }}">RSS feed</a></p>
+      <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }} · <a href="{{ '/corrections/' | relative_url }}">Corrections</a> · <span class="nowrap"><a href="{{ '/feed.xml' | relative_url }}">RSS feed</a></span></p>
     </div>
   </footer>
 </body>

@@ -3,11 +3,11 @@ layout: default
 ---
 <article class="post">
   <header class="post-header">
-    <h1>{{ page.title }}</h1>
-    {% if page.description %}<p class="dek">{{ page.description }}</p>{% endif %}
+    <h1>{{ page.title | smartify }}</h1>
+    {% if page.description %}<p class="dek">{{ page.description | smartify }}</p>{% endif %}
     <p class="meta">
       By <span class="byline">{{ page.author | default: 'Northwind Press' }}</span> ·
-      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%-d %B %Y' }}</time>{% if page.sources and page.sources.size > 0 %} · {{ page.sources.size }} source{% if page.sources.size != 1 %}s{% endif %}{% endif %}
+      <span class="nowrap"><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%-d %B %Y' }}</time></span>{% if page.sources and page.sources.size > 0 %} · <span class="nowrap">{{ page.sources.size }} source{% if page.sources.size != 1 %}s{% endif %}</span>{% endif %}
     </p>
     {% if page.corrections and page.corrections.size > 0 %}
     <aside class="correction" aria-labelledby="corrections-heading">
@@ -30,7 +30,7 @@ layout: default
     <h2 id="sources-heading">Sources</h2>
     <ol>
       {% for s in page.sources %}
-      <li id="source-{{ forloop.index }}"><a href="{{ s.url }}">{{ s.title }}</a>{% if s.publisher %}, {{ s.publisher }}{% endif %}{% if s.date %} ({{ s.date }}){% endif %}.{% if s.accessed %} Accessed {{ s.accessed }}.{% endif %}</li>
+      <li id="source-{{ forloop.index }}"><a href="{{ s.url }}">{{ s.title }}</a>{% if s.publisher %}, {{ s.publisher }}{% endif %}{% if s.date %}{% assign raw_date = s.date | append: '' %}{% assign iso_date = s.date | date: '%Y-%m-%d' %} ({% if iso_date == raw_date %}<span class="nowrap">{{ s.date | date: '%-d %B %Y' }}</span>{% else %}{{ s.date }}{% endif %}){% endif %}.{% if s.accessed %} Accessed <span class="nowrap">{{ s.accessed | date: '%-d %B %Y' }}</span>.{% endif %}</li>
       {% endfor %}
     </ol>
   </section>

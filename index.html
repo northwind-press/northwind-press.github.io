@@ -10,11 +10,11 @@ title: Articles
 <ul class="post-list">
   {% for post in site.posts %}
   <li>
-    <p class="kicker label"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%-d %B %Y' }}</time></p>
-    <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+    <p class="kicker label"><span class="nowrap"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%-d %B %Y' }}</time></span></p>
+    <h2><a href="{{ post.url | relative_url }}">{{ post.title | smartify }}</a></h2>
     {% assign summary = post.description | default: post.summary %}
-    {% if summary %}<p class="summary">{{ summary }}</p>{% endif %}
-    <p class="meta">By <span class="byline">{{ post.author | default: 'Northwind Press' }}</span>{% if post.sources and post.sources.size > 0 %} · {{ post.sources.size }} source{% if post.sources.size != 1 %}s{% endif %}{% endif %}{% if post.corrections and post.corrections.size > 0 %} · <span class="tag">Corrected</span>{% endif %}</p>
+    {% if summary %}<p class="summary">{{ summary | smartify }}</p>{% endif %}
+    <p class="meta">By <span class="byline">{{ post.author | default: 'Northwind Press' }}</span>{% if post.sources and post.sources.size > 0 %} · <span class="nowrap">{{ post.sources.size }} source{% if post.sources.size != 1 %}s{% endif %}</span>{% endif %}{% if post.corrections and post.corrections.size > 0 %} · <span class="tag">Corrected</span>{% endif %}</p>
   </li>
   {% endfor %}
 </ul>
