@@ -51,5 +51,5 @@
       <source src="{{ au_url }}"{% if au_type %} type="{{ au_type }}"{% endif %}>
       <p>Your browser can’t play this audio. <a href="{{ au_url }}">Download it</a> instead.</p>
     </audio>
-    <p class="audio-links"><a href="{{ au_url }}" download>Download audio{% if au_format != '' and au_format.size <= 4 %} ({{ au_format }}){% endif %}</a> · <a href="#article-text">Transcript: read the article text</a></p>
+    <p class="audio-links"><a href="{{ au_url }}" download>Download audio{% if au_format != '' and au_format.size <= 4 %} ({{ au_format }}){% endif %}</a><span class="nowrap"> · <a href="#article-text">Transcript: read the article text</a></span></p>
   </section>
