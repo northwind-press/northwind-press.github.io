@@ -31,6 +31,10 @@ cases = {
   "marker after closing quote is fine" => [true, GOOD.sub("Entries last five minutes{% include cite.html n=1 %}.", "It says “entries last five minutes”{% include cite.html n=1 %}."), false],
   "two markers same source one sentence" => [false, GOOD.sub("Entries last five minutes{% include cite.html n=1 %}.", "Entries last{% include cite.html n=1 %} five minutes{% include cite.html n=1 %}."), false],
   "text changed vs old" => [false, GOOD.sub("five minutes", "ten minutes"), true],
+  "quoted sentences each with a marker" => [true, GOOD + "\nIt says “A is true.”{% include cite.html n=1 %} “B is true.”{% include cite.html n=1 %}\n", false],
+  "straight-quoted sentences each with a marker" => [true, GOOD + "\nIt says \"A is true.\"{% include cite.html n=1 %} \"B is true.\"{% include cite.html n=1 %}\n", false],
+  "list items each with a marker" => [true, GOOD + "\n- **One.** A holds{% include cite.html n=1 %}.\n- **Two.** B holds{% include cite.html n=1 %}.\n", false],
+  "sentence starting with code" => [true, GOOD + "\nA holds{% include cite.html n=1 %}. `x` also holds{% include cite.html n=1 %}.\n", false],
   "markers in code are ignored" => [true, GOOD + "\n```\n{% include cite.html n=9 %}\n```\n", false],
 }
 File.write("#{dir}/old.md", OLD)

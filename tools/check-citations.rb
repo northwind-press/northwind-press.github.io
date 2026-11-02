@@ -28,7 +28,7 @@ end
 # Body with fenced code blocks and inline code blanked out (same length), so they're never checked.
 def prose(body)
   b = body.gsub(/^(```|~~~).*?^\1[^\n]*$/m) { |c| c.gsub(/[^\n]/, " ") }
-  b.gsub(/`[^`\n]*`/) { |c| " " * c.size }
+  b.gsub(/`[^`\n]*`/) { |c| "C" * c.size } # letters, not spaces, so a sentence can start with code
 end
 
 def plain(body)
@@ -90,7 +90,11 @@ text.split(/\n\s*\n/).each do |para|
     warns << "marker in a heading: #{para.strip[0, 60]}" if para =~ CITE
     next
   end
-  para.split(/(?<=[.!?])(?:\{%[^%]*%\})*\s+(?=["“(\[*_A-Z0-9])/).each { |s| sentences << s }
+  # Each line of a list is its own unit; within a line, split after . ! ? (optionally followed by a
+  # closing quote/bracket and markers) before whitespace and a capital, digit, quote or markup.
+  para.split(/\n(?=\s*(?:[-*+]|\d+\.)\s)/).each do |item|
+    item.split(/(?:(?<=[.!?])|(?<=[.!?]["”’)]))(?:\{%[^%]*%\})*\s+(?=["“(\[*_A-Z0-9`]|\{%)/).each { |s| sentences << s }
+  end
 end
 sentences.each do |s|
   ns = s.scan(CITE).flatten
