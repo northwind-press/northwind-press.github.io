@@ -21,7 +21,7 @@ layout: default
   </header>
   {%- if front_lead %}
   <div class="section-front">
-    {% include lead-story.html post=front_lead %}
+    {% include story.html post=front_lead variant="lead" %}
     {%- if front_river.size > 0 %}
     <section class="river" aria-labelledby="sec-latest-h">
       <h2 class="block-heading" id="sec-latest-h">Latest in {{ section_name }}</h2>

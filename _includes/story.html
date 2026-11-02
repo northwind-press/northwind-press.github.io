@@ -1,0 +1,37 @@
+{%- comment -%}
+  One story on a front (home or section page). Contract: wiki design/front.md.
+  Usage: {% include story.html post=front_lead variant="lead" %}
+         {% include story.html post=p variant="top" %}        (an li, inside ul.top-stories)
+         {% include story.html post=p variant="compact" %}    (an li, inside ul.section-block__list)
+  variant: lead (article, h2, dek, full meta) | top (li, h3, dek) | compact (li, h3, no dek).
+  heading: optional override of the heading level (h2/h3).
+  top and compact show p.meta only to carry the Corrected tag, so a correction is never hidden.
+{%- endcomment -%}
+{%- assign st = include.post -%}
+{%- assign st_variant = include.variant | default: 'top' -%}
+{%- if st_variant == 'lead' -%}
+  {%- assign st_tag = 'article' -%}{%- assign st_h = include.heading | default: 'h2' -%}
+{%- else -%}
+  {%- assign st_tag = 'li' -%}{%- assign st_h = include.heading | default: 'h3' -%}
+{%- endif -%}
+{%- assign st_kind = site.data.kinds | where: 'slug', st.kind | first -%}
+{%- include section-of.html post=st -%}
+{%- assign st_corrected = false -%}
+{%- if st.corrections and st.corrections.size > 0 -%}{%- assign st_corrected = true -%}{%- endif -%}
+<{{ st_tag }} class="story story--{{ st_variant }}"{% if so_section %} data-section="{{ so_section.slug }}"{% endif %}>
+  <p class="post-card__kicker">
+    {%- if st_kind %}<span class="badge badge--{{ st_kind.slug }}">{{ st_kind.label }}</span> {% endif -%}
+    {%- if so_section %}<a href="{{ so_section.url | relative_url }}">{{ so_section.title }}</a> {% endif -%}
+    {%- if so_sub %}<a href="{{ so_sub.url | relative_url }}">{{ so_sub.title }}</a> {% endif -%}
+    <time datetime="{{ st.date | date_to_xmlschema }}">{{ st.date | date: '%-d %B %Y' }}{% if st.kind == 'news' %}, {{ st.date | date: '%H:%M' }} UTC{% endif %}</time>
+  </p>
+  <{{ st_h }} class="story__title"><a href="{{ st.url | relative_url }}">{{ st.title | smartify }}</a></{{ st_h }}>
+  {%- if st_variant != 'compact' and st.description %}
+  <p class="story__dek">{{ st.description | smartify }}</p>
+  {%- endif %}
+  {%- if st_variant == 'lead' %}
+  <p class="meta">By <span class="byline">{{ st.author | default: 'Northwind Press' }}</span>{% if st.sources and st.sources.size > 0 %} · <span class="nowrap">{{ st.sources.size }} source{% if st.sources.size != 1 %}s{% endif %}</span>{% endif %}{% if st_corrected %} · <span class="tag">Corrected</span>{% endif %}</p>
+  {%- elsif st_corrected %}
+  <p class="meta"><span class="tag">Corrected</span></p>
+  {%- endif %}
+</{{ st_tag }}>

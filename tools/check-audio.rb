@@ -28,6 +28,27 @@ def git(repo, *a)
   out = IO.popen(["git", "-C", repo, *a], err: File::NULL, &:read)
   [out, $?.success?]
 end
+# The post as narrated: drop the audio: block and the publication metadata that may change after text
+# approval without re-narration (date:, placement:; handoff v12/v13). Top-level keys only: a source's
+# indented `date:` is unaffected.
+def narration_view(src)
+  s = src.to_s.sub(/\A(---\n.*?)^audio:\n(?:[ \t]+[^\n]*\n)*(.*?^---\n)/m) { "#{$1}#{$2}" }
+  fm_end = s.index("\n---\n", 4)
+  return s unless s.start_with?("---\n") && fm_end
+  s[0...fm_end].lines.reject { |l| l =~ /\A(date|placement):/ }.join + s[fm_end..]
+end
+
+# The post at REV: the same path, or, after a publish-time rename (date reset at merge), the file with the
+# same slug.
+def post_at(repo, rev, path)
+  out, ok = git(repo, "show", "#{rev}:#{path}")
+  return out if ok
+  slug = File.basename(path).sub(/\A\d{4}-\d\d-\d\d-/, "")
+  list, = git(repo, "ls-tree", "--name-only", "#{rev}:_posts")
+  cand = list.to_s.split("\n").find { |f| f.sub(/\A\d{4}-\d\d-\d\d-/, "") == slug }
+  cand ? git(repo, "show", "#{rev}:_posts/#{cand}")[0] : nil
+end
+
 full = ->(rev) { o, ok = git(repo, "rev-parse", "--verify", "#{rev}^{commit}"); ok ? o.strip : nil }
 
 fails = []
@@ -55,8 +76,7 @@ if t && a
     on_main = mref && git(repo, "merge-base", "--is-ancestor", p_sha, mref)[1]
     has_text = git(repo, "merge-base", "--is-ancestor", t, p_sha)[1]
     # Ignore an existing audio: block, so a re-record on top of an earlier audio commit is allowed.
-    no_audio = ->(s) { s.to_s.sub(/\A(---\n.*?)^audio:\n(?:[ \t]+[^\n]*\n)*(.*?^---\n)/m) { "#{$1}#{$2}" } }
-    same_post = no_audio.(git(repo, "show", "#{p_sha}:#{path}")[0]) == no_audio.(git(repo, "show", "#{t}:#{path}")[0])
+    same_post = narration_view(post_at(repo, p_sha, path)) == narration_view(post_at(repo, t, path))
     if on_main && has_text && same_post
       puts "after-publication flow: audio commit sits on #{main_ref} commit #{p_sha[0, 7]}; post unchanged since text sha #{t[0, 7]}"
     else
@@ -76,9 +96,7 @@ if t && a
   if mref_now
     live, live_ok = git(repo, "show", "#{mref_now}:#{path}")
     if live_ok
-      text_post, = git(repo, "show", "#{t}:#{path}")
-      strip_block = ->(s) { s.to_s.sub(/\A(---\n.*?)^audio:\n(?:[ \t]+[^\n]*\n)*(.*?^---\n)/m) { "#{$1}#{$2}" } }
-      if strip_block.(live) != strip_block.(text_post)
+      if narration_view(live) != narration_view(post_at(repo, t, path))
         fails << "the post on #{main_ref} (#{mref_now[0, 7]}) differs from the narrated text #{t[0, 7]}: merging would attach audio of an older or different text"
       else
         puts "live post on #{main_ref} #{mref_now[0, 7]} matches the narrated text"

@@ -1,6 +1,6 @@
 # Article hand-off: editorial → web
 
-Mirror of the editor's wiki `engineering/article-handoff.md` (v12, 2026-11-02). If they differ, the wiki's
+Mirror of the editor's wiki `engineering/article-handoff.md` (v13, 2026-11-02). If they differ, the wiki's
 editorial rules win; tell tech-lead so this file can be updated. Editorial standards: wiki standards/style.md.
 
 ## Steps
@@ -98,7 +98,9 @@ and `tools/check-citations.rb` rejects anything else.
   `date: 2026-11-03 14:05`. The definitions of each kind are in **standards/style.md §1** (standards-editor
   owns them).
 - **`placement:`** (optional) lets editors steer the front page. Leave it out and the newest stories fill
-  the slots automatically.
+  the slots automatically. **Who sets it** (handoff v13): the editor in chief picks the lead at the morning
+  meeting; desks propose top stories; production-editor sets the field at merge, or later in a
+  placement-only commit, with no re-approval. `placement:` and `date:` changes never trip check-audio.
   - `lead`: the newest `lead` story is the home page's lead, and its section page's lead. Use it for the
     day's most important story; a newer `lead` replaces an older one automatically.
   - `top`: a candidate for the 3–4 top stories beside the lead. Any empty slots fill with the newest
