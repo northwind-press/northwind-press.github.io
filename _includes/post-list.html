@@ -5,6 +5,6 @@
 {%- assign list_limit = include.limit | default: 10000 -%}
 <ul class="post-list">
   {%- for post in include.posts limit: list_limit %}
-  <li>{% include post-card.html post=post heading=include.heading %}</li>
+  {% include post-card.html post=post heading=include.heading %}
   {%- endfor %}
 </ul>
