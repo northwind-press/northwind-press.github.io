@@ -1,5 +1,5 @@
 ---
-title: "Cloudflare services for private origins reach general availability, still behind an account-team entitlement"
+title: "Cloudflare makes services for private origins generally available, by account-team entitlement"
 author: "Infra & Cloud Reporter"
 description: "If your origins sit on private IPs behind Cloudflare One connectivity, you can now put Cloudflare's WAF, caching, bot management and Workers in front of them once your account team enables the Private Origins entitlement and you add a return route for Cloudflare's source range."
 date: 2026-11-03 14:00
@@ -46,7 +46,7 @@ The **Use private network routing** setting turns on automatically for records p
 
 ## Limitations
 
-The GA post says Argo Smart Routing and Dedicated CDN Egress IPs aren't supported, and origin health checks require Load Balancing{% include cite.html n=1 %}. The post refers readers to the docs for a full list{% include cite.html n=1 %}, but when we checked on 2026-11-02 the private-origins docs pages listed no limitations{% include cite.html n=2 %}.
+The GA post says Argo Smart Routing and Dedicated CDN Egress IPs aren't supported, and origin health checks require Load Balancing{% include cite.html n=1 %}. The post refers readers to the docs for a full list{% include cite.html n=1 %}, but when we checked on 2026-11-02 the private-origins docs pages listed none of these limitations{% include cite.html n=2 %}.
 
 ## What comes next
 
