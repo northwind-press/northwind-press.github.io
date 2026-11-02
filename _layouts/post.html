@@ -22,7 +22,12 @@ layout: default
   </header>
 
   <div class="post-body">
-  {{ content | replace: '<table>', '<div class="table-wrap" role="region" aria-label="Table" tabindex="0"><table>' | replace: '</table>', '</table></div>' }}
+  {%- comment -%}
+    Markers never sit inside a quotation (HANDOFF rule), so a quote mark directly before a marker is
+    always a closing one. kramdown's smart quotes turn a straight quote between a code span and a
+    cite marker into an opening quote; flip it back (entity and literal forms).
+  {%- endcomment -%}
+  {{ content | replace: '<table>', '<div class="table-wrap" role="region" aria-label="Table" tabindex="0"><table>' | replace: '</table>', '</table></div>' | replace: '&ldquo;<sup class="cite">', '&rdquo;<sup class="cite">' | replace: '“<sup class="cite">', '”<sup class="cite">' | replace: '&lsquo;<sup class="cite">', '&rsquo;<sup class="cite">' | replace: '‘<sup class="cite">', '’<sup class="cite">' }}
   </div>
 
   {% if page.sources and page.sources.size > 0 %}
