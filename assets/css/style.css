@@ -15,6 +15,7 @@
   --note-label: #8a4500;
   --code-bg: #f2f0ea;
   --focus: #0a5878;
+  --scroll-shadow: rgb(0 0 0 / 0.18); /* table scroll cue */
 
   /* Type */
   --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, "Iowan Old Style", Georgia, serif;
@@ -45,6 +46,7 @@
     --note-label: #e3a14f;
     --code-bg: #1e2227;
     --focus: #7cc3e0;
+    --scroll-shadow: rgb(124 195 224 / 0.35); /* faint --link blue; black is invisible on the dark bg */
   }
 }
 
@@ -97,8 +99,8 @@ table { border-collapse: collapse; font-family: var(--sans); font-size: 0.95rem;
   background:
     linear-gradient(to right, var(--bg) 30%, transparent) left / 2rem 100% no-repeat local,
     linear-gradient(to left, var(--bg) 30%, transparent) right / 2rem 100% no-repeat local,
-    radial-gradient(farthest-side at 0 50%, rgb(0 0 0 / 0.18), transparent) left / 0.75rem 100% no-repeat scroll,
-    radial-gradient(farthest-side at 100% 50%, rgb(0 0 0 / 0.18), transparent) right / 0.75rem 100% no-repeat scroll;
+    radial-gradient(farthest-side at 0 50%, var(--scroll-shadow), transparent) left / 0.75rem 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, var(--scroll-shadow), transparent) right / 0.75rem 100% no-repeat scroll;
 }
 .table-wrap:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 2px; }
 .table-wrap > table { margin: 0; }
@@ -179,13 +181,13 @@ nav a[aria-current="page"] { font-weight: 600; box-shadow: inset 0 -2px 0 var(--
 /* Numbered citations ({% include cite.html n=N %}): small, quiet, but a real link.
    The visible glyph stays small; an invisible ::after enlarges the tap/click area to ~24px
    (WCAG 2.5.8) without changing line spacing. Focus uses the global 3px ring. */
-.cite { font-family: var(--sans); font-size: 0.68em; line-height: 0; vertical-align: super; font-variant-numeric: tabular-nums; margin-left: 0.1em; }
+.cite { font-family: var(--sans); font-size: 0.68em; line-height: 0; vertical-align: super; font-variant-numeric: tabular-nums; margin-left: 3px; }
 /* Separator between back-to-back markers, inserted by _layouts/post.html (never between markers with
    text in between). Its width keeps the two numbers' centres >= 24px apart, so their 24px tap areas
    don't overlap (WCAG 2.5.8). */
 .cite-sep { font-family: var(--sans); font-size: 0.68em; line-height: 0; vertical-align: super; color: var(--muted); padding: 0 0.5em; }
 .cite-sep + .cite { margin-left: 0; }
-.post-body .cite a:focus-visible { outline-offset: 1px; }
+.post-body .cite a:focus-visible { outline-width: 2px; outline-offset: 0; } /* clears a closing quote before the number */
 .post-body .cite a { position: relative; color: var(--link); text-decoration: none; font-weight: 600; padding: 0 0.08em; border-radius: 2px; }
 .post-body .cite a::after { content: ""; position: absolute; left: 50%; top: 50%; width: max(100%, 24px); height: 24px; transform: translate(-50%, -50%); }
 .post-body .cite a:hover { text-decoration: underline; text-decoration-thickness: 1px; }
