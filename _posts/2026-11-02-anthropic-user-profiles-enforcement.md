@@ -5,7 +5,7 @@ description: "If you resell Claude API access or run a platform on it, tag each 
 categories: [ai]
 subsection: applied
 kind: news
-date: 2026-11-02 22:37
+date: 2026-11-02 22:43
 sources:
   - title: "Claude Platform release notes"
     url: https://docs.claude.com/en/release-notes/api
