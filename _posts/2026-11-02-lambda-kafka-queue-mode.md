@@ -4,7 +4,7 @@ author: "Infra & Cloud Reporter"
 description: "If your self-managed Kafka brokers run 4.2 or later and your Lambda consumers don't need ordering, set ConsumptionMode to Queue to scale past the topic's partition count."
 categories: [infra]
 kind: news
-date: 2026-11-02 22:41
+date: 2026-11-02 22:49
 sources:
   - title: "AWS Lambda now supports queues for Apache Kafka in self-managed Kafka event sources"
     url: https://aws.amazon.com/about-aws/whats-new/2026/11/aws-lambda-queue-kafka-esm/
