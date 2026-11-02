@@ -7,7 +7,8 @@
           top (number of top stories, default 4).
   Sets (global assigns, read them right after the include):
     front_pool  all posts in scope, newest first
-    front_lead  newest placement: lead post in scope, else the newest post in scope (nil if none)
+    front_lead  newest placement: lead post in scope; else the newest post without placement: top;
+                else (every post is top) the newest post; nil if the scope is empty
     front_top   up to `top` posts, excluding the lead: newest placement: top posts first,
                 then the newest other posts
     front_river all posts in scope except the lead, newest first (top stories stay in it:
@@ -24,6 +25,10 @@
   {%- endif -%}
 {%- endif -%}
 {%- assign front_lead = front_pool | where: 'placement', 'lead' | first -%}
+{%- comment -%} Desks only propose top; a top story doesn't become the lead just by being newest. {%- endcomment -%}
+{%- unless front_lead -%}
+  {%- assign front_lead = front_pool | where_exp: 'p', "p.placement != 'top'" | first -%}
+{%- endunless -%}
 {%- unless front_lead -%}
   {%- assign front_lead = front_pool | first -%}
 {%- endunless -%}
