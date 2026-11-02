@@ -55,7 +55,7 @@ In our view, batches fit work where nobody is waiting on the answer, such as eva
 
 **Limits.** Batch rate limits are shared across all models: [1,000 requests per minute](https://docs.claude.com/en/api/rate-limits) to the batch endpoints, 200,000 batch requests in the processing queue, and 100,000 requests per batch{% include cite.html n=3 %}. Batches are scoped to a Workspace and "may go slightly over the spend limit" set for it{% include cite.html n=1 %}.
 
-**Prices.** Per million tokens, standard and batch, as of 2026-11-02 (standard: [source](https://docs.claude.com/en/docs/build-with-claude/prompt-caching){% include cite.html n=2 %}; batch: source{% include cite.html n=1 %}):
+**Prices.** Per million tokens, [standard](https://docs.claude.com/en/docs/build-with-claude/prompt-caching){% include cite.html n=2 %} and batch{% include cite.html n=1 %}, as of 2026-11-02:
 
 | Model | Standard in / out | Batch in / out |
 |---|---|---|
