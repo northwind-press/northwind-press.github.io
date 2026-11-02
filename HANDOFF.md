@@ -199,6 +199,9 @@ audio:
 - `check-citations.rb REV PATH --against OLD_REV` also confirms the visible text is unchanged
   apart from removed link markup and added markers.
 - `check-link-revision.rb OLD NEW PATH` is for link-only revisions.
+- `check-audio.rb --live _posts/FILE.md` answers "is this live post's audio still valid?" after any change to
+  a post with audio. It compares only what's narrated (title + body) on main with its `narrated_from`. Use
+  it, not the merge gate, after front-matter cleanups or corrections.
 - `check-audio.rb TEXT_SHA AUDIO_SHA PATH --branch REF` is the audio merge gate ("Adding audio" C). It passes, as not applicable, on posts without `audio:`.
 
 ## Corrections

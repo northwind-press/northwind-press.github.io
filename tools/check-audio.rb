@@ -21,8 +21,9 @@ opt = ->(name) { i = args.index(name); i ? args.slice!(i, 2)[1] : nil }
 branch = opt.("--branch")
 main_ref = opt.("--main") || "origin/main"
 repo = opt.("--repo") || "."
+live_path = (i = args.index("--live")) ? args.slice!(i, 2)[1] : nil
 text_sha, audio_sha, path = args
-abort "usage: TEXT_SHA AUDIO_SHA PATH [--branch REF] [--repo DIR]" unless path
+abort "usage: TEXT_SHA AUDIO_SHA PATH [--branch REF] [--main REF] [--repo DIR]\n   or: --live _posts/FILE.md [--main REF]  (is the live post's audio still valid?)" unless path || live_path
 
 def git(repo, *a)
   out = IO.popen(["git", "-C", repo, *a], err: File::NULL, &:read)
@@ -32,10 +33,13 @@ end
 # approval without re-narration (date:, placement:; handoff v12/v13). Top-level keys only: a source's
 # indented `date:` is unaffected.
 def narration_view(src)
-  s = src.to_s.sub(/\A(---\n.*?)^audio:\n(?:[ \t]+[^\n]*\n)*(.*?^---\n)/m) { "#{$1}#{$2}" }
-  fm_end = s.index("\n---\n", 4)
-  return s unless s.start_with?("---\n") && fm_end
-  s[0...fm_end].lines.reject { |l| l =~ /\A(date|placement|subsection):/ }.join + s[fm_end..]
+  # Only the title and body are narrated (handoff "What is narrated"), so they're all that must match.
+  # Other front matter (date, placement, categories, kind, description, sources, audio...) can change
+  # without making the narration wrong.
+  m = src.to_s.match(/\A---\n(.*?)\n---\n(.*)\z/m)
+  return src.to_s unless m
+  title = (YAML.safe_load(m[1], [Date, Time]) || {})["title"].to_s
+  "title: #{title}\n---\n#{m[2]}"
 end
 
 # The post at REV: the same path, or, after a publish-time rename (date reset at merge), the file with the
@@ -50,6 +54,28 @@ def post_at(repo, rev, path)
 end
 
 full = ->(rev) { o, ok = git(repo, "rev-parse", "--verify", "#{rev}^{commit}"); ok ? o.strip : nil }
+
+# --live: is a published post's audio still valid? Compares the narrated parts (title + body) of the post
+# on main with the post at its audio.narrated_from. Use after any front-matter or text change to a post with
+# audio. It isn't a merge gate: it checks no commit structure.
+if live_path
+  mref = full.(main_ref) or abort "#{main_ref} not found (git fetch first)"
+  live = post_at(repo, mref, live_path) or abort "#{live_path} not found on #{main_ref}"
+  fm = YAML.safe_load(live[/\A---\n(.*?)\n---\n/m, 1].to_s, [Date, Time]) || {}
+  au = fm["audio"]
+  unless au.is_a?(Hash) && au["narrated_from"]
+    puts "No audio: block with narrated_from in #{live_path}; nothing to check."
+    exit 0
+  end
+  nf = full.(au["narrated_from"].to_s) or abort "narrated_from #{au['narrated_from']} not found"
+  narrated = post_at(repo, nf, live_path)
+  if narrated && narration_view(narrated) == narration_view(live)
+    puts "OK: audio still matches. Title and body on #{main_ref} (#{mref[0, 7]}) are identical to narrated_from #{nf[0, 7]}."
+    exit 0
+  end
+  puts "NOT OK: the title or body on #{main_ref} (#{mref[0, 7]}) differs from narrated_from #{nf[0, 7]}. Re-record, or add an audio_note (handoff: Audio → Corrections)."
+  exit 1
+end
 
 fails = []
 warns = []
