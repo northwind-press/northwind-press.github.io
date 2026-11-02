@@ -13,7 +13,7 @@ layout: default
 {%- if page.subsection and page.subsection != '' and page.subsection != 'none' -%}{%- assign on_subsection = true -%}{%- endif -%}
 <div class="section-page" data-section="{{ page.section }}">
   <header class="section-intro">
-    <h1>{{ section_name }}</h1>
+    <h1>{{ section_name | escape }}</h1>
     {% if page.intro %}<p>{{ page.intro }}</p>{% endif %}
     <p class="section-links"><a href="{{ section_feed | relative_url }}">RSS feed</a>
       {%- unless on_subsection %}{% for sub in section_data.subsections %} · <a href="{{ sub.url | relative_url }}">{{ sub.title }}</a>{% endfor %}{% endunless -%}

@@ -4,6 +4,7 @@ dir = Dir.mktmpdir
 FM = <<~Y
   ---
   title: "T"
+  author: "AI Reporter"
   description: "D"
   categories: [ai]
   subsection: applied
@@ -49,6 +50,8 @@ cases = {
   "unknown kind" => [false, GOOD.sub("kind: feature", "kind: opinion"), false],
   "news without a time" => [false, GOOD.sub("kind: feature", "kind: news\ndate: 2026-11-01"), false],
   "news with a time" => [true, GOOD.sub("kind: feature", "kind: news\ndate: 2026-11-01 14:05"), false],
+  "missing author" => [false, GOOD.sub("author: \"AI Reporter\"\n", ""), false],
+  "empty author" => [false, GOOD.sub("author: \"AI Reporter\"", "author: \"\""), false],
   "placement lead" => [true, GOOD.sub("kind: feature", "kind: feature\nplacement: lead"), false],
   "placement invalid" => [false, GOOD.sub("kind: feature", "kind: feature\nplacement: hero"), false],
   "markers in code are ignored" => [true, GOOD + "\n```\n{% include cite.html n=9 %}\n```\n", false],

@@ -9,13 +9,13 @@ layout: default
     <p class="post-kicker"{% if so_section %} data-section="{{ so_section.slug }}"{% endif %}>
       {%- comment -%} No text separator between section links: the CSS draws "›" (a + a::before). {%- endcomment -%}
       {%- if post_kind %}<span class="badge badge--{{ post_kind.slug }}">{{ post_kind.label }}</span>{% endif -%}
-      {%- if so_section %} <a href="{{ so_section.url | relative_url }}">{{ so_section.title }}</a>{% if so_sub %} <a href="{{ so_sub.url | relative_url }}">{{ so_sub.title }}</a>{% endif %}{% endif -%}
+      {%- if so_section %} <a href="{{ so_section.url | relative_url }}">{{ so_section.title | escape }}</a>{% if so_sub %} <a href="{{ so_sub.url | relative_url }}">{{ so_sub.title | escape }}</a>{% endif %}{% endif -%}
     </p>
     {%- endif %}
     <h1>{{ page.title | smartify }}</h1>
     {% if page.description %}<p class="dek">{{ page.description | smartify }}</p>{% endif %}
     <p class="meta">
-      By <span class="byline">{{ page.author | default: 'Northwind Press' }}</span> ·
+      By <span class="byline">{{ page.author | default: 'Northwind Press' | escape }}</span> ·
       <span class="nowrap"><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%-d %B %Y' }}</time></span>{% if page.sources and page.sources.size > 0 %} · <span class="nowrap">{{ page.sources.size }} source{% if page.sources.size != 1 %}s{% endif %}</span>{% endif %}
     </p>
     {% if page.corrections and page.corrections.size > 0 %}
@@ -44,7 +44,7 @@ layout: default
     <h2 id="sources-heading">Sources</h2>
     <ol>
       {% for s in page.sources %}
-      <li id="source-{{ forloop.index }}"><a href="{{ s.url }}">{{ s.title }}</a>{% if s.publisher %}, {{ s.publisher }}{% endif %}{% if s.date %}{% assign raw_date = s.date | append: '' %}{% assign iso_date = s.date | date: '%Y-%m-%d' %} ({% if iso_date == raw_date %}<span class="nowrap">{{ s.date | date: '%-d %B %Y' }}</span>{% else %}{{ s.date }}{% endif %}){% endif %}.{% if s.accessed %} Accessed <span class="nowrap">{{ s.accessed | date: '%-d %B %Y' }}</span>.{% endif %}{% capture nw_cite_anchor %}id="cite-{{ forloop.index }}"{% endcapture %}{% if content contains nw_cite_anchor %} <a class="cite-back" href="#cite-{{ forloop.index }}" aria-label="Back to where source {{ forloop.index }} is first cited">&#x21A9;&#xFE0E;</a>{% endif %}</li>
+      <li id="source-{{ forloop.index }}"><a href="{{ s.url | escape }}">{{ s.title | escape }}</a>{% if s.publisher %}, {{ s.publisher | escape }}{% endif %}{% if s.date %}{% assign raw_date = s.date | append: '' %}{% assign iso_date = s.date | date: '%Y-%m-%d' %} ({% if iso_date == raw_date %}<span class="nowrap">{{ s.date | date: '%-d %B %Y' }}</span>{% else %}{{ s.date }}{% endif %}){% endif %}.{% if s.accessed %} Accessed <span class="nowrap">{{ s.accessed | date: '%-d %B %Y' }}</span>.{% endif %}{% capture nw_cite_anchor %}id="cite-{{ forloop.index }}"{% endcapture %}{% if content contains nw_cite_anchor %} <a class="cite-back" href="#cite-{{ forloop.index }}" aria-label="Back to where source {{ forloop.index }} is first cited">&#x21A9;&#xFE0E;</a>{% endif %}</li>
       {% endfor %}
     </ol>
   </section>

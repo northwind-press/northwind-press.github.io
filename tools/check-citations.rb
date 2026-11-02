@@ -169,8 +169,15 @@ if File.exist?("#{data_dir}/sections.yml") && File.exist?("#{data_dir}/kinds.yml
   # Style limits (handoff v10). Warnings only: the copy check owns style.
   warns << "title is #{fm['title'].to_s.size} characters; house limit is 90" if fm["title"].to_s.size > 90
   warns << "description is #{fm['description'].to_s.size} characters; house limit is 200" if fm["description"].to_s.size > 200
+  fails << "author: is required (role name, e.g. \"AI Reporter\")" if fm["author"].to_s.strip.empty?
   (fm["sources"] || []).each_with_index do |s, i|
-    fails << "source #{i + 1} has no accessed: date (required by style.md §3)" if s["accessed"].to_s.strip.empty?
+    if s["accessed"].to_s.strip.empty?
+      fails << "source #{i + 1} has no accessed: date (required by style.md §3)"
+    elsif fm["kind"].to_s == "news" && pub
+      # Warning (style.md §11 target): news sources should be checked within a week of publication.
+      acc = (Date.parse(s["accessed"].to_s) rescue nil)
+      warns << "source #{i + 1} accessed #{acc} is #{(pub.to_date - acc).to_i} days before publication (news target: within 7)" if acc && (pub.to_date - acc).to_i > 7
+    end
   end
 end
 

@@ -11,11 +11,11 @@
 <nav class="section-nav" aria-label="Sections">
   <ul>
     {%- for s in site.data.sections %}
-    <li><a href="{{ s.url | relative_url }}"{% if page.url == s.url %} aria-current="page"{% elsif nav_current == s.url %} aria-current="true"{% endif %}>{{ s.title }}</a>
+    <li><a href="{{ s.url | relative_url }}"{% if page.url == s.url %} aria-current="page"{% elsif nav_current == s.url %} aria-current="true"{% endif %}>{{ s.title | escape }}</a>
       {%- if s.subsections and s.subsections.size > 0 %}
       <ul class="section-nav__sub">
         {%- for sub in s.subsections %}
-        <li><a href="{{ sub.url | relative_url }}"{% if page.url == sub.url %} aria-current="page"{% elsif nav_current == sub.url %} aria-current="true"{% endif %}>{{ sub.title }}</a></li>
+        <li><a href="{{ sub.url | relative_url }}"{% if page.url == sub.url %} aria-current="page"{% elsif nav_current == sub.url %} aria-current="true"{% endif %}>{{ sub.title | escape }}</a></li>
         {%- endfor %}
       </ul>
       {%- endif %}

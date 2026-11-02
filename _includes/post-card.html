@@ -13,12 +13,12 @@
 <li class="post-card{% if card_kind %} post-card--{{ card_kind.slug }}{% endif %}"{% if card_section %} data-section="{{ card_section.slug }}"{% endif %}>
   <p class="post-card__kicker">
     {%- if card_kind %}<span class="badge badge--{{ card_kind.slug }}">{{ card_kind.label }}</span> {% endif -%}
-    {%- if card_section %}<a href="{{ card_section.url | relative_url }}">{{ card_section.title }}</a> {% endif -%}
-    {%- if card_sub %}<a href="{{ card_sub.url | relative_url }}">{{ card_sub.title }}</a> {% endif -%}
+    {%- if card_section %}<a href="{{ card_section.url | relative_url }}">{{ card_section.title | escape }}</a> {% endif -%}
+    {%- if card_sub %}<a href="{{ card_sub.url | relative_url }}">{{ card_sub.title | escape }}</a> {% endif -%}
     <time datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: '%-d %B %Y' }}{% if p.kind == 'news' %}, {{ p.date | date: '%H:%M' }} UTC{% endif %}</time>
   </p>
   <{{ hx }}><a href="{{ p.url | relative_url }}">{{ p.title | smartify }}</a></{{ hx }}>
   {%- assign summary = p.description | default: p.summary %}
   {% if summary %}<p class="summary">{{ summary | smartify }}</p>{% endif %}
-  <p class="meta">By <span class="byline">{{ p.author | default: 'Northwind Press' }}</span>{% if p.sources and p.sources.size > 0 %} · <span class="nowrap">{{ p.sources.size }} source{% if p.sources.size != 1 %}s{% endif %}</span>{% endif %}{% if p.corrections and p.corrections.size > 0 %} · <span class="tag">Corrected</span>{% endif %}</p>
+  <p class="meta">By <span class="byline">{{ p.author | default: 'Northwind Press' | escape }}</span>{% if p.sources and p.sources.size > 0 %} · <span class="nowrap">{{ p.sources.size }} source{% if p.sources.size != 1 %}s{% endif %}</span>{% endif %}{% if p.corrections and p.corrections.size > 0 %} · <span class="tag">Corrected</span>{% endif %}</p>
 </li>
