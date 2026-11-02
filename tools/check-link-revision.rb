@@ -49,7 +49,9 @@ ot, om, ol = flatten(obody)
 nt, nm, nl = flatten(nbody)
 ok = true
 
-if ofm != nfm
+# An `updates:` note (style.md §5) may be added with a link revision; it's not a text change.
+strip_updates = ->(fm) { fm.sub(/^updates:\n(?:[ \t]+[^\n]*\n?)*/, "").sub(/\n+\z/, "") }
+if strip_updates.(ofm) != strip_updates.(nfm)
   ok = false; puts "FAIL front matter changed"
 end
 

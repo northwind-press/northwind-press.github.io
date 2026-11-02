@@ -1,7 +1,7 @@
 # Self-test for check-link-revision.rb. Writes temp files only; never touches git state.
 require "tmpdir"
 dir = Dir.mktmpdir
-orig = IO.popen(["git", "show", "HEAD:_posts/2026-11-02-batch-apis.md"], &:read)
+orig = IO.popen(["git", "show", "13d2dd7:_posts/2026-11-02-batch-apis.md"], &:read)
 fm_end = orig.index("\n---\n", 4) + 5
 fm, body = orig[0...fm_end], orig[fm_end..]
 urls = body.scan(/\]\(([^)\s]+)\)/).flatten.uniq
@@ -9,6 +9,7 @@ swap_from, swap_to = urls[0], urls[1]
 # [expectation, mutated document]
 cases = {
   "unchanged" => [true, orig],
+  "updates: note added (style.md §5)" => [true, fm.sub(/---\n\z/, "updates:\n  - date: 2026-11-02\n    text: \"We replaced one source link.\"\n---\n") + body],
   "body text changed" => [false, fm + body.sub("1,000 requests", "2,000 requests")],
   "front matter changed" => [false, orig.sub("50%", "40%")],
   "URL changed to a new URL" => [false, fm + body.sub("#{swap_from})", "#{swap_from}-x)")],

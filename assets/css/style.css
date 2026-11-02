@@ -170,6 +170,11 @@ nav a[aria-current="page"] { font-weight: 600; box-shadow: inset 0 -2px 0 var(--
 .correction h2 { font-family: var(--sans); font-size: var(--step--1); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--note-label); margin: 0 0 var(--s-1); }
 .correction ul { margin: 0; padding-left: 1.1rem; }
 .correction time { font-weight: 600; }
+/* Updates (not corrections): same shape as .correction, but neutral so readers don't read them as errors. */
+.post-update { background: var(--code-bg); border-left: 4px solid var(--rule-strong); padding: var(--s0) var(--s1) var(--s0) var(--s0); margin: var(--s1) 0 0; font-family: var(--sans); font-size: 0.95rem; line-height: 1.5; }
+.post-update h2 { font-family: var(--sans); font-size: var(--step--1); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 var(--s-1); }
+.post-update ul { margin: 0; padding-left: 1.1rem; }
+.post-update time { font-weight: 600; }
 
 .post-body > p:first-child { font-size: 1.2rem; }
 
@@ -421,5 +426,5 @@ header.section-intro > p:not(.section-links), p.section-intro { font-size: var(-
   .post-body a { text-decoration: none; }
   .table-wrap { overflow: visible; background: none; }
   .badge, .badge--news { background: none; color: #000; border-color: #000; }
-  pre, table, blockquote, .correction, .sources li { break-inside: avoid; }
+  pre, table, blockquote, .correction, .post-update, .sources li { break-inside: avoid; }
 }

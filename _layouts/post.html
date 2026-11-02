@@ -28,6 +28,19 @@ layout: default
       </ul>
     </aside>
     {% endif %}
+    {%- comment -%} Updates (style.md §5): dated notes on post-publication changes that aren't corrections, e.g. a
+      briefing update or a replaced source link. Newest first. Not listed on /corrections/. {%- endcomment -%}
+    {% if page.updates and page.updates.size > 0 %}
+    {%- assign upd_list = page.updates | sort: 'date' | reverse %}
+    <aside class="post-update" aria-labelledby="updates-heading">
+      <h2 id="updates-heading">{% if upd_list.size == 1 %}Update{% else %}Updates{% endif %}</h2>
+      <ul>
+        {% for u in upd_list %}
+        <li><time datetime="{{ u.date | date: '%Y-%m-%d' }}">{{ u.date | date: '%-d %B %Y' }}</time>: {{ u.text | markdownify | remove: '<p>' | remove: '</p>' | strip }}</li>
+        {% endfor %}
+      </ul>
+    </aside>
+    {% endif %}
   </header>{% if page.audio %}{% include audio-player.html %}{% endif %}
 
   <div class="post-body"{% if page.audio %} id="article-text"{% endif %}>

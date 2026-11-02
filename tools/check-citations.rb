@@ -193,6 +193,21 @@ if File.exist?("#{data_dir}/sections.yml") && File.exist?("#{data_dir}/kinds.yml
   warns << "title is #{fm['title'].to_s.size} characters; house limit is 90" if fm["title"].to_s.size > 90
   warns << "description is #{fm['description'].to_s.size} characters; house limit is 200" if fm["description"].to_s.size > 200
   fails << "author: is required (a desk byline, see HANDOFF \"Bylines\")" if fm["author"].to_s.strip.empty?
+  # updates: (style.md §5) dated notes on post-publication changes that aren't corrections.
+  if fm.key?("updates")
+    ups = fm["updates"]
+    if !ups.is_a?(Array)
+      fails << "updates: must be a list of {date, text} entries"
+    else
+      ups.each_with_index do |u, i|
+        d = u.is_a?(Hash) ? u["date"] : nil
+        dd = d.is_a?(Date) ? d : (Date.parse(d.to_s) rescue nil)
+        fails << "update #{i + 1}: date must be YYYY-MM-DD (got #{d.inspect})" unless dd && d.to_s =~ /\A\d{4}-\d\d-\d\d/
+        fails << "update #{i + 1}: date #{dd} is in the future" if dd && dd > Time.now.utc.to_date
+        fails << "update #{i + 1}: text is empty" if !u.is_a?(Hash) || u["text"].to_s.strip.empty?
+      end
+    end
+  end
   # Desk bylines (board, 2026-11-02): news uses its section's byline; other kinds use the kind's byline.
   kind_row = YAML.load_file("#{data_dir}/kinds.yml").find { |k| k["slug"] == fm["kind"].to_s }
   want_by = if fm["kind"].to_s == "news" then sec && sec["byline"] else kind_row && kind_row["byline"] end

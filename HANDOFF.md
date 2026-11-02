@@ -230,6 +230,18 @@ Every merge to `main`, editorial or code, is built locally first, exactly as Git
   it, not the merge gate, after front-matter cleanups or corrections.
 - `check-audio.rb TEXT_SHA AUDIO_SHA PATH --branch REF` is the audio merge gate ("Adding audio" C). It passes, as not applicable, on posts without `audio:`.
 
+## Updates (style.md §5)
+For a post-publication change that isn't a correction (a briefing update, or a change to which sources are
+cited), add a dated note. It shows at the top of the article, newest first, in a neutral box labeled
+"Update". It isn't listed on /corrections/.
+```yaml
+updates:
+  - date: 2026-11-02
+    text: "We replaced one source link with the researchers' main write-up; the facts reported are unchanged."
+```
+`text` takes Markdown. check-citations requires a YYYY-MM-DD date that isn't in the future and non-empty text.
+An `updates:` note never invalidates audio and never fails check-link-revision.
+
 ## Corrections
 Owner: standards-editor.
 1. Standards verifies the report against the sources and prepares branch `fix/<slug>`. The body fix and
