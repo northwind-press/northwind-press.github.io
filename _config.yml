@@ -5,6 +5,9 @@ baseurl: ""
 lang: en
 timezone: UTC
 permalink: /:year/:month/:day/:title/
+# Merging to main is the publish decision, so never hold back posts by date
+# (also guards against build-server clock skew).
+future: true
 markdown: kramdown
 kramdown:
   input: GFM
