@@ -5,7 +5,7 @@ description: "GPT-6.1 Terra is OpenAI's new mid-priced model for images, compute
 categories: [ai]
 subsection: applied
 kind: news
-date: 2026-11-02 22:36
+date: 2026-11-02 22:42
 sources:
   - title: "Changelog"
     url: https://platform.openai.com/docs/changelog
