@@ -55,4 +55,4 @@ Our method: take one prefix, fully reused, sent k times within 12 hours, with ea
 
 The guide doesn't say whether a read under a `"12h"` request restarts the 12-hour clock. It does say a 30-minute read on a 12-hour entry doesn't{% include cite.html n=2 %}.
 
-For how caching works on OpenAI and Anthropic, and why expected hits miss, see our explainer "Prompt caching on Anthropic and OpenAI", published 2026-11-02 in Applied AI.
+For how caching works on OpenAI and Anthropic, and why expected hits miss, see our explainer "Prompt caching on Anthropic and OpenAI: how it works, what it costs, why hits miss", published 2026-11-02 in Applied AI.
