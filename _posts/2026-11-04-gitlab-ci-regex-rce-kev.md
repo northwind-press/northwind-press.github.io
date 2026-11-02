@@ -1,10 +1,10 @@
 ---
 title: "CISA lists GitLab CI/CD regex flaw CVE-2026-97229 as exploited; Ruby fixes the underlying bugs"
 author: "Security Reporter"
-description: "Self-managed GitLab servers on 19.2 to 19.4 are open to unauthenticated code execution; upgrade to the latest patch for your series and check for signs of exploitation."
+description: "CISA says a critical GitLab CI/CD regex flaw is being exploited; upgrade self-managed GitLab to the latest patch for your series and check for signs of compromise."
 categories: [security]
 kind: news
-date: 2026-11-04 09:00
+date: 2026-11-04 10:00
 sources:
   - title: "GitLab Patch Release: 19.4.2, 19.3.5, 19.2.8"
     url: https://docs.gitlab.com/releases/patches/patch-release-gitlab-19-4-2-released/
