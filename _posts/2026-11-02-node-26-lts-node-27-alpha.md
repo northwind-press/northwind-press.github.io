@@ -4,7 +4,7 @@ author: "Software & Dev Reporter"
 description: "Keep production on an LTS line and plan your move off Node.js 22 before its 2027-04-30 end of life; library authors should add the 27.0.0 alpha to CI now."
 categories: [software]
 kind: news
-date: 2026-11-04 09:00
+date: 2026-11-02 22:36
 sources:
   - title: "Node.js 26 ChangeLog: 2026-10-28, Version 26.13.0 'Lithium' (LTS)"
     url: https://github.com/nodejs/node/blob/main/doc/changelogs/CHANGELOG_V26.md#26.13.0
