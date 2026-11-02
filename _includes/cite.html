@@ -1,0 +1,9 @@
+{%- comment -%}
+  Numbered citation: {% include cite.html n=3 %} -> small superscript "3" linking to Sources entry #source-3.
+  The first citation of each source in a post gets id="cite-N" so the Sources entry can link back to it.
+{%- endcomment -%}
+{%- assign nw_n = include.n | plus: 0 -%}
+{%- capture nw_key -%},{{ nw_n }},{%- endcapture -%}
+{%- assign nw_seen = nw_cites_seen | default: ',' -%}
+<sup class="cite"><a href="#source-{{ nw_n }}"{% unless nw_seen contains nw_key %} id="cite-{{ nw_n }}"{% endunless %} aria-label="Source {{ nw_n }}">{{ nw_n }}</a></sup>
+{%- unless nw_seen contains nw_key -%}{%- assign nw_cites_seen = nw_seen | append: nw_n | append: ',' -%}{%- endunless -%}

@@ -30,7 +30,7 @@ layout: default
     <h2 id="sources-heading">Sources</h2>
     <ol>
       {% for s in page.sources %}
-      <li id="source-{{ forloop.index }}"><a href="{{ s.url }}">{{ s.title }}</a>{% if s.publisher %}, {{ s.publisher }}{% endif %}{% if s.date %}{% assign raw_date = s.date | append: '' %}{% assign iso_date = s.date | date: '%Y-%m-%d' %} ({% if iso_date == raw_date %}<span class="nowrap">{{ s.date | date: '%-d %B %Y' }}</span>{% else %}{{ s.date }}{% endif %}){% endif %}.{% if s.accessed %} Accessed <span class="nowrap">{{ s.accessed | date: '%-d %B %Y' }}</span>.{% endif %}</li>
+      <li id="source-{{ forloop.index }}"><a href="{{ s.url }}">{{ s.title }}</a>{% if s.publisher %}, {{ s.publisher }}{% endif %}{% if s.date %}{% assign raw_date = s.date | append: '' %}{% assign iso_date = s.date | date: '%Y-%m-%d' %} ({% if iso_date == raw_date %}<span class="nowrap">{{ s.date | date: '%-d %B %Y' }}</span>{% else %}{{ s.date }}{% endif %}){% endif %}.{% if s.accessed %} Accessed <span class="nowrap">{{ s.accessed | date: '%-d %B %Y' }}</span>.{% endif %}{% capture nw_cite_anchor %}id="cite-{{ forloop.index }}"{% endcapture %}{% if content contains nw_cite_anchor %} <a class="cite-back" href="#cite-{{ forloop.index }}" aria-label="Back to where source {{ forloop.index }} is first cited">↩</a>{% endif %}</li>
       {% endfor %}
     </ol>
   </section>

@@ -163,6 +163,19 @@ nav a[aria-current="page"] { font-weight: 600; box-shadow: inset 0 -2px 0 var(--
 
 .post-body > p:first-child { font-size: 1.2rem; }
 
+/* Numbered citations ({% include cite.html n=N %}): small, quiet, but a real link.
+   The visible glyph stays small; an invisible ::after enlarges the tap/click area to ~24px
+   (WCAG 2.5.8) without changing line spacing. Focus uses the global 3px ring. */
+.cite { font-family: var(--sans); font-size: 0.68em; line-height: 0; vertical-align: super; font-variant-numeric: tabular-nums; }
+.cite + .cite::before { content: ",\2009"; color: var(--muted); }
+.post-body .cite a { position: relative; color: var(--link); text-decoration: none; font-weight: 600; padding: 0 0.08em; border-radius: 2px; }
+.post-body .cite a::after { content: ""; position: absolute; left: 50%; top: 50%; width: max(100%, 24px); height: 24px; transform: translate(-50%, -50%); }
+.post-body .cite a:hover { text-decoration: underline; text-decoration-thickness: 1px; }
+.cite a:target { background: var(--note-bg); outline: 2px solid var(--note-border); outline-offset: 1px; }
+.cite a, .sources li { scroll-margin-top: var(--s2); }
+.cite-back { margin-left: 0.35em; padding: 0.25em 0.4em; text-decoration: none; color: var(--muted); font-size: 0.9em; }
+.cite-back:hover { color: var(--link); }
+
 .sources { border-top: 2px solid var(--rule-strong); margin-top: var(--s3); padding-top: var(--s-1); font-family: var(--sans); font-size: 0.95rem; line-height: 1.5; }
 .sources h2 { font-family: var(--sans); font-size: var(--step--1); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin: 0.5rem 0 var(--s0); }
 .sources ol { padding-left: 1.6rem; }
@@ -194,7 +207,7 @@ nav a[aria-current="page"] { font-weight: 600; box-shadow: inset 0 -2px 0 var(--
   :root { --bg: #fff; --fg: #000; --muted: #333; --link: #000; --rule: #999; --rule-strong: #000; --note-bg: #fff; --note-border: #000; --note-label: #000; --code-bg: #fff; }
   body { font-size: 11pt; line-height: 1.45; }
   .wrap { max-width: none; padding: 0; }
-  .skip-link, nav, .report { display: none; }
+  .skip-link, nav, .report, .cite-back { display: none; }
   .site-header { border-top: 0; }
   a { color: inherit; }
   /* Inline links all point to the Sources list, which prints its URLs. */
