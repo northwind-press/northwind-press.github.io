@@ -28,7 +28,7 @@ GitHub says Copilot Fusion Max scored 60 on the Artificial Analysis Coding Agent
 
 ## Availability and billing
 
-Fusion works in Visual Studio Code, the GitHub Copilot app, GitHub Copilot CLI and JetBrains IDEs{% include cite.html n=1 %}. As of 2026-11-02, Fusion Standard is on every plan, but Fusion High and Max require Copilot Pro+, Max, Business or Enterprise{% include cite.html n=2 %}. Research-preview users who chose auto, HydraFusion or HydraFusion Max move automatically to the matching Fusion effort levels{% include cite.html n=1 %}.
+Fusion works in Visual Studio Code, the GitHub Copilot app, GitHub Copilot CLI, and JetBrains IDEs{% include cite.html n=1 %}. As of 2026-11-02, Fusion Standard is on every plan, but Fusion High and Max require Copilot Pro+, Max, Business, or Enterprise{% include cite.html n=2 %}. Research-preview users who chose auto, HydraFusion, or HydraFusion Max move automatically to the matching Fusion effort levels{% include cite.html n=1 %}.
 
 There is no separate charge: each model Fusion uses is billed at its standard rate{% include cite.html n=1 %}{% include cite.html n=2 %}. High and Max can use more than one model per task, so a task may cost more AI credits than on Standard{% include cite.html n=2 %}. Paid plans get 30% off model costs when using Fusion through 2026-11-30{% include cite.html n=2 %}.
 
