@@ -31,7 +31,7 @@ Projects that import CSS, text or binary files have typed them with wildcard dec
 
 ## New target and library types
 
-`es2026` is now a stable `--target` and `--lib` value{% include cite.html n=1 %}. Its library adds declarations including `Math.sumPrecise()`, `Error.isError()`, `Map.prototype.getOrInsert()`, `Array.fromAsync()`, and base64 and hex methods on `Uint8Array`, some moved from `esnext`{% include cite.html n=1 %}. Separately, `import source` syntax for source phase imports needs `--module` set to `esnext`, `nodenext` or `preserve`{% include cite.html n=1 %}.
+`es2026` is now a stable `--target` and `--lib` value{% include cite.html n=1 %}. Its library adds declarations including `Math.sumPrecise()`, `Error.isError()`, `Map.prototype.getOrInsert()`, `Array.fromAsync()`, and base64 and hex methods on `Uint8Array`, some moved from `esnext`{% include cite.html n=1 %}.
 
 ## Schedule
 
