@@ -102,5 +102,30 @@ rr_out = IO.popen(["ruby", File.join(__dir__, "check-audio.rb"), TEXT, head.(), 
 rr_ok = $?.success?
 check.("re-record on top of merged audio", true, rr_ok)
 puts rr_out.gsub(/^/, "      ") unless rr_ok
+# Publish-time metadata (handoff v12/v13): main resets date:, renames the file and sets placement: after
+# text approval. Audio narrated from the text sha must still pass; a real text change must still fail.
+NEWPOST = "_posts/2026-11-06-example.md"
+publish = lambda do |name, extra_body_change|
+  g("checkout", "-q", "-B", name, TEXT)
+  src = File.read("#{R}/#{POST}")
+  src = src.sub("title: \"Example\"\n", "title: \"Example\"\ndate: 2026-11-06 09:30\nplacement: lead\n")
+  src = src.sub("Body text.", "Body text, changed.") if extra_body_change
+  FileUtils.rm("#{R}/#{POST}")
+  write(NEWPOST, src)
+  g("add", "-A"); g("commit", "-qm", "publish: date reset + rename + placement")
+  pub = head.()
+  g("checkout", "-q", "-B", "#{name}-audio", pub)
+  write("assets/audio/2026-11-06-example.mp3", "ID3")
+  write(NEWPOST, File.read("#{R}/#{NEWPOST}").sub(/---\n(?=Body)/, audio_block(TEXT).sub("2026-11-05", "2026-11-06") + "---\n"))
+  g("add", "-A"); g("commit", "-qm", "audio after publish")
+  [name, head.()]
+end
+[["published-meta-only", false, true], ["published-with-text-change", true, false]].each do |name, change, expect_ok|
+  main_name, sha = publish.(name, change)
+  out = IO.popen(["ruby", File.join(__dir__, "check-audio.rb"), TEXT, sha, NEWPOST, "--repo", R, "--main", main_name, "--branch", "#{name}-audio"], &:read)
+  ok = $?.success?
+  check.("audio after publish-time #{change ? 'text change' : 'date/rename/placement only'}", expect_ok, ok)
+  puts out.gsub(/^/, "      ") unless ok == expect_ok
+end
 puts(pass ? "ALL AUDIO GATE TESTS PASS" : "SOME AUDIO GATE TESTS FAILED")
 exit(pass ? 0 : 1)
