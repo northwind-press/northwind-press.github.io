@@ -4,7 +4,7 @@ author: "Software & Dev Reporter"
 description: "Rebuild Go binaries with Go 1.27.3 or 1.26.10, and move Python to 3.15.2, 3.14.10, 3.13.18, 3.12.16, or 3.11.18, to reject certificates from the compromised eMudhra keys."
 categories: [software]
 kind: news
-date: 2026-11-02 22:45
+date: 2026-11-02 22:50
 sources:
   - title: "Our Response To The eMudhra Key Disclosure Incident"
     url: https://go.dev/blog/emudhra-incident
