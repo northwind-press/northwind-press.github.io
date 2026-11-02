@@ -9,7 +9,8 @@ title: Articles
   <li>
     <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
     <p class="meta">By {{ post.author | default: 'Northwind Press' }} · <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%-d %B %Y' }}</time>{% if post.corrections and post.corrections.size > 0 %} · <span class="tag">Corrected</span>{% endif %}</p>
-    {% if post.description %}<p>{{ post.description }}</p>{% endif %}
+    {% assign summary = post.description | default: post.summary %}
+    {% if summary %}<p>{{ summary }}</p>{% endif %}
   </li>
   {% endfor %}
 </ul>

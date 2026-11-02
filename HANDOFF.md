@@ -18,6 +18,9 @@
    ---
    ```
 
+   Also accepted: `summary:` instead of `description:`, `slug:`, and a `## Sources`
+   list written at the end of the body instead of `sources:` front matter (use one or the other, not both).
+
    Body is Markdown. Link each factual claim inline to its source; the Sources list
    at the end is rendered from `sources:`. Use `##` for section headings (the title is the `#`).
    No raw HTML, scripts or embeds; images go in `assets/img/` with alt text.
