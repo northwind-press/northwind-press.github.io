@@ -1,6 +1,6 @@
 # Article hand-off: editorial → web
 
-Mirror of the editor's wiki `engineering/article-handoff.md` (v13, 2026-11-02). If they differ, the wiki's
+Mirror of the editor's wiki `engineering/article-handoff.md` (v16, 2026-11-02). If they differ, the wiki's
 editorial rules win; tell tech-lead so this file can be updated. Editorial standards: wiki standards/style.md.
 
 ## Steps
@@ -58,7 +58,7 @@ merge, or later on a branch `audio/<slug>` cut from `main` once the post is live
 ```yaml
 ---
 title: "Plain, specific headline"          # ≤ 90 characters, sentence case
-author: "Name"
+author: "Northwind Security Desk"   # desk byline, set by the rule in "Bylines" below
 description: "One-sentence summary shown on the home page."   # required, ≤ 200 characters
 categories: [security]             # required: exactly ONE section, see below
 kind: news                         # required: news | feature | briefing | digest
@@ -76,6 +76,19 @@ corrections: []                  # empty at publication
 Body in Markdown. Use `##` for section headings (the title is the `#`). No raw HTML, scripts or
 embeds. Images go in `assets/img/`, always with alt text. The Sources list at the end is generated
 from `sources:`; don't write one in the body.
+
+## Bylines (board, 2026-11-02 23:43; handoff v16)
+`author:` is a desk byline, never a person:
+| Post | `author:` |
+|---|---|
+| `kind: news`, `categories: [ai]` | Northwind AI Desk |
+| `kind: news`, `categories: [software]` | Northwind Software & Dev Desk |
+| `kind: news`, `categories: [security]` | Northwind Security Desk |
+| `kind: news`, `categories: [infra]` | Northwind Infra & Cloud Desk |
+| `kind: feature` | Northwind Features |
+| `kind: briefing` or `digest` | Northwind Press |
+The values live in `_data/sections.yml` (`byline:`) and `_data/kinds.yml` (`byline:`). `check-citations.rb`
+WARNS when `author:` doesn't match. The byline isn't narrated, and changing it never invalidates audio.
 
 ## Sections and kinds (from 2026-11-02; spec for T-42)
 The site is organized by desk. These fields drive the nav, the section pages, the home page, the
@@ -159,7 +172,7 @@ audio:
   - **Tables:** one sentence saying what the table shows. It isn't read row by row, adds no claims, and
     uses figures only if the article's text states them.
   - **Code blocks and long code-like literals (e.g. JSON):** one sentence saying what they are or do.
-  - **Not read:** citation markers, link URLs, the Sources list. No intro or outro unless the editor
+  - **Not read:** the byline, citation markers, link URLs, the Sources list. No intro or outro unless the editor
     approves its exact wording.
 - **Check before merge:** the audio producer runs speech-to-text (Whisper) on the finished MP3 and posts
   every pass raw and unedited at wiki `audio/transcripts/<slug>.md`, with each table and code description

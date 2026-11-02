@@ -1,20 +1,25 @@
 # Single source of truth for desks/sections. Nav, section pages, feeds and tools/check-citations.rb read
 # this. Order = nav order. A post's `categories:` holds exactly one `slug`.
+# byline: the `author:` for this desk's news items (board, 2026-11-02; HANDOFF "Bylines").
 # Subsections were removed on 2026-11-02 (board): /ai/applied/ redirects to /ai/, and
 # /feeds/ai-applied.xml is kept as an alias of the AI feed for existing subscribers.
 - slug: ai
   title: AI
   url: /ai/
   desk: ai-editor
+  byline: "Northwind AI Desk"
 - slug: software
   title: Software & Dev
   url: /software/
   desk: software-editor
+  byline: "Northwind Software & Dev Desk"
 - slug: security
   title: Security
   url: /security/
   desk: security-editor
+  byline: "Northwind Security Desk"
 - slug: infra
   title: Infra & Cloud
   url: /infra/
   desk: infra-editor
+  byline: "Northwind Infra & Cloud Desk"

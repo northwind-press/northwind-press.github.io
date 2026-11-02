@@ -192,7 +192,13 @@ if File.exist?("#{data_dir}/sections.yml") && File.exist?("#{data_dir}/kinds.yml
   # Style limits (handoff v10). Warnings only: the copy check owns style.
   warns << "title is #{fm['title'].to_s.size} characters; house limit is 90" if fm["title"].to_s.size > 90
   warns << "description is #{fm['description'].to_s.size} characters; house limit is 200" if fm["description"].to_s.size > 200
-  fails << "author: is required (role name, e.g. \"AI Reporter\")" if fm["author"].to_s.strip.empty?
+  fails << "author: is required (a desk byline, see HANDOFF \"Bylines\")" if fm["author"].to_s.strip.empty?
+  # Desk bylines (board, 2026-11-02): news uses its section's byline; other kinds use the kind's byline.
+  kind_row = YAML.load_file("#{data_dir}/kinds.yml").find { |k| k["slug"] == fm["kind"].to_s }
+  want_by = if fm["kind"].to_s == "news" then sec && sec["byline"] else kind_row && kind_row["byline"] end
+  if want_by && !fm["author"].to_s.strip.empty? && fm["author"].to_s != want_by
+    warns << "author: #{fm['author'].inspect} doesn't match the byline rule; expected #{want_by.inspect}"
+  end
   (fm["sources"] || []).each_with_index do |s, i|
     if s["accessed"].to_s.strip.empty?
       fails << "source #{i + 1} has no accessed: date (required by style.md §3)"

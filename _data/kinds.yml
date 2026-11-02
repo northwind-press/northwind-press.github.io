@@ -1,9 +1,14 @@
-# Allowed values for a post's `kind:` and the badge label shown on the site (T-42).
+# Allowed values for a post's `kind:`, the badge label shown on the site, and the byline (`author:`) for
+# that kind (board, 2026-11-02; HANDOFF "Bylines"). News uses its desk's byline from _data/sections.yml.
 - slug: news
   label: News
+  byline: null
 - slug: feature
   label: Feature
+  byline: "Northwind Features"
 - slug: briefing
   label: Briefing
+  byline: "Northwind Press"
 - slug: digest
   label: Digest
+  byline: "Northwind Press"
