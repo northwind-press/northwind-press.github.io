@@ -362,6 +362,11 @@ header.section-intro > p:not(.section-links), p.section-intro { font-size: var(-
 .river__item .badge, .river__item .tag { justify-self: start; margin-top: 0.25rem; }
 .river .block-heading + .river__list { border-top: 0; }
 
+/* Today's briefing: one .story--top in its own list (not the top-stories grid); dek shown at all widths. */
+.front-briefing__list { list-style: none; padding: 0; margin: 0; }
+.front-briefing__list > li { margin: 0; padding: var(--s-1) 0 0; }
+.front-briefing .story__dek { display: block; }
+
 .section-blocks { display: grid; gap: var(--s2); }
 .section-front { display: grid; gap: var(--s2); margin-top: var(--s1); }
 
