@@ -143,6 +143,20 @@ if File.exist?("#{data_dir}/sections.yml") && File.exist?("#{data_dir}/kinds.yml
     fails << "subsection: #{fm['subsection'].inspect} isn't a subsection of #{sec['slug']} (allowed: #{subs.empty? ? 'none' : subs.join(', ')})" unless subs.include?(fm["subsection"].to_s)
   end
   fails << "kind: must be one of #{kinds.join(', ')}; got #{fm['kind'].inspect}" unless kinds.include?(fm["kind"].to_s)
+  # Publication date (handoff v12): dated at merge, never scheduled. _config has future: true, so a
+  # future-dated post would go live immediately with a false date; reject it here instead.
+  now = Time.now.utc
+  pub = case fm["date"]
+        when Time then fm["date"].utc
+        when Date then Time.utc(fm["date"].year, fm["date"].month, fm["date"].day)
+        when /\A(\d{4})-(\d\d)-(\d\d)(?:[ T](\d{1,2}):(\d\d)(?::(\d\d))?)?/ then Time.utc($1.to_i, $2.to_i, $3.to_i, $4.to_i, $5.to_i, $6.to_i)
+        end
+  fails << "date: #{pub.strftime('%Y-%m-%d %H:%M')} UTC is in the future. News is dated at publication (set it to the merge time)" if pub && pub > now + 600
+  if (fname = File.basename(path)[/\A(\d{4}-\d\d-\d\d)-/, 1])
+    fdate = Date.parse(fname)
+    fails << "filename date #{fname} is in the future" if fdate > now.to_date
+    fails << "filename date #{fname} doesn't match date: #{pub.strftime('%Y-%m-%d')}" if pub && fdate != pub.to_date
+  end
   if fm.key?("placement") && !%w[lead top].include?(fm["placement"].to_s)
     fails << "placement: must be lead or top (or omitted); got #{fm['placement'].inspect}"
   end

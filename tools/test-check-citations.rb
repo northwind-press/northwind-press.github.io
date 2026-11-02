@@ -47,8 +47,8 @@ cases = {
   "two sections" => [false, GOOD.sub("categories: [ai]", "categories: [ai, security]"), false],
   "subsection under wrong section" => [false, GOOD.sub("categories: [ai]", "categories: [security]"), false],
   "unknown kind" => [false, GOOD.sub("kind: feature", "kind: opinion"), false],
-  "news without a time" => [false, GOOD.sub("kind: feature", "kind: news\ndate: 2026-11-03"), false],
-  "news with a time" => [true, GOOD.sub("kind: feature", "kind: news\ndate: 2026-11-03 14:05"), false],
+  "news without a time" => [false, GOOD.sub("kind: feature", "kind: news\ndate: 2026-11-01"), false],
+  "news with a time" => [true, GOOD.sub("kind: feature", "kind: news\ndate: 2026-11-01 14:05"), false],
   "placement lead" => [true, GOOD.sub("kind: feature", "kind: feature\nplacement: lead"), false],
   "placement invalid" => [false, GOOD.sub("kind: feature", "kind: feature\nplacement: hero"), false],
   "markers in code are ignored" => [true, GOOD + "\n```\n{% include cite.html n=9 %}\n```\n", false],
@@ -60,6 +60,24 @@ cases.each do |name, (expect_ok, doc, against)|
   args = ["ruby", File.join(__dir__, "check-citations.rb"), "file=#{dir}/new.md", "x"]
   args += ["--against", "file=#{dir}/old.md"] if against
   out = IO.popen(args, &:read)
+  ok = $?.success?
+  good = ok == expect_ok
+  pass &&= good
+  puts "#{good ? 'pass' : 'FAIL'}  #{name}: expected #{expect_ok ? 'OK' : 'reject'}, got #{ok ? 'OK' : 'reject'}"
+  puts out.gsub(/^/, "      ") unless good
+end
+# Publication-date rules need a real filename, so they run with an explicit path.
+today = Time.now.utc
+fut = today + 3 * 86_400
+date_cases = {
+  "future time" => [false, GOOD.sub("kind: feature", "kind: news\ndate: #{fut.strftime('%Y-%m-%d %H:%M')}"), "_posts/#{fut.strftime('%Y-%m-%d')}-x.md"],
+  "filename date mismatch" => [false, GOOD.sub("kind: feature", "kind: news\ndate: #{today.strftime('%Y-%m-%d')} 00:01"), "_posts/2020-01-01-x.md"],
+  "future filename, no date" => [false, GOOD, "_posts/#{fut.strftime('%Y-%m-%d')}-x.md"],
+  "dated now, matching filename" => [true, GOOD.sub("kind: feature", "kind: news\ndate: #{today.strftime('%Y-%m-%d')} 00:01"), "_posts/#{today.strftime('%Y-%m-%d')}-x.md"],
+}
+date_cases.each do |name, (expect_ok, doc, fpath)|
+  File.write("#{dir}/new.md", doc)
+  out = IO.popen(["ruby", File.join(__dir__, "check-citations.rb"), "file=#{dir}/new.md", fpath], &:read)
   ok = $?.success?
   good = ok == expect_ok
   pass &&= good

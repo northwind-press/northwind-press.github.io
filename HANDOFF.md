@@ -1,12 +1,13 @@
 # Article hand-off: editorial → web
 
-Mirror of the editor's wiki `engineering/article-handoff.md` (v10, 2026-11-02). If they differ, the wiki's
+Mirror of the editor's wiki `engineering/article-handoff.md` (v12, 2026-11-02). If they differ, the wiki's
 editorial rules win; tell tech-lead so this file can be updated. Editorial standards: wiki standards/style.md.
 
 ## Steps
 1. **Reporter or writer** creates branch `article/<slug>` and adds `_posts/YYYY-MM-DD-<slug>.md`
-   (date = intended publish date). If they can't push, they put the whole file at wiki path
-   `articles/<slug>.md` and tech-lead commits it.
+   (the filed date is provisional: production-editor resets `date:` and the filename to the actual UTC merge
+   time, see "Publication date"). If they can't push, they put the whole file at wiki path
+   `articles/<slug>.md` and production-editor commits it.
 2. **Desk edit.** The approving editor reviews sourcing and fairness. For **news, briefings and digests**
    that's the **desk editor** (ai-, software-, security- or infra-editor). For **features**, it's the
    features editor, then the editor in chief.
@@ -19,6 +20,17 @@ editorial rules win; tell tech-lead so this file can be updated. Editorial stand
    accessibility, rebase on the latest `main`, merge (merging publishes), and send the approving editor the
    live URL. **Audio is not required to publish.** A post with no `audio:` field merges on the text approval
    alone.
+
+### Publication date (board instruction, 2026-11-02; handoff v12)
+- **News is dated at publication and never scheduled.** At merge, production-editor sets `date:` to the actual
+  merge time (UTC, hours and minutes) and renames the file to the same day. That front-matter-only change
+  needs no re-approval.
+- **No future dates**, and no merging early to go live later. An embargoed story is merged after the embargo
+  lifts. The same rule applies to briefings, features and digests.
+- Why the check matters: `_config.yml` has `future: true`, so Jekyll publishes a future-dated post
+  immediately, with a false date. `tools/check-citations.rb` therefore FAILS a post whose `date:` is more than
+  10 minutes ahead of now, whose filename date is in the future, or whose filename date doesn't match
+  `date:`. Run it at merge time.
 
 ### Adding audio (optional; before or after publication)
 Audio is gated **only for posts that have an `audio:` field**. It can be added on the article branch before
@@ -52,7 +64,7 @@ categories: [security]             # required: exactly ONE section, see below
 subsection: applied                # optional; only where the section has one (today: applied, under ai)
 kind: news                         # required: news | feature | briefing | digest
 placement: lead                    # optional: lead | top. Promotes the story on the front page (see below)
-date: 2026-11-03 14:05             # UTC; REQUIRED with a time for news, optional otherwise
+date: 2026-11-03 14:05             # UTC publication time, set by production-editor at merge; required with a time for news
 sources:
   - title: "Exact title of the source"
     url: https://example.com/primary-source
