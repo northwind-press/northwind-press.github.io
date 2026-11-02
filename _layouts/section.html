@@ -16,7 +16,7 @@ layout: default
     <h1>{{ section_name | escape }}</h1>
     {% if page.intro %}<p>{{ page.intro | smartify }}</p>{% endif %}
     <p class="section-links"><a href="{{ section_feed | relative_url }}">RSS feed</a>
-      {%- unless on_subsection %}{% for sub in section_data.subsections %} · <a href="{{ sub.url | relative_url }}">{{ sub.title | escape }}</a>{% endfor %}{% endunless -%}
+      {%- unless on_subsection %}{% if section_data.subsections.size > 0 %} · Topic: {% for sub in section_data.subsections %}{% unless forloop.first %}, {% endunless %}<a href="{{ sub.url | relative_url }}">{{ sub.title | escape }}</a>{% endfor %}{% endif %}{% endunless -%}
     </p>
   </header>
   {%- if front_lead %}

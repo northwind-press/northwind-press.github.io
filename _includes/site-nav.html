@@ -1,25 +1,22 @@
 {%- comment -%}
-  Section nav, built from _data/sections.yml (order = nav order). No JS: the lists wrap at narrow widths.
-  aria-current="page" on the link to the page you are on (a section page). On an article, its section
-  (or subsection, if it has one) gets aria-current="true": it is the current section, not this page.
+  Section nav: the four desks only, from _data/sections.yml (order = nav order). Subsections (e.g. Applied AI)
+  are not listed here; they're linked from their section's page and from story kickers (board, 11-02 23:00).
+  No JS: the list wraps at narrow widths.
+  aria-current="page" on the desk whose page you're on; "true" on the desk of an article or subsection page
+  (it's the current section, not this page).
 {%- endcomment -%}
 {%- assign nav_current = '' -%}
 {%- if page.collection == 'posts' -%}
   {%- include section-of.html post=page -%}
-  {%- assign nav_current = so_url -%}
+  {%- if so_section -%}{%- assign nav_current = so_section.url -%}{%- endif -%}
+{%- elsif page.section -%}
+  {%- assign nav_section = site.data.sections | where: 'slug', page.section | first -%}
+  {%- if nav_section and page.url != nav_section.url -%}{%- assign nav_current = nav_section.url -%}{%- endif -%}
 {%- endif -%}
 <nav class="section-nav" aria-label="Sections">
   <ul>
     {%- for s in site.data.sections %}
-    <li><a href="{{ s.url | relative_url }}"{% if page.url == s.url %} aria-current="page"{% elsif nav_current == s.url %} aria-current="true"{% endif %}>{{ s.title | escape }}</a>
-      {%- if s.subsections and s.subsections.size > 0 %}
-      <ul class="section-nav__sub">
-        {%- for sub in s.subsections %}
-        <li><a href="{{ sub.url | relative_url }}"{% if page.url == sub.url %} aria-current="page"{% elsif nav_current == sub.url %} aria-current="true"{% endif %}>{{ sub.title | escape }}</a></li>
-        {%- endfor %}
-      </ul>
-      {%- endif %}
-    </li>
+    <li><a href="{{ s.url | relative_url }}"{% if page.url == s.url %} aria-current="page"{% elsif nav_current == s.url %} aria-current="true"{% endif %}>{{ s.title | escape }}</a></li>
     {%- endfor %}
   </ul>
 </nav>
