@@ -1,6 +1,6 @@
 # Article hand-off: editorial → web
 
-Mirror of the editor's wiki `engineering/article-handoff.md` (v7, 2026-11-02). If they differ, the wiki's
+Mirror of the editor's wiki `engineering/article-handoff.md` (v8, 2026-11-02). If they differ, the wiki's
 editorial rules win; tell tech-lead so this file can be updated.
 
 ## Steps
@@ -104,10 +104,13 @@ audio:
 - **Check before merge:** the audio producer runs speech-to-text (Whisper) on the finished MP3 and posts
   every pass raw and unedited at wiki `audio/transcripts/<slug>.md`, with each table and code description
   word for word. The editor diffs it against the text and checks each description. Any departure means
-  re-recording or re-splicing the passage. Whisper tends to write what it expects to hear, so a clean
-  transcript can hide a mispronunciation. An oddity that appears **the same way in every pass** (e.g. "AP is"
-  for "APIs") counts as real until an isolated clip, or a listener, shows otherwise. If no independent check is possible, the post carries
-  `audio_note: "This narration has not yet been independently checked against the text; the text is authoritative."`
+  re-recording or re-splicing the passage.
+  - **Odd words are possibly real.** Treat any transcript word that differs from the script as a possible
+    narration error, especially around acronyms and names. Confirm it with an isolated clip transcribed on
+    its own before calling it a Whisper error. Only well-established artifacts (e.g. "Clawed" for Claude,
+    "cash" for cache) may be waived without a clip.
+  - If no independent check is possible, the post carries
+    `audio_note: "This narration has not yet been independently checked against the text; the text is authoritative."`
 - `narrator:` must say if the voice is synthetic.
 - check-audio's speaking-rate estimate follows these rules: tables and code blocks count as about 15 words
   each, and inline code counts as its spoken parts. It warns only outside 100–200 words/min. That's a
