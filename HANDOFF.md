@@ -1,17 +1,24 @@
 # Article hand-off: editorial → web
 
-Mirror of the editor's wiki `engineering/article-handoff.md` (v8, 2026-11-02). If they differ, the wiki's
-editorial rules win; tell tech-lead so this file can be updated.
+Mirror of the editor's wiki `engineering/article-handoff.md` (v10, 2026-11-02). If they differ, the wiki's
+editorial rules win; tell tech-lead so this file can be updated. Editorial standards: wiki standards/style.md.
 
 ## Steps
-1. **Writer** creates branch `article/<slug>` and adds `_posts/YYYY-MM-DD-<slug>.md`
-   (date = intended publish date). If the writer can't push, put the whole file at wiki path
+1. **Reporter or writer** creates branch `article/<slug>` and adds `_posts/YYYY-MM-DD-<slug>.md`
+   (date = intended publish date). If they can't push, they put the whole file at wiki path
    `articles/<slug>.md` and tech-lead commits it.
-2. **Editor** reviews and messages tech-lead: "Text approved: article/<slug> at commit <sha>".
-   From here the text is frozen. Any text change needs re-approval.
-3. **Tech-lead** runs `tools/check-citations.rb`, checks layout, links and accessibility, merges to `main`
-   (merging publishes) and sends the editor the live URL. **Audio is not required to publish.** A post with
-   no `audio:` field merges on the text approval alone.
+2. **Desk edit.** The approving editor reviews sourcing and fairness. For **news, briefings and digests**
+   that's the **desk editor** (ai-, software-, security- or infra-editor). For **features**, it's the
+   features editor, then the editor in chief.
+3. **Copy check.** standards-editor (or a copy editor) checks the piece against standards/style.md and this
+   file. They commit style and front-matter fixes on the branch themselves, and send anything that changes
+   meaning back to the desk.
+4. **Text approval.** The approving editor messages: "Text approved: article/<slug> at commit <post-copy sha>,
+   copy OK". From here the text is frozen. Any text change needs a new copy check and re-approval.
+5. **Publishing** (production-editor or tech-lead): run `tools/check-citations.rb`, check layout, links and
+   accessibility, rebase on the latest `main`, merge (merging publishes), and send the approving editor the
+   live URL. **Audio is not required to publish.** A post with no `audio:` field merges on the text approval
+   alone.
 
 ### Adding audio (optional; before or after publication)
 Audio is gated **only for posts that have an `audio:` field**. It can be added on the article branch before
@@ -38,9 +45,9 @@ merge, or later on a branch `audio/<slug>` cut from `main` once the post is live
 ## File format
 ```yaml
 ---
-title: "Plain, specific headline"
+title: "Plain, specific headline"          # ≤ 90 characters, sentence case
 author: "Name"
-description: "One-sentence summary shown on the home page."   # required
+description: "One-sentence summary shown on the home page."   # required, ≤ 200 characters
 categories: [security]             # required: exactly ONE section, see below
 subsection: applied                # optional; only where the section has one (today: applied, under ai)
 kind: news                         # required: news | feature | briefing | digest
@@ -73,13 +80,10 @@ and `tools/check-citations.rb` rejects anything else.
 
 - **Exactly one section per post**, written as a one-item list (`categories: [infra]`). Applied AI
   posts are `categories: [ai]` with `subsection: applied`, and they appear on both /ai/ and /ai/applied/.
-- **`kind:`** sets the badge and where the post sits on the home page:
-  - `news`: a report of something that happened. Listed first on the home page, newest first. Needs `date:`
-    **with a time** (UTC), e.g. `date: 2026-11-03 14:05`.
-  - `feature`: an in-depth, explanatory piece (like the three launch articles).
-  - `briefing`: a short explainer or backgrounder on a topic in the news.
-  - `digest`: a round-up of several items.
-  The standards editor owns these definitions; tell tech-lead if they change.
+- **`kind:`** (`news`, `briefing`, `feature` or `digest`) sets the badge and where the post sits on the home
+  page. `news` is listed first, newest first, and needs `date:` **with a time** (UTC), e.g.
+  `date: 2026-11-03 14:05`. The definitions of each kind are in **standards/style.md §1** (standards-editor
+  owns them).
 - **URLs don't change.** Posts stay at `/YYYY/MM/DD/slug/` whatever their section, because the section
   isn't part of the URL. Moving a post to another section later never breaks links.
 - Each section gets a feed at `/feeds/<slug>.xml` (Applied AI: `/feeds/ai-applied.xml`). The site-wide
@@ -170,11 +174,14 @@ audio:
 - `check-audio.rb TEXT_SHA AUDIO_SHA PATH --branch REF` is the audio merge gate ("Adding audio" C). It passes, as not applicable, on posts without `audio:`.
 
 ## Corrections
-Editor sends tech-lead the correction text. It is added to front matter and the body is fixed in
-the same commit:
+Owner: standards-editor.
+1. Standards verifies the report against the sources and prepares branch `fix/<slug>`. The body fix and
+   the front-matter entry go in the same commit:
 ```yaml
 corrections:
   - date: 2026-11-10
     text: "An earlier version said X. It is Y ([source](https://…))."
 ```
-It shows at the top of the article and on /corrections/ automatically.
+2. The desk editor is consulted, and the **editor in chief approves the correction wording**.
+3. Production-editor or tech-lead merges it. The entry shows at the top of the article and on
+   /corrections/ automatically; /corrections/ is never hand-edited. If the post has audio, see Audio → Corrections.
