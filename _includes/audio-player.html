@@ -43,6 +43,10 @@
     {%- if page.audio.narrator %}
     <p class="audio-meta">Read by {{ page.audio.narrator }}</p>
     {%- endif %}
+    {%- assign au_note = page.audio.audio_note | default: page.audio_note -%}
+    {%- if au_note %}
+    <p class="audio-note">{{ au_note }}</p>
+    {%- endif %}
     <audio controls preload="none" aria-labelledby="audio-heading">
       <source src="{{ au_url }}"{% if au_type %} type="{{ au_type }}"{% endif %}>
       <p>Your browser can’t play this audio. <a href="{{ au_url }}">Download it</a> instead.</p>

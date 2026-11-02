@@ -1,16 +1,26 @@
 # Article hand-off: editorial → web
 
-Mirror of the editor's wiki `engineering/article-handoff.md` (v3, 2026-11-02). If they differ, the wiki's
+Mirror of the editor's wiki `engineering/article-handoff.md` (v4, 2026-11-02). If they differ, the wiki's
 editorial rules win; tell tech-lead so this file can be updated.
 
 ## Steps
 1. **Writer** creates branch `article/<slug>` and adds `_posts/YYYY-MM-DD-<slug>.md`
    (date = intended publish date). If the writer can't push, put the whole file at wiki path
    `articles/<slug>.md` and tech-lead commits it.
-2. **Editor** reviews and messages tech-lead: "Approved: article/<slug> at commit <sha>".
-   Any change after approval needs re-approval.
-3. **Tech-lead** checks the branch (including `tools/check-citations.rb`), merges to `main`
-   (merging publishes) and sends the editor the live URL.
+2. **Editor** reviews and messages tech-lead and the audio producer: "Text approved: article/<slug> at
+   commit <sha>". From here the text is frozen. Any text change needs re-approval and new audio.
+3. **Audio producer** narrates exactly that text (see Audio). They add the MP3 and the `audio:` block in
+   **one commit** on the same branch that touches nothing else, and tell the editor its sha.
+4. **Editor (or a delegate)** spot-checks the narration and messages tech-lead: "Audio approved:
+   article/<slug> at commit <sha>".
+5. **Tech-lead** merges only if `tools/check-audio.rb TEXT_SHA AUDIO_SHA _posts/… --branch origin/article/<slug>`
+   passes. That means: `narrated_from` equals the text-approved sha; exactly one commit after it; that
+   commit changes only `assets/audio/<file>` and the `audio:` block; the tip is the audio-approved sha.
+   Tech-lead also runs `tools/check-citations.rb`, merges to `main` (merging publishes) and sends the
+   editor the live URL.
+
+Until the audio producer is confirmed (board/CEO), articles may publish text-only. The editor then writes
+"Approved (no audio): …", steps 3–4 are skipped, and tech-lead runs `check-citations.rb` only.
 
 ## File format
 ```yaml
@@ -52,20 +62,31 @@ from `sources:`; don't write one in the body.
 - Rendering: the include shows a small superscript number linking to `#source-n`
   (aria-label "Source n"). The Sources entry gets a "↩" link back to the first marker.
 
-## Audio edition (optional; proposal 2026-11-02, pending the editor's wiki wording)
+## Audio
+Added in step 3 only, as a block with all four fields (no shorthand):
 ```yaml
 audio:
-  src: /assets/audio/2026-11-02-slug.mp3   # repo path, or a full https:// URL
-  duration: "12:34"                        # QUOTED m:ss or h:mm:ss, or plain seconds (754)
-  narrator: "Name"                         # optional
+  src: /assets/audio/2026-11-03-slug.mp3   # same name as the post; or a full https:// URL
+  duration: "12:34"                        # required, QUOTED "m:ss" or "h:mm:ss"
+  narrator: "Name"                         # required
+  narrated_from: <text-approved sha>       # required; not shown to readers
 ```
-Shorthand: `audio: /assets/audio/2026-11-02-slug.mp3`.
-- Files live in `assets/audio/`, named like the post. Use MP3, mono, 64–96 kbps: a 15-minute read is
-  about 7–10 MB. GitHub rejects files over 100 MB and the repo should stay well under 1 GB, so host
-  long or frequent episodes externally and give the full URL.
-- Always quote durations. Unquoted, YAML reads `12:34` as 12 hours 34 minutes. The checker rejects it.
-- The page shows "Listen to this article (12:34)", "Read by …", a native player that loads nothing until
-  play is pressed, a download link, and a link to the article text. Posts without `audio:` are unchanged.
+- **File:** `assets/audio/YYYY-MM-DD-slug.mp3`, the same name as the post. MP3, mono, 64–96 kbps: a
+  15-minute read is about 7–10 MB. GitHub rejects files over 100 MB, and the gate warns above 25 MB.
+  For long or frequent episodes, host externally and put a full `https://` URL in `src`.
+- **Quote the duration.** Unquoted, YAML reads `12:34` as 12 hours 34 minutes. Both checkers reject it.
+- **What is narrated:** the title, then the body, word for word as approved (including "Our view").
+  Citation markers and the Sources list are not read. Nothing is added, cut or paraphrased. A spoken
+  intro or outro needs the editor's approval of its exact wording.
+- **Spot-check before merge** (editor or delegate): opening, closing, every number and quote, and a sample
+  in between. Diff a speech-to-text transcript against the text if one is available. Any departure means
+  the audio is re-recorded.
+- **Corrections after publication:** either re-record (new file, new `narrated_from`, same review), or keep
+  the old audio and add `audio_note: "Audio reflects the article before the correction of YYYY-MM-DD."`.
+  The player shows the note. It works as a top-level field or inside `audio:`.
+- The page shows "Listen to this article (12:34)", "Read by …", the note if any, a native player that loads
+  nothing until play is pressed, a download link, and "Transcript: read the article text". Posts without
+  `audio:` are unchanged.
 
 ## Tech-lead checks (`tools/`)
 - `check-citations.rb REV PATH` checks a post against the rules above. It flags:
@@ -77,6 +98,7 @@ Shorthand: `audio: /assets/audio/2026-11-02-slug.mp3`.
 - `check-citations.rb REV PATH --against OLD_REV` also confirms the visible text is unchanged
   apart from removed link markup and added markers.
 - `check-link-revision.rb OLD NEW PATH` is for link-only revisions.
+- `check-audio.rb TEXT_SHA AUDIO_SHA PATH --branch REF` is the audio merge gate (Steps 5).
 
 ## Corrections
 Editor sends tech-lead the correction text. It is added to front matter and the body is fixed in

@@ -61,7 +61,8 @@ function audioBlock(a) {
   return `
   <section class="audio" aria-labelledby="audio-heading">
     <h2 id="audio-heading" class="audio-label">Listen to this article${dur ? ` <span class="audio-duration">(${iso ? `<time datetime="${iso}">${esc(dur)}</time>` : esc(dur)})</span>` : ""}</h2>${narr ? `
-    <p class="audio-meta">Read by ${esc(narr)}</p>` : ""}
+    <p class="audio-meta">Read by ${esc(narr)}</p>` : ""}${(a.audio_note || fm.audio_note) ? `
+    <p class="audio-note">${esc(a.audio_note || fm.audio_note)}</p>` : ""}
     <audio controls preload="none" aria-labelledby="audio-heading">
       <source src="${esc(url)}"${type ? ` type="${type}"` : ""}>
       <p>Your browser can’t play this audio. <a href="${esc(url)}">Download it</a> instead.</p>
