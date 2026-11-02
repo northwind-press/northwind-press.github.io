@@ -4,7 +4,7 @@ permalink: /corrections/
 ---
 <h1>Corrections</h1>
 <p>When we get something wrong, we fix it and record it here and at the top of the article. See our <a href="{{ '/about/' | relative_url }}#corrections-policy">corrections policy</a>.</p>
-{% assign corrected = site.posts | where_exp: "p", "p.corrections" %}
+{% assign corrected = site.posts | where_exp: "p", "p.corrections.size > 0" %}
 {% if corrected.size > 0 %}
 <ul class="post-list">
   {% for post in corrected %}
