@@ -1,5 +1,5 @@
 ---
-title: "TypeScript 7.1 beta types imports by attribute and tightens distributive conditional types"
+title: "TypeScript 7.1 beta types imports by attribute, tightens distributive conditional types"
 author: "Software & Dev Reporter"
 description: "Try TypeScript 7.1 beta with npm install -D typescript@beta, and check type-level code for new errors in distributive conditional types before the stable release."
 categories: [software]
@@ -22,7 +22,7 @@ Microsoft released the [TypeScript 7.1 beta](https://devblogs.microsoft.com/type
 
 ## Import attributes in ambient modules
 
-Projects that import CSS, text or binary files have typed them with wildcard declarations such as `declare module "*.css"`, which ignore import attributes entirely{% include cite.html n=1 %}. In 7.1, a declaration can match on the attribute instead: `declare module "*" with { type: "text" }` types every import that uses `with { type: "text" }`, and imports that leave out a required attribute get an error{% include cite.html n=1 %}. TypeScript does not check that these files exist on disk, and it does not ship the declarations itself{% include cite.html n=1 %}. The team advises libraries not to publish them, so applications must write their own{% include cite.html n=1 %}.
+Projects that import CSS, text, or binary files have typed them with wildcard declarations such as `declare module "*.css"`, which ignore import attributes entirely{% include cite.html n=1 %}. In 7.1, a declaration can match on the attribute instead: `declare module "*" with { type: "text" }` types every import that uses `with { type: "text" }`, and imports that leave out a required attribute get an error{% include cite.html n=1 %}. TypeScript does not check that these files exist on disk, and it does not ship the declarations itself{% include cite.html n=1 %}. The team advises libraries not to publish them, so applications must write their own{% include cite.html n=1 %}.
 
 ## Changes that can break existing builds
 
@@ -39,4 +39,4 @@ The post says a release candidate is due in about a month, with the final releas
 
 ## What to do
 
-Our advice: install the beta in a branch with `npm install -D typescript@beta` and run your usual type check{% include cite.html n=1 %}. Look first for new constraint errors in conditional types, and for DOM type changes. If you type CSS, text or binary imports with wildcard declarations, you can switch to declarations that match on attributes, but keep them in your application, not in published packages{% include cite.html n=1 %}. Report regressions to the team before the RC; the post asks for feedback on the beta{% include cite.html n=1 %}.
+Our advice: install the beta in a branch with `npm install -D typescript@beta` and run your usual type check{% include cite.html n=1 %}. Look first for new constraint errors in conditional types, and for DOM type changes. If you type CSS, text, or binary imports with wildcard declarations, you can switch to declarations that match on attributes, but keep them in your application, not in published packages{% include cite.html n=1 %}. Report regressions to the team before the RC; the post asks for feedback on the beta{% include cite.html n=1 %}.
