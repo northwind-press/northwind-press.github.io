@@ -66,6 +66,10 @@ main { overflow-wrap: break-word; padding-bottom: var(--s3); }
 
 a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
 a:hover { text-decoration-thickness: 2px; }
+/* Prose links: body-colour text, accent underline as the non-colour cue.
+   Underline colour is --link (7.5:1 light, 9.1:1 dark vs --bg); it thickens on hover/focus. */
+.post-body a { color: var(--fg); text-decoration-color: var(--link); text-decoration-thickness: max(1px, 0.07em); text-underline-offset: 0.2em; text-decoration-skip-ink: auto; }
+.post-body a:hover, .post-body a:focus-visible { color: var(--link); text-decoration-thickness: max(2px, 0.12em); }
 a:focus-visible, main:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 2px; }
 main:focus:not(:focus-visible) { outline: none; }
 
