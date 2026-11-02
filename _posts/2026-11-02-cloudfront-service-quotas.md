@@ -4,7 +4,7 @@ author: "Infra & Cloud Reporter"
 description: "Request CloudFront quota increases in Service Quotas, auto-approved within thresholds on Business Support or higher, and alarm on the quotas that publish usage metrics."
 categories: [infra]
 kind: news
-date: 2026-11-02 22:40
+date: 2026-11-02 22:48
 sources:
   - title: "Amazon CloudFront now supports self-service increases in AWS Service Quotas"
     url: https://aws.amazon.com/about-aws/whats-new/2026/11/cloudfront-self-service-quotas/
