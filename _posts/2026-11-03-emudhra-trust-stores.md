@@ -118,7 +118,14 @@ sources:
     url: https://bugs.launchpad.net/ubuntu/+source/ca-certificates/+bug/2171507
     publisher: "Ubuntu (Launchpad)"
     accessed: "2026-11-03"
-corrections: []
+  - title: "Microsoft's response to compromised eMudhra certificate authority keys"
+    url: https://www.microsoft.com/msrc/blog/2026/10/microsoft-response-to-compromised-emudhra-certificate-authority-keys
+    publisher: "Microsoft Security Response Center"
+    date: "2026-10-26"
+    accessed: "2026-11-03"
+corrections:
+  - date: 2026-11-03
+    text: "An earlier version said we found no Microsoft notice confirming that Microsoft blocked the certificates on 2026-10-20. Microsoft did publish one: it says it updated the Windows Disallowed Certificate Trust List on 2026-10-20 ([source](https://www.microsoft.com/msrc/blog/2026/10/microsoft-response-to-compromised-emudhra-certificate-authority-keys))."
 updates:
   - date: 2026-11-03
     text: "An earlier version of this guide was briefly published on 2026-11-03 and withdrawn for a final edit. We removed one sentence about Go's fallback root bundle; no other facts changed."
@@ -133,7 +140,7 @@ Browsers stopped trusting the compromised eMudhra intermediates within hours of 
 
 Chrome received the report at 18:05 UTC on 2026-10-17 and blocked the public keys of the six TLS intermediates in a CRLSet update at 19:45 UTC, according to its post in Mozilla's [dev-security-policy forum](https://groups.google.com/a/mozilla.org/g/dev-security-policy/c/0R3XLJL6FuE). Because the block is by key, it also covers the Sectigo cross-certificates{% include cite.html n=4 %}. Mozilla got the report at 20:06 UTC the same day and finished blocking the certificates in Firefox through OneCRL at 22:59 UTC, with no update or restart needed{% include cite.html n=4 %}. Chrome says no TLS certificate under these intermediates had been logged to Certificate Transparency (CT) before its block, and that Chrome Root Store version 43 will remove the upstream eMudhra root{% include cite.html n=4 %}.
 
-Mozilla's [NSS 3.131.1 release](https://groups.google.com/a/mozilla.org/g/dev-tech-crypto/c/vSxZxnOMMvs) removes emSign ECC Root CA - G3, emSign Root CA - C1, and emSign ECC Root CA - C3. Firefox didn't need it: the release is for software that uses the NSS store without getting OneCRL{% include cite.html n=4 %}{% include cite.html n=5 %}. The disclosure write-up says Microsoft platforms have blocked the certificates since 2026-10-20{% include cite.html n=3 %}. We found no Microsoft notice that confirms it.
+Mozilla's [NSS 3.131.1 release](https://groups.google.com/a/mozilla.org/g/dev-tech-crypto/c/vSxZxnOMMvs) removes emSign ECC Root CA - G3, emSign Root CA - C1, and emSign ECC Root CA - C3. Firefox didn't need it: the release is for software that uses the NSS store without getting OneCRL{% include cite.html n=4 %}{% include cite.html n=5 %}. Microsoft says it published an update to the Windows Disallowed Certificate Trust List on 2026-10-20 to block the affected certificate authorities, and sent Edge and WebView2 a separate CRLSet update, according to its [security response blog](https://www.microsoft.com/msrc/blog/2026/10/microsoft-response-to-compromised-emudhra-certificate-authority-keys). An out-of-band Windows update on 2026-10-26 then removed seven related certificates from the Windows trust list, and Microsoft tells administrators to make sure devices without automatic updates still get the updated disallowed list{% include cite.html n=26 %}.
 
 ## Go
 
