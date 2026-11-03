@@ -1,7 +1,7 @@
 ---
 title: "PyPI doubles upload limits for organization-owned projects"
 author: "Northwind Software & Dev Desk"
-description: "PyPI projects owned by an organization now get 200 MB per file and 20 GB per project automatically, and new uploads must keep versions to 128 characters."
+description: "PyPI projects owned by an organization now get 200 MB per file and 20 GB per project automatically; separately, all new uploads to PyPI must keep versions to 128 characters."
 categories: [software]
 kind: news
 date: 2026-11-03 08:05
