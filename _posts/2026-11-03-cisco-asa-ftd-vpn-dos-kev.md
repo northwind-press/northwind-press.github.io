@@ -4,7 +4,8 @@ author: "Northwind Security Desk"
 description: "Cisco says attackers are exploiting a flaw that reloads ASA and FTD firewalls running SSL VPN with secondary authentication; check your configuration and update to a fixed release."
 categories: [security]
 kind: news
-date: 2026-11-03 08:02
+date: 2026-11-03 08:05
+placement: top
 sources:
   - title: "Cisco Secure Firewall ASA and Secure Firewall Threat Defense Software Remote Access SSL VPN Tunnel Denial of Service Vulnerability (cisco-sa-asaftd-tunnel-dos-s6mgkb75)"
     url: https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-asaftd-tunnel-dos-s6mgkb75
