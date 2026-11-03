@@ -1,7 +1,7 @@
 ---
 title: "Valkey fixes cluster Pub/Sub heap overflow that may allow code execution"
 author: "Northwind Security Desk"
-description: "Valkey 9.1.3, 9.0.7, 8.1.11, 8.0.12 and 7.2.15 fix a heap overflow in cluster mode; upgrade clustered servers, and restrict scripting commands with ACLs until you can."
+description: "Valkey 9.1.3, 9.0.7, 8.1.11, 8.0.12, and 7.2.15 fix a heap overflow in cluster mode; upgrade clustered servers, and restrict scripting commands with ACLs until you can."
 categories: [security]
 kind: news
 date: 2026-11-03 08:04
@@ -23,7 +23,7 @@ sources:
 corrections: []
 ---
 
-The Valkey project has released fixes for a heap buffer overflow in cluster mode that an authenticated client could use to crash the server, and possibly to run code on it. Valkey published the [security advisory](https://github.com/valkey-io/valkey/security/advisories/GHSA-f4q9-j22m-xqq9), GHSA-f4q9-j22m-xqq9, on 2026-10-26. It rates the flaw High (CVSS 3.1 8.8, per Valkey). As of 2026-11-03 the advisory lists no CVE identifier.
+The Valkey project has released fixes for a heap buffer overflow in cluster mode that an authenticated client could use to crash the server, and possibly to run code on it. Valkey published the [security advisory](https://github.com/valkey-io/valkey/security/advisories/GHSA-f4q9-j22m-xqq9), GHSA-f4q9-j22m-xqq9, on 2026-10-26. It rates the flaw High, CVSS 3.1 8.8. As of 2026-11-03, the advisory lists no CVE identifier.
 
 ## What is affected
 
