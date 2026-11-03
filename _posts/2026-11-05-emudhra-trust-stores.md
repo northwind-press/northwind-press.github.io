@@ -17,15 +17,15 @@ sources:
     accessed: "2026-11-03"
   - title: "eMudhra emSign CA key compromise (disclosure write-up)"
     url: https://emudhra.we-have-a-problem.com/
-    publisher: "Disclosing researchers"
+    publisher: "emudhra.we-have-a-problem.com"
     date: "2026-10-20"
     accessed: "2026-11-03"
-  - title: "eMudhra intermediate compromise (dev-security-policy thread)"
+  - title: "dev-security-policy: eMudhra intermediate key compromise"
     url: https://groups.google.com/a/mozilla.org/g/dev-security-policy/c/0R3XLJL6FuE
     publisher: "Mozilla dev-security-policy"
     date: "2026-10-20"
     accessed: "2026-11-03"
-  - title: "NSS 3.131.1 release"
+  - title: "dev-tech-crypto: NSS 3.131.1 release"
     url: https://groups.google.com/a/mozilla.org/g/dev-tech-crypto/c/vSxZxnOMMvs
     publisher: "Mozilla dev-tech-crypto"
     date: "2026-10-20"
@@ -34,7 +34,7 @@ sources:
     url: https://pkg.go.dev/crypto/x509
     publisher: "The Go Project"
     accessed: "2026-11-03"
-  - title: "The eMudhra incident (Go blog)"
+  - title: "Our Response To The eMudhra Key Disclosure Incident"
     url: https://go.dev/blog/emudhra-incident
     publisher: "The Go Project"
     accessed: "2026-11-03"
@@ -60,9 +60,10 @@ sources:
     url: https://docs.python.org/3/using/mac.html
     publisher: "Python Software Foundation"
     accessed: "2026-11-03"
-  - title: "October 2026 security releases"
+  - title: "Wednesday, October 21, 2026 Security Releases"
     url: https://nodejs.org/en/blog/vulnerability/october-2026-security-releases
     publisher: "Node.js"
+    date: "2026-10-21"
     accessed: "2026-11-03"
   - title: "Node.js v24.22.1"
     url: https://nodejs.org/en/blog/release/v24.22.1
@@ -73,12 +74,12 @@ sources:
     url: https://raw.githubusercontent.com/nodejs/node/main/doc/api/cli.md
     publisher: "Node.js"
     accessed: "2026-11-03"
-  - title: "eMudhra CA compromise: guidance for OpenJDK users"
+  - title: "Compromised Certificates and OpenJDK Java Runtimes"
     url: https://openjdk.org/emudhra
     publisher: "OpenJDK"
     date: "2026-10-24"
     accessed: "2026-11-03"
-  - title: "About the eMudhra certificate distrust and command-line tools on macOS (support note 149555)"
+  - title: "About the compromised eMudhra intermediate CAs"
     url: https://support.apple.com/en-us/149555
     publisher: "Apple"
     date: "2026-10-29"
@@ -122,7 +123,7 @@ Browsers stopped trusting the compromised eMudhra intermediates within hours of 
 
 ## The incident in brief
 
-[Our news report](https://northwind-press.github.io/2026/11/02/emudhra-ca-compromise/) covers the compromise of eMudhra's emSign intermediate keys and how browsers responded. A [second piece](https://northwind-press.github.io/2026/11/02/go-python-emudhra-releases/) covers the emergency Go and Python releases that followed. The researchers' [disclosure write-up](https://emudhra.we-have-a-problem.com/) keeps a table of patched versions across vendors, but below we rely on each vendor's own pages.
+[Our news report](https://northwind-press.github.io/2026/11/02/emudhra-ca-compromise/) covers the compromise of eMudhra's emSign intermediate keys and how browsers responded. A [second piece](https://northwind-press.github.io/2026/11/02/go-python-emudhra-releases/) covers the emergency Go and Python releases that followed. A public [disclosure write-up](https://emudhra.we-have-a-problem.com/) keeps a table of patched versions across vendors, but below we rely on each vendor's own pages.
 
 ## Browsers: the baseline
 
@@ -134,13 +135,13 @@ Mozilla's [NSS 3.131.1 release](https://groups.google.com/a/mozilla.org/g/dev-te
 
 On macOS and Windows, Go's [`crypto/x509` package](https://pkg.go.dev/crypto/x509) hands certificate verification to the system APIs. On Linux, which "lacks platform APIs", Go uses its own verifier, the [Go blog](https://go.dev/blog/emudhra-incident) explains. A program can also embed a root set with [`x509roots/fallback`](https://pkg.go.dev/golang.org/x/crypto/x509roots/fallback), which keeps it working "even if the operating system does not provide a verifier or system roots pool". That package "must be kept up to date for security and compatibility reasons", only binaries (not libraries) should import it, and govulncheck reports new versions{% include cite.html n=8 %}. Neither the package page nor the blog says whether the fallback bundle has shipped a release without eMudhra{% include cite.html n=7 %}{% include cite.html n=8 %}.
 
-Go 1.27.3 and 1.26.10, released 2026-10-19, block "the usage of certificates which chained to the compromised intermediates"{% include cite.html n=7 %}. The Go team says Linux's lack of "a uniform built-in mechanism to handle revocation checking" was one of its main reasons to ship urgently{% include cite.html n=7 %}. Binaries rebuilt with either release "will automatically reject" the certificates{% include cite.html n=7 %}. To check, run `go version` for the toolchain, `go version -m <binary>` to see what built a binary, or `govulncheck -mode=binary <binary>`{% include cite.html n=7 %}.
+Go 1.27.3 and 1.26.10, released 2026-10-20 (UTC; 2026-10-19 in Pacific time), block "the usage of certificates which chained to the compromised intermediates"{% include cite.html n=7 %}. The Go team says Linux's lack of "a uniform built-in mechanism to handle revocation checking" was one of its main reasons to ship urgently{% include cite.html n=7 %}. Binaries rebuilt with either release "will automatically reject" the certificates{% include cite.html n=7 %}. To check, run `go version` for the toolchain, `go version -m <binary>` to see what built a binary, or `govulncheck -mode=binary <binary>`{% include cite.html n=7 %}.
 
 ## Python
 
 [Python 3.15.2](https://www.python.org/downloads/release/python-3152/), released 2026-10-25, is "an expedited security release" (CVE-2026-115557). Its `ssl` module now blocks the compromised eMudhra keys "as a last resort", and normal `pip` use, including upgrading pip itself, is "now safe … even if `pip` hasn't been updated yet"{% include cite.html n=9 %}. The same fix is in 3.14.10, 3.13.18, 3.12.16 and 3.11.18, according to Python's [Discourse announcement](https://discuss.python.org/t/information-for-python-users-regarding-emudhra-emsign-ca-certificate-security-incident/109576). Python 3.10 and older are end-of-life{% include cite.html n=10 %}.
 
-Updating Python isn't enough on its own, because of certifi. [certifi 2026.10.18](https://github.com/certifi/python-certifi/security/advisories/GHSA-6q48-6c7w-9gw2) "removes root certificates from 'emSign'". The Python thread recommends 2026.10.19 instead, "for compatibility with unaffected emSign root certificates"{% include cite.html n=10 %}. In the same thread, Christian Heimes writes that "pip always loads the CA certificates from its vendored certifi in addition to the system trust store, and there is no supported way to disable this"{% include cite.html n=10 %}. So pip older than 26.2.2 keeps trusting the compromised intermediates "regardless of the system trust store"{% include cite.html n=10 %}.
+Updating Python isn't enough on its own, because of certifi. [certifi 2026.10.18](https://github.com/certifi/python-certifi/security/advisories/GHSA-6q48-6c7w-9gw2) "removes root certificates from 'emSign'". The Python thread recommends 2026.10.19 instead, "for compatibility with unaffected emSign root certificates"{% include cite.html n=10 %}. A follow-up post in the same thread says that "pip always loads the CA certificates from its vendored certifi in addition to the system trust store, and there is no supported way to disable this"{% include cite.html n=10 %}. So pip older than 26.2.2 keeps trusting the compromised intermediates "regardless of the system trust store"{% include cite.html n=10 %}.
 
 The thread's opening post lists minimum versions to upgrade to, including certifi 2026.10.19, pip 26.2.2, uv 0.13.6, virtualenv 21.14.12, conda 26.9.4, the manylinux and musllinux images 2026.10.26-1, and the Docker official `python` images{% include cite.html n=10 %}. It also says to rebuild container images "with layer caching disabled", and it gives a hash-pinned command for updating pip safely{% include cite.html n=10 %}.
 
@@ -193,7 +194,7 @@ On Debian, [`update-ca-certificates`](https://manpages.debian.org/trixie/ca-cert
 
 These are our recommendations, not the vendors'.
 
-- Before assuming the browser fix covers a service, find out which store it actually uses. Go on Linux, Node, pip, standalone Java, Electron apps and macOS command-line tools each have their own.
+- Before assuming the browser fix covers a service, find out which store it actually uses. Go on Linux, Node, pip, standalone Java, Electron apps and macOS command-line tools each use their own store or their own verifier.
 - Update the runtime first, then the bundles that travel with it. For Python that means certifi and pip as well as the interpreter.
 - Rebuild container images without the layer cache. Updating a host doesn't change the certificates an image carries.
 - On Macs that run curl, git or the system python3 against production, apply Apple's `cert.pem` steps and re-check after every macOS update.
