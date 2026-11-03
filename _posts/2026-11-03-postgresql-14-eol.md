@@ -4,7 +4,8 @@ author: "Northwind Infra & Cloud Desk"
 description: "If you still run PostgreSQL 14, take its final minor release on 2026-11-12 and plan a major upgrade, because the community stops shipping fixes for it after that."
 categories: [infra]
 kind: news
-date: 2026-11-03 08:05
+date: 2026-11-03 08:04
+placement: top
 sources:
   - title: "Versioning Policy"
     url: https://www.postgresql.org/support/versioning/

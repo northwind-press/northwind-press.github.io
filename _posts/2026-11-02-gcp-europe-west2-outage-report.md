@@ -5,7 +5,6 @@ description: "A power loss in one zone caused errors across europe-west2; plan z
 categories: [infra]
 kind: news
 date: 2026-11-02 22:45
-placement: top
 sources:
   - title: "Multiple services were experiencing issues in the europe-west2 region (incident report)"
     url: https://status.cloud.google.com/incidents/Xs2XTHzAVC9YnafnPyzj
