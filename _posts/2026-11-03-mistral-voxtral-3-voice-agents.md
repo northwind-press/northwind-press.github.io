@@ -56,11 +56,11 @@ Mistral's [pricing page](https://docs.mistral.ai/inference/pricing) lists Mini T
 
 ## Self-deployment and weights
 
-The announcement says Voxtral 3 is available on Mistral's API and "for self-deployment on your own infrastructure"{% include cite.html n=2 %}. For running the full stack on-premises or in a private cloud, it tells readers to contact Mistral's team{% include cite.html n=2 %}. The pricing page labels models with downloadable weights "Self-hosted · Open weights". The Voxtral 3 models carry no such label, and the model cards list no weights or license{% include cite.html n=5 %}{% include cite.html n=3 %}{% include cite.html n=4 %}. We found no published self-deployment terms.
+The announcement says Voxtral 3 is available on Mistral's API and "for self-deployment on your own infrastructure"{% include cite.html n=2 %}. For running the full stack on-premises or in a private cloud, it tells readers to contact Mistral's team{% include cite.html n=2 %}. The pricing page labels models with downloadable weights "Self-hosted · Open weights"{% include cite.html n=5 %}. The Voxtral 3 models carry no such label, and the model cards list no weights or license{% include cite.html n=5 %}{% include cite.html n=3 %}{% include cite.html n=4 %}. We found no published self-deployment terms.
 
 ## Voice Agents interfaces
 
-The changelog lists telephony, browser, and custom-audio interfaces{% include cite.html n=1 %}. According to the [Voice Agents overview](https://docs.mistral.ai/studio/audio/voice-agents/overview), the SDK is built on LiveKit and has Python and Node.js bindings for agents on your own machine or server. A TypeScript build runs in the browser, where your server creates the session so the API key never reaches the page{% include cite.html n=6 %}. Phone agents use SIP and are available only to enterprise customers through their account team at launch. On a phone line, client-side tools fail, so phone agents must use server-side tools{% include cite.html n=6 %}.
+The changelog lists telephony, browser, and custom-audio interfaces{% include cite.html n=1 %}. According to the [Voice Agents overview](https://docs.mistral.ai/studio/audio/voice-agents/overview), the SDK is built on LiveKit and has Python and Node.js bindings for agents on your own machine or server. A TypeScript build runs in the browser, where your server creates the session so the API key never reaches the page{% include cite.html n=6 %}. Phone agents use SIP and are available only to enterprise customers through their account team at launch{% include cite.html n=6 %}. On a phone line, client-side tools fail, so phone agents must use server-side tools{% include cite.html n=6 %}.
 
 ## What we don't know
 
