@@ -55,7 +55,7 @@ The card names vLLM as recommended, plus SGLang, Transformers, and llama.cpp via
 
 ## Relation to the API model
 
-The card says the model is also served on Mistral's API as `mistral-large-4`{% include cite.html n=2 %}. That model entered public preview on 2026-10-06, when the [changelog](https://docs.mistral.ai/getting-started/changelog/) said "open weights are coming soon". Mistral's [API model page](https://docs.mistral.ai/models/mistral-large-4-0) still shows it as a public preview dated 2026-10-06, priced at $0.70 input, $0.07 cached input, and $2.10 output per million tokens, as of 2026-11-03. That page gives the size differently from the card: 52 billion active and 1.05 trillion total parameters, with a 1.6-billion-parameter vision encoder{% include cite.html n=7 %}.
+The card says the model is also served on Mistral's API as `mistral-large-4`{% include cite.html n=2 %}. That model entered public preview on 2026-10-06, when the [changelog](https://docs.mistral.ai/getting-started/changelog/) said "open weights are coming soon". Mistral's [API model page](https://docs.mistral.ai/models/mistral-large-4-0) still shows it as a public preview dated 2026-10-06, priced at US$0.70 input, US$0.07 cached input, and US$2.10 output per million tokens, as of 2026-11-03. That page gives the size differently from the card: 52 billion active and 1.05 trillion total parameters, with a 1.6-billion-parameter vision encoder{% include cite.html n=7 %}.
 
 On security, Mistral says the model refuses malicious cyber requests, but that it saw "a potential for uplift to conduct real attacks" and is modifying its guardrails{% include cite.html n=1 %}.
 
