@@ -4,7 +4,7 @@ author: "Northwind AI Desk"
 description: "Mistral Large 4's weights are downloadable under a modified MIT license; check the Model-as-a-Service clause before you host it for others."
 categories: [ai]
 kind: news
-date: 2026-11-03 08:05
+date: 2026-11-03 08:08
 sources:
   - title: "Mistral Large 4 (Le Chonk) is now open weight"
     url: https://mistral.ai/news/mistral-large-4-oss/
