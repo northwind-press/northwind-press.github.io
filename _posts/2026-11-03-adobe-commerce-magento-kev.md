@@ -40,9 +40,9 @@ Adobe's [security bulletin APSB26-73](https://www.adobe.com/trust/security/produ
 
 The fixed builds are the 2026-jul releases of each line (for example 2.4.8-2026-jul, and 1.5.3-2026-jul for B2B) and Commerce Events 1.21.0{% include cite.html n=1 %}.
 
-The scores differ by source. The bulletin gives CVSS 3.1 9.6, per Adobe{% include cite.html n=1 %}. Adobe's own [CVE record](https://www.cve.org/CVERecord?id=CVE-2026-48356) gives CVSS 3.1 9.3, per Adobe's CVE record, with no availability impact, and says exploitation requires a victim to visit a crafted URL or interact with a compromised page{% include cite.html n=3 %}. [NVD](https://nvd.nist.gov/vuln/detail/CVE-2026-48356) also scores it CVSS 3.1 9.3, per NVD{% include cite.html n=4 %}.
+The scores differ by source. The bulletin gives CVSS 3.1 9.6, per Adobe{% include cite.html n=1 %}. Adobe's own [CVE record](https://www.cve.org/CVERecord?id=CVE-2026-48356) gives CVSS 3.1 9.3, with no availability impact, and says exploitation requires a victim to visit a crafted URL or interact with a compromised page{% include cite.html n=3 %}. [NVD](https://nvd.nist.gov/vuln/detail/CVE-2026-48356) also scores it CVSS 3.1 9.3, per NVD{% include cite.html n=4 %}.
 
-## Exploited, but not per Adobe
+## What Adobe and CISA say about exploitation
 
 As of 2026-11-03, Adobe's bulletin still says Adobe "is not aware of any exploits in the wild" for the issues it fixes, and it has not been updated since 2026-08-11{% include cite.html n=1 %}. CISA lists the flaw as exploited{% include cite.html n=2 %}. Neither source says who is exploiting it or how, and CISA lists known ransomware use as "Unknown"{% include cite.html n=2 %}.
 
