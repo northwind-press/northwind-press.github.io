@@ -5,6 +5,7 @@ description: "PyPI projects owned by an organization now get 200 MB per file and
 categories: [software]
 kind: news
 date: 2026-11-03 08:04
+placement: top
 sources:
   - title: "Higher limits for organization projects"
     url: https://blog.pypi.org/posts/2026-10-26-higher-limits-for-organization-projects/

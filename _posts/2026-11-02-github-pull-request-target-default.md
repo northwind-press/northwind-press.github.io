@@ -5,7 +5,6 @@ description: "Check Insights for blocked pull_request_target runs before the fir
 categories: [software]
 kind: news
 date: 2026-11-02 22:42
-placement: top
 sources:
   - title: "pull_request_target blocked by default December 2"
     url: https://github.blog/changelog/2026-11-02-pull_request_target-blocked-by-default-december-2
