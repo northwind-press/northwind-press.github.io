@@ -22,7 +22,7 @@ sources:
 corrections: []
 ---
 
-Community support for PostgreSQL 14 ends on 2026-11-12. The PostgreSQL project's [versioning page](https://www.postgresql.org/support/versioning/) lists that date as the final release for version 14. As of 2026-11-03, the current 14 minor is 14.24{% include cite.html n=1 %}.
+PostgreSQL 14's planned final release is on 2026-11-12, after which community support ends. The PostgreSQL project's [versioning page](https://www.postgresql.org/support/versioning/) lists that date as the final release for version 14. As of 2026-11-03, the current 14 minor is 14.24{% include cite.html n=1 %}.
 
 ## What changes
 
