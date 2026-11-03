@@ -37,7 +37,7 @@ sources:
     accessed: "2026-11-03"
 corrections: []
 ---
-Mistral has released the weights of Mistral Large 4, its flagship model, according to its [announcement](https://mistral.ai/news/mistral-large-4-oss/), which the page's metadata dates 2026-10-29. The model entered public preview earlier in October{% include cite.html n=1 %}. Mistral says the released weights are an improved version, after further reinforcement learning since the preview{% include cite.html n=1 %}.
+Mistral released the open weights of Mistral Large 4, its flagship model, on 2026-10-29, according to its [announcement](https://mistral.ai/news/mistral-large-4-oss/). The model entered public preview earlier in October{% include cite.html n=1 %}. Mistral says the released weights are an improved version, after further reinforcement learning since the preview{% include cite.html n=1 %}.
 
 ## What's released
 
