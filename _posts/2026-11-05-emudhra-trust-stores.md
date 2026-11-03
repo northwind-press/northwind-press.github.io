@@ -30,7 +30,7 @@ sources:
     publisher: "Mozilla dev-tech-crypto"
     date: "2026-10-20"
     accessed: "2026-11-03"
-  - title: "crypto/x509 package documentation"
+  - title: "x509 package - crypto/x509"
     url: https://pkg.go.dev/crypto/x509
     publisher: "The Go Project"
     accessed: "2026-11-03"
@@ -38,21 +38,21 @@ sources:
     url: https://go.dev/blog/emudhra-incident
     publisher: "The Go Project"
     accessed: "2026-11-03"
-  - title: "golang.org/x/crypto/x509roots/fallback package documentation"
+  - title: "fallback package - golang.org/x/crypto/x509roots/fallback"
     url: https://pkg.go.dev/golang.org/x/crypto/x509roots/fallback
     publisher: "The Go Project"
     accessed: "2026-11-03"
-  - title: "Python 3.15.2"
+  - title: "Python Release Python 3.15.2"
     url: https://www.python.org/downloads/release/python-3152/
     publisher: "Python Software Foundation"
     date: "2026-10-25"
     accessed: "2026-11-03"
-  - title: "Information for Python users regarding eMudhra emSign CA certificate security incident"
+  - title: "Information for Python users regarding eMudhra / emSign CA certificate security incident"
     url: https://discuss.python.org/t/information-for-python-users-regarding-emudhra-emsign-ca-certificate-security-incident/109576
     publisher: "Python Discourse"
     date: "2026-10-20"
     accessed: "2026-11-03"
-  - title: "certifi security advisory GHSA-6q48-6c7w-9gw2"
+  - title: "Removal of emSign root cerificate [sic] (GHSA-6q48-6c7w-9gw2)"
     url: https://github.com/certifi/python-certifi/security/advisories/GHSA-6q48-6c7w-9gw2
     publisher: "certifi"
     accessed: "2026-11-03"
