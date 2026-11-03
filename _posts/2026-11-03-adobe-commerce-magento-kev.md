@@ -50,7 +50,7 @@ The fixed builds are the 2026-jul releases of each line (for example 2.4.8-2026-
 
 The scores differ by source. The bulletin gives CVSS 3.1 9.6, per Adobe{% include cite.html n=1 %}. Adobe's own [CVE record](https://www.cve.org/CVERecord?id=CVE-2026-48356) gives CVSS 3.1 9.3, with no availability impact, and says exploitation requires a victim to visit a crafted URL or interact with a compromised page{% include cite.html n=3 %}. [NVD](https://nvd.nist.gov/vuln/detail/CVE-2026-48356) also scores it CVSS 3.1 9.3{% include cite.html n=4 %}.
 
-## What Adobe, CISA and Sansec say about exploitation
+## What Adobe, CISA, and Sansec say about exploitation
 
 As of 2026-11-03, Adobe's bulletin still says Adobe "is not aware of any exploits in the wild" for the issues it fixes, and it has not been updated since 2026-08-11{% include cite.html n=1 %}. CISA lists the flaw as exploited{% include cite.html n=2 %}. Security firm [Sansec reports](https://sansec.io/research/magento-cms-block-loader-deepveindrilling) that attackers were exploiting the flaw, which it calls PolyShell, by March 2026, months before Adobe's July fix, and has published indicators of compromise; it says some stores stayed infected after patching. Sansec does not name the operator{% include cite.html n=5 %}. Neither Adobe nor CISA says who is exploiting the flaw{% include cite.html n=1 %}{% include cite.html n=2 %}. CISA lists known ransomware use as "Unknown"{% include cite.html n=2 %}.
 
