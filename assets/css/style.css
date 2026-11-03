@@ -198,7 +198,7 @@ nav a[aria-current="page"] { font-weight: 600; box-shadow: inset 0 -2px 0 var(--
 /* Separator between back-to-back markers, inserted by _layouts/post.html (never between markers with
    text in between). Its width keeps the two numbers' centres >= 24px apart, so their 24px tap areas
    don't overlap (WCAG 2.5.8). */
-.cite-sep { font-family: var(--sans); font-size: 0.68em; line-height: 0; vertical-align: super; color: var(--muted); padding: 0 0.5em; }
+.cite-sep { font-family: var(--sans); font-size: 0.68em; line-height: 0; vertical-align: super; color: var(--muted); padding: 0 calc(24px - 1.6ch) 0 0; } /* comma hugs the number before it ("2, 4"); the space after keeps centres >= 24px apart (measured 25.7px) */
 .cite-sep + .cite { margin-left: 0; }
 .post-body .cite a:focus-visible { outline-width: 2px; outline-offset: 0; } /* clears a closing quote before the number */
 .post-body .cite a { position: relative; color: var(--link); text-decoration: none; font-weight: 600; padding: 0 0.08em; border-radius: 2px; }
@@ -209,6 +209,13 @@ nav a[aria-current="page"] { font-weight: 600; box-shadow: inset 0 -2px 0 var(--
 .cite a { scroll-margin-top: 30vh; } /* ↩ lands with the cited sentence in view, not at the top edge */
 .cite-back { display: inline-block; min-width: 24px; min-height: 24px; line-height: 24px; text-align: center; margin-left: 0.25em; padding: 0 0.2em; text-decoration: none; color: var(--muted); font-size: 0.9em; }
 .cite-back:hover { color: var(--link); }
+/* Phones (T-119 item 8): larger, bolder numbers and a 32px tap area; the separator widens to match. */
+@media (max-width: 47.99rem) {
+  .cite { font-size: 0.8em; margin-left: 2px; }
+  .post-body .cite a { padding: 0 0.15em; }
+  .post-body .cite a::after { width: max(100%, 32px); height: 32px; }
+  .cite-sep { font-size: 0.8em; padding-right: calc(32px - 1.8ch); } /* centres >= 32px apart */
+}
 
 .sources { border-top: 2px solid var(--rule-strong); margin-top: var(--s3); padding-top: var(--s-1); font-family: var(--sans); font-size: 0.95rem; line-height: 1.5; }
 .sources h2 { font-family: var(--sans); font-size: var(--step--1); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin: 0.5rem 0 var(--s0); }
@@ -328,6 +335,7 @@ header.section-intro > p:not(.section-links), p.section-intro { font-size: var(-
 .block-heading a { color: var(--fg); text-decoration: none; display: inline-block; padding: 0.15rem 0; }
 .block-heading a:hover { text-decoration: underline; }
 .section-block .block-heading { border-top: 3px solid var(--section, var(--rule-strong)); }
+.section-block .post-card__kicker > a { display: none; } /* the block heading already names the desk; keeps kicker + time on one line (T-119 item 7) */
 .block-more, .block-empty { font-family: var(--sans); font-size: 0.95rem; margin: var(--s-1) 0 0; }
 .block-more a { display: inline-block; padding: 0.3rem 0; }
 .block-empty { color: var(--muted); }
@@ -376,17 +384,30 @@ header.section-intro > p:not(.section-links), p.section-intro { font-size: var(-
   .story--top .story__dek { display: block; }
   .section-blocks { grid-template-columns: 1fr 1fr; column-gap: var(--s2); }
 }
-/* Desktop (>=64rem): 12-column front. Row 1 lead (7) | top stories (5) with a vertical rule.
-   Row 2+: Latest and the briefing on the left (4), section blocks 2×2 on the right (8). */
+/* Phones: the desk blocks repeat stories already shown above (top stories, Latest), and the nav
+   already offers every desk, so they start at tablet width (T-119 item 6). */
+@media (max-width: 47.99rem) {
+  .front > .section-blocks { display: none; }
+}
+/* Desktop (>=64rem): 12-column front (T-119 items 1–3).
+   Left 8, in DOM order: lead + top stories 2×2 with deks (the tablet stack), the briefing, the desk
+   blocks 2×2. Right 4: Latest as a rail spanning all three rows, so nothing ends early under the lead.
+   Only the rail spans rows (two spanning items make grid over-grow the shared row). The left items
+   auto-place, so a missing briefing leaves no hole. */
 @media (min-width: 64rem) {
-  .front { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s2); row-gap: var(--s2); }
-  .front-top { grid-column: 1 / -1; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: var(--s2); }
-  .front-top .top-stories { grid-template-columns: 1fr; border-left: 1px solid var(--rule); padding-left: var(--s2); }
-  .front-top .top-stories > li:first-child { border-top: 0; padding-top: 0; }
-  .front-top .top-stories > li + li .story__dek { display: none; } /* keep the column about as tall as the lead */
-  .front > .river { grid-column: 1 / 5; grid-row: 2; }
-  .front > .front-briefing { grid-column: 1 / 5; grid-row: 3; align-self: start; }
-  .front > .section-blocks { grid-column: 5 / -1; grid-row: 2 / span 2; align-self: start; }
+  .front { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s2); row-gap: var(--s2); align-items: start; }
+  .front > :not(.river) { grid-column: 1 / 9; }
+  .front > .river { grid-column: 9 / -1; grid-row: 1 / span 3; border-left: 1px solid var(--rule); padding-left: var(--s2); }
+  .front > .river .block-heading { border-top: 0; padding-top: 0; }
+  /* Desk blocks: rows line up across each pair (heading, four stories, "More"), so both columns end together. */
+  @supports (grid-template-rows: subgrid) {
+    .section-blocks { row-gap: var(--s2); }
+    .section-block { display: grid; grid-row: span 6; grid-template-rows: subgrid; row-gap: 0; }
+    .section-block > .block-heading { grid-row: 1; }
+    .section-block__list { display: grid; grid-row: 2 / span 4; grid-template-rows: subgrid; row-gap: 0; }
+    .section-block > .block-empty { grid-row: 2; }
+    .section-block > .block-more { grid-row: 6; align-self: end; }
+  }
   .section-front { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: var(--s2); align-items: start; }
   .section-front > .river { border-left: 1px solid var(--rule); padding-left: var(--s2); }
   /* A section with only its lead (no river block): the lead spans the row, its dek capped for reading. */
