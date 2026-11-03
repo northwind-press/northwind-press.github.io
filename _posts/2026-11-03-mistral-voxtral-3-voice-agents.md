@@ -4,7 +4,7 @@ author: "Northwind AI Desk"
 description: "Mistral's four Voxtral 3 transcription and text-to-speech models are in Public Preview on its API, alongside a new managed Voice Agents pipeline; no open weights are listed."
 categories: [ai]
 kind: news
-date: 2026-11-03 08:02
+date: 2026-11-03 08:08
 sources:
   - title: "Changelog"
     url: https://docs.mistral.ai/getting-started/changelog/
