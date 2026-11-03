@@ -9,4 +9,5 @@ source "https://rubygems.org"
 
 gem "github-pages", group: :jekyll_plugins
 gem "nokogiri", "~> 1.13.10"   # 1.14+ needs Ruby 2.7
+gem "ffi", "~> 1.16.3"         # 1.17 precompiled gems need Ruby 3.0
 gem "webrick", "~> 1.7"        # only for `jekyll serve`; builds don't need it
