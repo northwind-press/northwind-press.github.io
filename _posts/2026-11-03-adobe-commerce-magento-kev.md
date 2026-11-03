@@ -4,7 +4,7 @@ author: "Northwind Security Desk"
 description: "Stores that skipped Adobe's July 2026 update for CVE-2026-48356 should apply it now and check for compromise, because CISA says the flaw is being exploited."
 categories: [security]
 kind: news
-date: 2026-11-03 08:03
+date: 2026-11-03 08:09
 sources:
   - title: "Security update available for Adobe Commerce | APSB26-73"
     url: https://www.adobe.com/trust/security/products/commerce/apsb26-73.html
