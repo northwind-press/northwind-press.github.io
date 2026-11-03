@@ -362,6 +362,7 @@ header.section-intro > p:not(.section-links), p.section-intro { font-size: var(-
 .river__item { display: grid; grid-template-columns: 3.25rem minmax(0, 1fr); column-gap: 0.75rem; align-items: baseline; margin: 0; padding: 0.6rem 0; border-bottom: 1px solid var(--rule); font-family: var(--sans); }
 .river__item > * { grid-column: 2; }
 .river__time { grid-column: 1; grid-row: 1 / span 3; font-size: var(--step--1); font-weight: 600; color: var(--fg); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.river__clock { display: block; font-weight: 400; color: var(--muted); } /* news: "2 Nov" over "22:53" (never stale between builds) */
 .river__section { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
 .river__section::before { content: ""; display: inline-block; width: 0.55em; height: 0.55em; margin-right: 0.4em; background: var(--section, var(--link)); vertical-align: 0.05em; } /* decorative */
 .section-front .river__section { display: none; } /* on a section front every item is that section: the label is noise */
