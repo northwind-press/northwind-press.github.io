@@ -2,7 +2,7 @@
 title: "Microsoft will retire Azure Fluid Relay on 2027-02-02 and points users to self-hosting"
 author: "Northwind Infra & Cloud Desk"
 description: "Azure Fluid Relay retires on 2027-02-02; inventory the apps that use it now and plan a move to the self-hosted Fluid service, which you run and pay for in your own subscription."
-date: 2026-11-03 08:03
+date: 2026-11-03 08:09
 categories: [infra]
 kind: news
 sources:
