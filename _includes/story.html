@@ -16,6 +16,10 @@
 {%- endif -%}
 {%- assign st_kind = site.data.kinds | where: 'slug', st.kind | first -%}
 {%- include section-of.html post=st -%}
+{%- comment -%} Short date (T-120): "2 Nov" (+ year if not the build year), ", 22:45 UTC" for news. No "today"
+  forms: the site is static, so they'd go stale between builds. {%- endcomment -%}
+{%- assign st_year = st.date | date: '%Y' -%}
+{%- assign st_build_year = site.time | date: '%Y' -%}
 {%- assign st_corrected = false -%}
 {%- if st.corrections and st.corrections.size > 0 -%}{%- assign st_corrected = true -%}{%- endif -%}
 <{{ st_tag }} class="story story--{{ st_variant }}"{% if so_section %} data-section="{{ so_section.slug }}"{% endif %}>
@@ -23,7 +27,7 @@
     {%- if st_kind %}<span class="badge badge--{{ st_kind.slug }}">{{ st_kind.label | escape }}</span> {% endif -%}
     {%- if so_section %}<a href="{{ so_section.url | relative_url }}">{{ so_section.title | escape }}</a> {% endif -%}
     {%- if so_sub %}<a href="{{ so_sub.url | relative_url }}">{{ so_sub.title | escape }}</a> {% endif -%}
-    <time datetime="{{ st.date | date_to_xmlschema }}">{{ st.date | date: '%-d %B %Y' }}{% if st.kind == 'news' %}, {{ st.date | date: '%H:%M' }} UTC{% endif %}</time>
+    <time datetime="{{ st.date | date_to_xmlschema }}">{{ st.date | date: '%-d %b' }}{% if st_year != st_build_year %} {{ st_year }}{% endif %}{% if st.kind == 'news' %}, {{ st.date | date: '%H:%M' }} UTC{% endif %}</time>
   </p>
   <{{ st_h }} class="story__title"><a href="{{ st.url | relative_url }}">{{ st.title | smartify }}</a></{{ st_h }}>
   {%- if st_variant != 'compact' and st.description %}
