@@ -30,7 +30,7 @@ The project supports each major version for five years after its first release. 
 
 The 2026-11-12 date is also the next scheduled update release for all supported versions on the project's [release roadmap](https://www.postgresql.org/developer/roadmap/). The minor releases after that are planned for 2027-02-11, 2027-05-13 and 2027-08-12{% include cite.html n=2 %}. Each is made only for supported versions, so 14 won't get them{% include cite.html n=2 %}.
 
-As of 2026-11-03, the supported majors after 14 are 15, 16, 17 and 18. Version 15 reaches end of life on 2027-11-11 and 18 on 2030-11-14{% include cite.html n=1 %}. PostgreSQL 19 is not yet released. The project's [RC 1 announcement](https://www.postgresql.org/about/news/postgresql-19-rc-1-released-3409/) says a second release candidate will arrive on 2026-11-12. General availability is planned for 2026-11-19, unless an issue requires a delay or another release candidate{% include cite.html n=3 %}.
+As of 2026-11-03, the supported majors after 14 are 15, 16, 17 and 18{% include cite.html n=1 %}. Version 15 reaches end of life on 2027-11-11 and 18 on 2030-11-14{% include cite.html n=1 %}. PostgreSQL 19 is not yet released. The project's [RC 1 announcement](https://www.postgresql.org/about/news/postgresql-19-rc-1-released-3409/) says a second release candidate will arrive on 2026-11-12. General availability is planned for 2026-11-19, unless an issue requires a delay or another release candidate{% include cite.html n=3 %}.
 
 The end-of-life date here is the community's. Managed database providers set their own support timelines for PostgreSQL 14, and this item does not cover them.
 
