@@ -39,7 +39,7 @@ Mistral released four Voxtral 3 speech models on 2026-10-20, all in Public Previ
 
 ## The models
 
-- **Voxtral TTS 3** (`voxtral-mini-tts-3-0`) does text-to-speech with zero-shot voice cloning and streaming{% include cite.html n=1 %}. Its [model card](https://docs.mistral.ai/models/voxtral-mini-tts-3-0) also lists `voxtral-mini-tts-realtime-3-0` and professional voice cloning, and gives about 90 ms to first audio, five output formats, and 34 emotion tags.
+- **Voxtral TTS 3** (`voxtral-mini-tts-3-0`) does text-to-speech with zero-shot voice cloning and streaming{% include cite.html n=1 %}. Its [model card](https://docs.mistral.ai/models/voxtral-mini-tts-3-0) also lists professional voice cloning, and gives about 90 ms to first audio, five output formats, and 34 emotion tags.
 - **Voxtral Mini Transcribe 3** (`voxtral-mini-transcribe-3-0`) does offline transcription and diarization with timestamps{% include cite.html n=1 %}. Mistral says it has 4B parameters{% include cite.html n=2 %}.
 - **Voxtral Mini Transcribe Realtime 3** (`voxtral-mini-transcribe-realtime-3-0`) transcribes in real time{% include cite.html n=1 %}. The [model card](https://docs.mistral.ai/models/voxtral-mini-transcribe-realtime-3-0) lists configurable latency from 80 ms to 2,400 ms, end-of-turn detection, context biasing, and diarization over one WebSocket session.
 - **Voxtral Small Transcribe 3** (`voxtral-small-transcribe-3-0`) does offline transcription and diarization with timestamps{% include cite.html n=1 %}.
@@ -56,7 +56,7 @@ Mistral's [pricing page](https://docs.mistral.ai/inference/pricing) lists Mini T
 
 ## Self-deployment and weights
 
-The announcement says Voxtral 3 is available on Mistral's API and "for self-deployment on your own infrastructure"{% include cite.html n=2 %}. For running the full stack on-premises or in a private cloud, it tells readers to contact Mistral's team{% include cite.html n=2 %}. The pricing page labels models with downloadable weights "Self-hosted · Open weights"{% include cite.html n=5 %}. The Voxtral 3 models carry no such label, and the model cards list no weights or license{% include cite.html n=5 %}{% include cite.html n=3 %}{% include cite.html n=4 %}. We found no published self-deployment terms.
+The announcement says Voxtral 3 is available on Mistral's API and "for self-deployment on your own infrastructure"{% include cite.html n=2 %}. For running the full stack on-premises or in a private cloud, it tells readers to contact Mistral's team{% include cite.html n=2 %}. The pricing page labels some Mistral models, such as Shieldstral and Timestral, "Self-hosted · Open weights"{% include cite.html n=5 %}. The Voxtral 3 models carry no such label, and the model cards list no weights or license{% include cite.html n=5 %}{% include cite.html n=3 %}{% include cite.html n=4 %}. We found no published self-deployment terms.
 
 ## Voice Agents interfaces
 
