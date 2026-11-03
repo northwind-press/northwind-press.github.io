@@ -50,4 +50,4 @@ Fast mode for Terra supports EU data residency{% include cite.html n=3 %}.
 
 ## What we don't know
 
-OpenAI's pages give no published quality comparison between Terra and GPT-5.6 Terra, Sol or Luna. They also list no dated snapshot other than `gpt-6.1-terra`{% include cite.html n=2 %}. The documents we checked don't say whether GPT-5.6 Terra will be deprecated.
+The three OpenAI pages we checked give no published quality comparison between Terra and GPT-5.6 Terra, Sol or Luna{% include cite.html n=1 %}{% include cite.html n=2 %}{% include cite.html n=3 %}. They also list no dated snapshot other than `gpt-6.1-terra`{% include cite.html n=2 %}. The documents we checked don't say whether GPT-5.6 Terra will be deprecated.

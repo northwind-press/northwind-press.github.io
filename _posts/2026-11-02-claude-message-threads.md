@@ -42,4 +42,4 @@ The docs say threads don't change pricing or rate limits{% include cite.html n=2
 
 ## What's still unknown
 
-Anthropic gives no figures for how much time to first token falls, and doesn't say when the beta will end{% include cite.html n=1 %}{% include cite.html n=2 %}. The docs offer no API to list, read, or delete a thread{% include cite.html n=2 %}.
+Neither the release notes nor the guide gives figures for how much time to first token falls, or says when the beta will end{% include cite.html n=1 %}{% include cite.html n=2 %}. The docs offer no API to list, read, or delete a thread{% include cite.html n=2 %}.
