@@ -1,7 +1,7 @@
 ---
-title: "Mistral releases Voxtral 3 speech models and a Voice Agents SDK in preview"
+title: "Mistral releases Voxtral 3 speech models in preview, plus a Voice Agents SDK"
 author: "Northwind AI Desk"
-description: "Mistral's four Voxtral 3 transcription and text-to-speech models and its managed Voice Agents pipeline are in Public Preview on its API; no open weights are listed."
+description: "Mistral's four Voxtral 3 transcription and text-to-speech models are in Public Preview on its API, alongside a new managed Voice Agents pipeline; no open weights are listed."
 categories: [ai]
 kind: news
 date: 2026-11-03 08:02
