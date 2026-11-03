@@ -432,7 +432,11 @@ body > main { flex: 1 0 auto; width: 100%; } /* width: auto margins would otherw
 .footer__promise { display: block; }
 .footer__promise::first-letter { text-transform: uppercase; } /* on its own line visually; the text stays 'Northwind Press: every claim...' for screen readers */
 .footer .footer__contact { margin-top: var(--s-1); }
-.footer__contact a { color: var(--link); }
+/* Contact and policy: standalone links (not inside a sentence), so each gets a >= 24px tap height. */
+.footer__contact a, .footer__policy a { display: inline-block; padding: 0.2rem 0; color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+.footer__contact a { font-weight: 600; }
+.footer__policy { font-size: var(--step--1); }
+.footer__contact a:hover, .footer__policy a:hover { text-decoration-thickness: 2px; }
 .footer__label { font-family: var(--sans); font-size: var(--step--1); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg); margin: 0 0 0.25rem; }
 .footer__nav ul { gap: 0 1.25rem; }
 .footer__nav a { padding: 0.4rem 0; text-decoration: underline; text-decoration-color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 0.2em; } /* >= 32px tall; underlined so they read as links */
@@ -467,7 +471,7 @@ body > main { flex: 1 0 auto; width: 100%; } /* width: auto margins would otherw
   :root { --bg: #fff; --fg: #000; --muted: #333; --link: #000; --rule: #999; --rule-strong: #000; --note-bg: #fff; --note-border: #000; --note-label: #000; --code-bg: #fff; }
   body { font-size: 11pt; line-height: 1.45; }
   .wrap { max-width: none; padding: 0; }
-  .skip-link, nav, .report, .cite-back, .audio, .footer__contact { display: none; }
+  .skip-link, nav, .report, .cite-back, .audio, .footer__contact, .footer__policy { display: none; }
   body { display: block; min-height: 0; }
   .site-footer { border-bottom: 0; margin-top: var(--s2); }
   .site-header { border-top: 0; }
