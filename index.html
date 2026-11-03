@@ -30,24 +30,23 @@ wide: true
     </ol>
   </section>
 
+  {%- comment -%} "Today’s briefing" only when a briefing is dated on the build's UTC day; otherwise the
+    whole section (heading included) is left out (board review #9). {%- endcomment -%}
+  {%- assign home_today = site.time | date: '%Y-%m-%d' %}
+  {%- assign home_briefing = nil %}
+  {%- assign home_briefings = site.posts | where: 'kind', 'briefing' %}
+  {%- for b in home_briefings %}
+    {%- assign b_day = b.date | date: '%Y-%m-%d' %}
+    {%- if b_day == home_today %}{% assign home_briefing = b %}{% break %}{% endif %}
+  {%- endfor %}
+  {%- if home_briefing %}
   <section class="front-briefing" aria-labelledby="briefing-h">
     <h2 class="block-heading" id="briefing-h">Today’s briefing</h2>
-    {%- comment -%} The heading says "Today’s", so only a briefing dated on the build's UTC day counts. {%- endcomment -%}
-    {%- assign home_today = site.time | date: '%Y-%m-%d' %}
-    {%- assign home_briefing = nil %}
-    {%- assign home_briefings = site.posts | where: 'kind', 'briefing' %}
-    {%- for b in home_briefings %}
-      {%- assign b_day = b.date | date: '%Y-%m-%d' %}
-      {%- if b_day == home_today %}{% assign home_briefing = b %}{% break %}{% endif %}
-    {%- endfor %}
-    {%- if home_briefing %}
     <ul class="front-briefing__list">
       {% include story.html post=home_briefing variant="top" %}
     </ul>
-    {%- else %}
-    <p class="block-empty">No briefing yet today. The day’s briefing appears here when it’s published.</p>
-    {%- endif %}
   </section>
+  {%- endif %}
 
   <div class="section-blocks">
     {%- for s in site.data.sections %}
