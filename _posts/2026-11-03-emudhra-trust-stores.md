@@ -4,6 +4,7 @@ author: "Northwind Features"
 description: "Browsers blocked the compromised eMudhra intermediates within hours, but many runtimes and tools use other trust stores; here is where each gets its roots and how to check and update it."
 categories: [security]
 kind: feature
+date: 2026-11-03 08:15
 sources:
   - title: "Compromised eMudhra CA keys: browsers block them, but bundled trust stores lag"
     url: https://northwind-press.github.io/2026/11/02/emudhra-ca-compromise/
