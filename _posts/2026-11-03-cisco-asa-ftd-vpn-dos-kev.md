@@ -26,7 +26,7 @@ corrections: []
 
 Cisco says attackers are exploiting CVE-2026-76418, a flaw in the Remote Access SSL VPN service of its Secure Firewall Adaptive Security Appliance (ASA) and Secure Firewall Threat Defense (FTD) software. According to Cisco's [security advisory](https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-asaftd-tunnel-dos-s6mgkb75), published on 2026-10-28, an unauthenticated, remote attacker can make an affected device reload by sending a crafted request when connecting to the SSL VPN, causing a denial of service. The cause is logic errors when secondary authentication is configured on a tunnel group.
 
-Cisco rates the flaw High (CVSS 3.1 8.6, per Cisco){% include cite.html n=1 %}. The US Cybersecurity and Infrastructure Security Agency (CISA) added it to its [Known Exploited Vulnerabilities (KEV) catalog](https://github.com/cisagov/kev-data) on 2026-10-29.
+Cisco rates the flaw High, CVSS 3.1 8.6{% include cite.html n=1 %}. The US Cybersecurity and Infrastructure Security Agency (CISA) added it to its [Known Exploited Vulnerabilities (KEV) catalog](https://github.com/cisagov/kev-data) on 2026-10-29.
 
 ## Who is affected
 
