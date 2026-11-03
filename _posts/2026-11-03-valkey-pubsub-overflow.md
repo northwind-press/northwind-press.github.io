@@ -4,7 +4,7 @@ author: "Northwind Security Desk"
 description: "Valkey 9.1.3, 9.0.7, 8.1.11, 8.0.12, and 7.2.15 fix a heap overflow in cluster mode; upgrade clustered servers, and restrict scripting commands with ACLs until you can."
 categories: [security]
 kind: news
-date: 2026-11-03 08:04
+date: 2026-11-03 08:10
 sources:
   - title: "Integer truncation in Valkey cluster publish message construction causes a heap buffer overflow (GHSA-f4q9-j22m-xqq9)"
     url: https://github.com/valkey-io/valkey/security/advisories/GHSA-f4q9-j22m-xqq9
