@@ -5,7 +5,6 @@ description: "Update every PHP install that serves web requests to 8.5.12, 8.4.2
 categories: [security]
 kind: news
 date: 2026-11-02 22:44
-placement: lead
 sources:
   - title: "Security advisory: Critical remote code execution vulnerabilities, update now"
     url: https://www.php.net/archive/2026.php#2026-10-21-5
