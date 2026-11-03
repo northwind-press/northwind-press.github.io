@@ -125,7 +125,7 @@ sources:
     accessed: "2026-11-03"
 corrections:
   - date: 2026-11-03
-    text: "An earlier version said we found no Microsoft notice confirming that Microsoft blocked the certificates on 2026-10-20. Microsoft did publish one: it says it updated the Windows Disallowed Certificate Trust List on 2026-10-20 ([source](https://www.microsoft.com/msrc/blog/2026/10/microsoft-response-to-compromised-emudhra-certificate-authority-keys))."
+    text: "An earlier version said we found no Microsoft notice confirming that Microsoft blocked the certificates on 2026-10-20. Microsoft published one on 2026-10-26: it says it updated the Windows Disallowed Certificate Trust List on 2026-10-20 ([source](https://www.microsoft.com/msrc/blog/2026/10/microsoft-response-to-compromised-emudhra-certificate-authority-keys))."
 updates:
   - date: 2026-11-03
     text: "An earlier version of this guide was briefly published on 2026-11-03 and withdrawn for a final edit. We removed one sentence about Go's fallback root bundle; no other facts changed."
