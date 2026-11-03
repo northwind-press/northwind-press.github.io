@@ -15,7 +15,7 @@ sources:
     publisher: "Northwind Press"
     date: "2026-11-02"
     accessed: "2026-11-03"
-  - title: "eMudhra emSign CA key compromise (disclosure write-up)"
+  - title: "eMudhra Intermediate CA Compromise"
     url: https://emudhra.we-have-a-problem.com/
     publisher: "emudhra.we-have-a-problem.com"
     date: "2026-10-20"
@@ -84,16 +84,16 @@ sources:
     publisher: "Apple"
     date: "2026-10-29"
     accessed: "2026-11-03"
-  - title: "Electron v44.9.1"
+  - title: "Release electron v44.9.1"
     url: https://github.com/electron/electron/releases/tag/v44.9.1
     publisher: "Electron"
     date: "2026-10-20"
     accessed: "2026-11-03"
-  - title: "Electron security advisory GHSA-jr5w-w6x2-84p9"
+  - title: "Mitigation for compromised eMudhra intermediate certificates (GHSA-jr5w-w6x2-84p9)"
     url: https://github.com/electron/electron/security/advisories/GHSA-jr5w-w6x2-84p9
     publisher: "Electron"
     accessed: "2026-11-03"
-  - title: "GitLab Patch Release: 19.5.3, 19.4.5, 19.3.7"
+  - title: "GitLab Patch Release and Security Update: 19.5.3, 19.4.5, 19.3.7, 19.2.10, 19.1.10, 19.0.11, 18.11.14"
     url: https://docs.gitlab.com/releases/patches/patch-release-gitlab-19-5-3-released/
     publisher: "GitLab"
     accessed: "2026-11-03"
@@ -105,15 +105,15 @@ sources:
     url: https://docs.gitlab.com/runner/install/linux-repository/
     publisher: "GitLab"
     accessed: "2026-11-03"
-  - title: "update-ca-certificates(8), Debian trixie"
+  - title: "update-ca-certificates(8)"
     url: https://manpages.debian.org/trixie/ca-certificates/update-ca-certificates.8.en.html
     publisher: "Debian"
     accessed: "2026-11-03"
-  - title: "DSA-6572-1 ca-certificates"
+  - title: "DSA-6572-1"
     url: https://security-tracker.debian.org/tracker/DSA-6572-1
     publisher: "Debian"
     accessed: "2026-11-03"
-  - title: "Bug 2171507, ca-certificates"
+  - title: "Bug #2171507 “ca-certificates update tracking bug”"
     url: https://bugs.launchpad.net/ubuntu/+source/ca-certificates/+bug/2171507
     publisher: "Ubuntu (Launchpad)"
     accessed: "2026-11-03"
