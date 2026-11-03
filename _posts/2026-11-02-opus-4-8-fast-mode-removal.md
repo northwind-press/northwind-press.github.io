@@ -50,4 +50,4 @@ Falling back from fast to standard speed causes a prompt cache miss{% include ci
 
 ## What we don't know
 
-Anthropic's documentation doesn't say which HTTP status or error message Opus 4.8 fast-mode requests will get after 2026-11-30{% include cite.html n=1 %}{% include cite.html n=2 %}. It also gives no timeline for the Opus 5 research preview{% include cite.html n=2 %}.
+Neither the release notes nor the fast-mode page says which HTTP status or error message Opus 4.8 fast-mode requests will get after 2026-11-30{% include cite.html n=1 %}{% include cite.html n=2 %}. The fast-mode page also gives no timeline for the Opus 5 research preview{% include cite.html n=2 %}.

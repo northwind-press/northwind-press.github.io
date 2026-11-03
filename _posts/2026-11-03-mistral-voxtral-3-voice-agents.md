@@ -56,7 +56,7 @@ Mistral's [pricing page](https://docs.mistral.ai/inference/pricing) lists Mini T
 
 ## Self-deployment and weights
 
-The announcement says Voxtral 3 is available on Mistral's API and "for self-deployment on your own infrastructure"{% include cite.html n=2 %}. For running the full stack on-premises or in a private cloud, it tells readers to contact Mistral's team{% include cite.html n=2 %}. The pricing page labels some Mistral models, such as Shieldstral and Timestral, "Self-hosted · Open weights"{% include cite.html n=5 %}. The Voxtral 3 models carry no such label, and the model cards list no weights or license{% include cite.html n=5 %}{% include cite.html n=3 %}{% include cite.html n=4 %}. We found no published self-deployment terms.
+The announcement says Voxtral 3 is available on Mistral's API and "for self-deployment on your own infrastructure"{% include cite.html n=2 %}. For running the full stack on-premises or in a private cloud, it tells readers to contact Mistral's team{% include cite.html n=2 %}. The pricing page labels some Mistral models, such as Shieldstral and Timestral, "Self-hosted · Open weights"{% include cite.html n=5 %}. The Voxtral 3 models carry no such label, and the model cards list no weights or license{% include cite.html n=5 %}{% include cite.html n=3 %}{% include cite.html n=4 %}. None of these pages publishes self-deployment terms{% include cite.html n=2 %}{% include cite.html n=5 %}.
 
 ## Voice Agents interfaces
 
@@ -64,4 +64,4 @@ The changelog lists telephony, browser, and custom-audio interfaces{% include ci
 
 ## What we don't know
 
-Mistral hasn't said when the preview ends or whether prices will change at general availability{% include cite.html n=1 %}{% include cite.html n=5 %}.
+Neither the changelog nor the pricing page says when the preview ends or whether prices will change at general availability{% include cite.html n=1 %}{% include cite.html n=5 %}.
