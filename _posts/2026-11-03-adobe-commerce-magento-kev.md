@@ -1,13 +1,10 @@
 ---
 title: "Adobe Commerce and Magento flaw exploited since March, per Sansec; CISA now lists it"
 author: "Northwind Security Desk"
-description: "Sansec says CVE-2026-48356 was exploited from March, before Adobe's July fix, so apply the update and check for compromise if your store was ever unpatched."
+description: "Sansec says CVE-2026-48356 was exploited from March, before Adobe's July fix, so apply the update and check every store for compromise."
 categories: [security]
 kind: news
 date: 2026-11-03 08:09
-updates:
-  - date: 2026-11-03
-    text: "We added Sansec's report that the flaw was exploited from March 2026, before Adobe's July fix, and widened our advice on checking for compromise; earlier facts are unchanged."
 sources:
   - title: "Security update available for Adobe Commerce | APSB26-73"
     url: https://www.adobe.com/trust/security/products/commerce/apsb26-73.html
@@ -32,7 +29,9 @@ sources:
     publisher: "Sansec"
     date: "2026-10-24"
     accessed: "2026-11-03"
-corrections: []
+corrections:
+  - date: 2026-11-03
+    text: "An earlier version said it was not known when exploitation began. Sansec reported on 2026-10-24 that attackers were exploiting the flaw by March 2026, before Adobe's July fix, and that some stores stayed infected after patching ([Sansec](https://sansec.io/research/magento-cms-block-loader-deepveindrilling)). We have also widened our advice to check every store for compromise."
 ---
 
 The US Cybersecurity and Infrastructure Security Agency (CISA) added CVE-2026-48356, an unrestricted file upload flaw in Adobe Commerce and Magento Open Source, to its [Known Exploited Vulnerabilities catalog](https://github.com/cisagov/kev-data) on 2026-10-27, with a remediation due date of 2026-11-10. CISA's entry says the flaw could result in arbitrary code execution{% include cite.html n=2 %}.
@@ -57,7 +56,7 @@ As of 2026-11-03, Adobe's bulletin still says Adobe "is not aware of any exploit
 ## What to do
 
 - **Apply the July 2026 update or later** for your line, as Adobe recommends updating to the newest version{% include cite.html n=1 %}.
-- **If your store was unpatched at any point before July**, check it for compromise even if you have since patched. That is our advice, based on Sansec's report that exploitation began by March and that patching did not remove existing infections; Sansec's page lists indicators of compromise and checks{% include cite.html n=5 %}.
+- **Check every store for compromise, patched or not.** That is our advice, based on Sansec's report that exploitation began by March and that some stores stayed infected after patching; Sansec's page lists indicators of compromise and checks{% include cite.html n=5 %}.
 - APSB26-73 also fixes 13 other vulnerabilities, several rated Critical, so the update is worth applying for those too{% include cite.html n=1 %}.
 
 ## What is not known
