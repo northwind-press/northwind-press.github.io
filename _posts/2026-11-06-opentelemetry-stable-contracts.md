@@ -65,6 +65,10 @@ sources:
     url: https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/b21bf1a21be57988b655aa03ff664dbb250d6a99/pkg/ottl/ottlfuncs/README.md
     publisher: "OpenTelemetry"
     accessed: "2026-11-03"
+  - title: "Epic: Stable OBI 1.0 Release (issue #1133)"
+    url: https://github.com/open-telemetry/opentelemetry-ebpf-instrumentation/issues/1133
+    publisher: "OpenTelemetry"
+    accessed: "2026-11-03"
 corrections: []
 ---
 OpenTelemetry declared two pieces of its stack stable within a week. [Our news report on OBI v1.0.0](https://northwind-press.github.io/2026/11/02/opentelemetry-obi-1-0/) covers the eBPF instrumentation release. A [second report](https://northwind-press.github.io/2026/11/02/ottl-v1/) covers OTTL, the Collector's transformation language, reaching v1. In both cases "stable" means a written list of surfaces, not the whole project. This piece sets out what each contract covers, what it leaves out, and what to do before upgrading. Versions are as of 2026-11-03.
@@ -81,7 +85,7 @@ The [v1.0.0 release notes](https://github.com/open-telemetry/opentelemetry-ebpf-
 
 Minor releases may only add compatible functionality, patches must preserve compatibility, and any breaking change to a stable surface needs a new major version{% include cite.html n=4 %}. OBI's [versioning policy](https://github.com/open-telemetry/opentelemetry-ebpf-instrumentation/blob/v1.0.0/VERSIONING.md) spells out what counts as breaking for each surface, including stricter validation of a previously valid config, a default change that alters what an unchanged config does, a removed or renamed flag or environment variable, a changed exit-code meaning, and dropping a supported kernel, distribution or architecture. Stable artifacts and semver image tags are never removed, and the `latest` tag is outside the contract{% include cite.html n=5 %}.
 
-One wrinkle: at the v1.0.0 tag, the versioning policy and the support matrix still carry their pre-1.0 wording. The release notes acknowledge this, say their own list of stable surfaces governs, and track the cleanup in issue #1133{% include cite.html n=4 %}. Read the release notes as the contract.
+One wrinkle: the release notes say the README, the versioning policy and the support matrix at the v1.0.0 tag "retain introductory wording from the pre-v1 Development phase", and that their own stable-surface list governs{% include cite.html n=4 %}. A follow-up is recorded on the project's [v1 epic](https://github.com/open-telemetry/opentelemetry-ebpf-instrumentation/issues/1133). Read the release notes as the contract.
 
 ### Telemetry: only `stable` entries are protected
 
@@ -96,6 +100,7 @@ For Go consumers there is no forward ABI guarantee, so recompile against the ver
 - Network flow attribute names, "pending semantic-convention alignment"{% include cite.html n=4 %}.
 - Runtime metrics for Go, Java, .NET, Node.js and Python, which the [release announcement](https://opentelemetry.io/blog/2026/obi-v1-release/) says "remain experimental".
 - Full per-process parity with declarative configuration, which is deferred. Config v2 models protocol- and signal-specific filter narrowing, but that "is not yet a supported runtime behavior"{% include cite.html n=4 %}.
+- Complete coverage of the telemetry registry, which is planned for v1.1.0, per the project's v1 epic{% include cite.html n=15 %}.
 - Known v1.0.0 limitations: application metrics can stay missing after a Pod starts or restarts until OBI restarts, child spans can start before their parents with no known workaround, port-based discovery can pick a helper or port-forwarder process, and service graphs can show `outgoing` or duplicate identities{% include cite.html n=4 %}{% include cite.html n=6 %}.
 
 ## Upgrading OBI
@@ -127,7 +132,7 @@ The announcement lists 14 contrib components that accept OTTL, among them the tr
 
 New functions start in the `xottl` module, which is on a 0.x version and can change or drop them in any release{% include cite.html n=10 %}. They parse only when the `pkg.ottl.functions.enableExperimental` gate is on, which the [feature-gate table](https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/b21bf1a21be57988b655aa03ff664dbb250d6a99/pkg/ottl/documentation.md) lists as alpha from v0.163.0. Components register these functions but leave them off, so enabling the gate is enough and no custom build is needed{% include cite.html n=10 %}. A function is promoted only after at least two minor releases as experimental, complete tests and documentation, no open change proposals, and real user demand{% include cite.html n=10 %}.
 
-The lambda functions `All`, `Any`, `Filter`, `Find`, `MapEach`, `MapKeys`, `Reduce` and `When` are experimental, and the [experimental functions reference](https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/b21bf1a21be57988b655aa03ff664dbb250d6a99/pkg/ottl/xottl/ottlfuncs/README.md) says each requires `ottl.functions.enableLambda`. The feature-gate table lists that gate as alpha from v0.155.0{% include cite.html n=12 %}. The pinned docs don't say whether the lambda functions also need `enableExperimental`. We checked the OTTL v1 announcement, the full feature-gate table, the experimental functions reference (except its `Reduce` and `When` entries) and the introduction to the standard functions reference. Our advice: validate your configuration against v0.164.0 before relying on either gate alone. Profile support sits in a separate `xprofile` module, still in development{% include cite.html n=10 %}.
+The lambda functions `All`, `Any`, `Filter`, `Find`, `MapEach`, `MapKeys`, `Reduce` and `When` are experimental, and the [experimental functions reference](https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/b21bf1a21be57988b655aa03ff664dbb250d6a99/pkg/ottl/xottl/ottlfuncs/README.md) says each requires `ottl.functions.enableLambda`. The feature-gate table lists that gate as alpha from v0.155.0{% include cite.html n=12 %}. The pinned docs don't say whether the lambda functions also need `enableExperimental`. The feature-gate table says experimental functions are rejected unless that gate is on, while each lambda entry in the experimental functions reference names only `enableLambda`{% include cite.html n=12 %}{% include cite.html n=13 %}. We checked the full OTTL v1 announcement and feature-gate table, the header and all eight lambda entries in the experimental functions reference, the introduction and contents of the standard functions reference, and the v0.164.0 release notes' breaking-changes and enhancements sections{% include cite.html n=10 %}{% include cite.html n=11 %}{% include cite.html n=12 %}{% include cite.html n=13 %}{% include cite.html n=14 %}. Our advice: test your configuration against v0.164.0 before relying on the lambda functions. Profile support sits in a separate `xprofile` module, still in development{% include cite.html n=10 %}.
 
 ## Upgrading the Collector to v0.164.0
 
