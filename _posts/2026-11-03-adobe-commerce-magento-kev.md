@@ -5,6 +5,9 @@ description: "Sansec says CVE-2026-48356 was exploited from March, before Adobe'
 categories: [security]
 kind: news
 date: 2026-11-03 08:09
+updates:
+  - date: 2026-11-03
+    text: "We added Sansec's report that the flaw was exploited from March 2026, before Adobe's July fix, and widened our advice on checking for compromise; earlier facts are unchanged."
 sources:
   - title: "Security update available for Adobe Commerce | APSB26-73"
     url: https://www.adobe.com/trust/security/products/commerce/apsb26-73.html
