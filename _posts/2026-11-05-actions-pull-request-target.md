@@ -19,7 +19,7 @@ sources:
     url: https://docs.github.com/en/actions/reference/security/securely-using-pull_request_target
     publisher: "GitHub Docs"
     accessed: "2026-11-03"
-  - title: "Controlling workflow execution"
+  - title: "Governing execution of GitHub Actions workflows"
     url: https://docs.github.com/actions/how-tos/administer/control-workflow-execution
     publisher: "GitHub Docs"
     accessed: "2026-11-03"
@@ -45,7 +45,7 @@ On 2026-12-02, GitHub Actions starts blocking `pull_request_target` in public re
 
 ## What changes, and for whom
 
-From 2026-12-02, Actions "will block `pull_request_target` events by default in all public repositories, unless an applicable Actions event policy explicitly allows them", according to GitHub's [changelog post](https://github.blog/changelog/2026-11-02-pull_request_target-blocked-by-default-december-2). Enforcement had previously been scheduled for 2026-11-02{% include cite.html n=2 %}. The changelog says the rule covers public repositories on GitHub Free, GitHub Team and GitHub Enterprise Cloud, and that private and internal repositories and GitHub Enterprise Server aren't affected{% include cite.html n=2 %}.
+From 2026-12-02, Actions "will block `pull_request_target` events by default in all public repositories, unless an applicable Actions event policy explicitly allows them", according to GitHub's [changelog post](https://github.blog/changelog/2026-11-02-pull_request_target-blocked-by-default-december-2). Enforcement had previously been scheduled for 2026-11-02{% include cite.html n=2 %}. The changelog says the rule covers public repositories on GitHub Free, GitHub Team, and GitHub Enterprise Cloud, and that private and internal repositories and GitHub Enterprise Server aren't affected{% include cite.html n=2 %}.
 
 GitHub's documentation describes the scope differently. Its [guide to securely using `pull_request_target`](https://docs.github.com/en/actions/reference/security/securely-using-pull_request_target) says GitHub will enforce the block "for affected repositories that were using the default `pull_request_target` policy before general availability". The same guide says the default policy "does not replace an applicable event policy that you have already configured"{% include cite.html n=3 %}. Rather than rely on either description, check Insights for your own repositories, as described below.
 
@@ -65,7 +65,7 @@ GitHub calls this a "pwn request" and says the pattern "has been the root cause 
 
 ## Find your affected workflows
 
-GitHub's first step is to "use Insights to see which workflow runs the rule would block" before the first brownout on 2026-11-09{% include cite.html n=2 %}. The Policy insights page sits "directly under the page for GitHub Actions policies" in the repository, organization or enterprise sidebar, according to GitHub's [guide to controlling workflow execution](https://docs.github.com/actions/how-tos/administer/control-workflow-execution). Policies themselves are under **Settings → Actions → Policies** in a repository or organization, and under **Policies → Actions → Policies** in an enterprise{% include cite.html n=4 %}. For evaluate-mode policies, Insights lists the runs that "would have been blocked"{% include cite.html n=4 %}.
+GitHub's first step is to "use Insights to see which workflow runs the rule would block" before the first brownout on 2026-11-09{% include cite.html n=2 %}. The Policy insights page sits "directly under the page for GitHub Actions policies" in the repository, organization, or enterprise sidebar, according to GitHub's [guide to controlling workflow execution](https://docs.github.com/actions/how-tos/administer/control-workflow-execution). Policies themselves are under **Settings → Actions → Policies** in a repository or organization, and under **Policies → Actions → Policies** in an enterprise{% include cite.html n=4 %}. For evaluate-mode policies, Insights lists the runs that "would have been blocked"{% include cite.html n=4 %}.
 
 The default rule is in evaluate mode on every affected plan{% include cite.html n=2 %}, but creating your own policy with the Evaluate status is "GitHub Enterprise Cloud only"{% include cite.html n=4 %}.
 
@@ -85,13 +85,13 @@ Use `pull_request`. It "triggers on the same events" and runs fork pull requests
 
 Split the job into two workflows, as Security Lab describes{% include cite.html n=6 %}. An unprivileged `pull_request` workflow builds and tests the code and saves its results as an artifact{% include cite.html n=6 %}. A second workflow, triggered by `workflow_run` when the first completes, gets write permission and secrets, downloads the artifact, and posts the comment or status{% include cite.html n=6 %}. Treat the artifact's contents as untrusted data: never execute them, and don't extract them into the workspace{% include cite.html n=6 %}.
 
-### Labeling, triage and comments
+### Labeling, triage, and comments
 
 This is the use GitHub names as legitimate for the trigger{% include cite.html n=3 %}. To keep it after 2026-12-02, allow `pull_request_target` in an event policy, using "workflow file targeting to allow specific workflows"{% include cite.html n=2 %}. Policies can be scoped "to specific workflow paths or required workflows"{% include cite.html n=4 %}. GitHub's hardening advice still applies: a least-privilege `GITHUB_TOKEN`, only the secrets the job needs, and isolated, ephemeral runners{% include cite.html n=3 %}. Caches are read-only for `pull_request_target` by default, and GitHub advises against opting into a write-capable `cache-mode`{% include cite.html n=3 %}. For comments, Security Lab's two-workflow example shows posting them from a `workflow_run` workflow instead{% include cite.html n=6 %}.
 
 ### Checkout v7 refuses fork checkouts
 
-[actions/checkout](https://github.com/actions/checkout) v7 refuses to check out a fork pull request in `pull_request_target` and `workflow_run` workflows unless you set `allow-unsafe-pr-checkout: true`. The v7.0.0 entry on the [releases page](https://github.com/actions/checkout/releases) lists the change as "block checking out fork pr for pull_request_target and workflow_run". GitHub says to set the option "only after confirming the checked-out code is never executed"{% include cite.html n=3 %}. The check doesn't cover `git fetch`, `gh pr checkout` or downloaded artifacts{% include cite.html n=3 %}.
+[actions/checkout](https://github.com/actions/checkout) v7 refuses to check out a fork pull request in `pull_request_target` and `workflow_run` workflows unless you set `allow-unsafe-pr-checkout: true`. The v7.0.0 entry on the [releases page](https://github.com/actions/checkout/releases) lists the change as "block checking out fork pr for pull_request_target and workflow_run". GitHub says to set the option "only after confirming the checked-out code is never executed"{% include cite.html n=3 %}. The check doesn't cover `git fetch`, `gh pr checkout`, or downloaded artifacts{% include cite.html n=3 %}.
 
 ### Label gates are not a fix
 
@@ -108,4 +108,4 @@ These are our recommendations, not GitHub's.
 - Run Insights now, not on 2026-11-09. A brownout will also find a workflow you forgot, but only by failing it.
 - Treat "let it block" as a real option. If nobody can say why a workflow needs secrets on fork pull requests, the block is the fix.
 - Move CI that needs secrets to the `pull_request` and `workflow_run` split rather than allowing `pull_request_target` for it.
-- Keep allowed `pull_request_target` workflows to labeling, triage and comments, target them by file, and leave `allow-unsafe-pr-checkout` off unless you have checked that nothing runs the checked-out code.
+- Keep allowed `pull_request_target` workflows to labeling, triage, and comments, target them by file, and leave `allow-unsafe-pr-checkout` off unless you have checked that nothing runs the checked-out code.
