@@ -2,7 +2,7 @@
 title: "Azure Database for PostgreSQL can now move VNet-integrated servers to private endpoints"
 author: "Northwind Infra & Cloud Desk"
 description: "Flexible servers in a delegated subnet can switch to a private endpoint-capable setup; the move is irreversible and cuts connectivity, so plan a window and restore access right after."
-date: 2026-11-03 08:02
+date: 2026-11-03 08:06
 categories: [infra]
 kind: news
 sources:
