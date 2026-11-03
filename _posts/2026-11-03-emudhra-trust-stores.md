@@ -129,6 +129,11 @@ corrections:
 updates:
   - date: 2026-11-03
     text: "An earlier version of this guide was briefly published on 2026-11-03 and withdrawn for a final edit. We removed one sentence about Go's fallback root bundle; no other facts changed."
+audio:
+  src: /assets/audio/2026-11-03-emudhra-trust-stores.mp3
+  duration: "17:00"
+  narrator: "George (ElevenLabs AI voice)"
+  narrated_from: 8e51c01070bbc7fb3d44bfcda2b3e0ac8ac4f8a8
 ---
 Browsers stopped trusting the compromised eMudhra intermediates within hours of the report. Many programs never ask the browser, though. They check certificates against the operating system's store, a root bundle built into the program, or a list of their own, and each of those got the eMudhra fix on its own schedule. This guide goes stack by stack: where the roots come from, what each vendor changed, and the vendor's own steps to check and update. Versions are as of 2026-11-03.
 
