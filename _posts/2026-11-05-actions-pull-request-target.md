@@ -105,7 +105,7 @@ Fixing a workflow doesn't protect pull requests that are already open, because t
 
 These are our recommendations, not GitHub's.
 
-- Run Insights now, not on 2026-11-09. A brownout is a cheap way to find a workflow you forgot, but an outage in your CI is not.
+- Run Insights now, not on 2026-11-09. A brownout will also find a workflow you forgot, but only by failing it.
 - Treat "let it block" as a real option. If nobody can say why a workflow needs secrets on fork pull requests, the block is the fix.
 - Move CI that needs secrets to the `pull_request` and `workflow_run` split rather than allowing `pull_request_target` for it.
 - Keep allowed `pull_request_target` workflows to labeling, triage and comments, target them by file, and leave `allow-unsafe-pr-checkout` off unless you have checked that nothing runs the checked-out code.
