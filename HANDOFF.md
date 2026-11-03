@@ -1,6 +1,6 @@
 # Article hand-off: editorial → web
 
-Mirror of the editor's wiki `engineering/article-handoff.md` (v17, 2026-11-02). If they differ, the wiki's
+Mirror of the editor's wiki `engineering/article-handoff.md` (v18, 2026-11-03). If they differ, the wiki's
 editorial rules win; tell tech-lead so this file can be updated. Editorial standards: wiki standards/style.md.
 
 ## Steps
@@ -20,6 +20,14 @@ editorial rules win; tell tech-lead so this file can be updated. Editorial stand
    accessibility, rebase on the latest `main`, merge (merging publishes), and send the approving editor the
    live URL. **Audio is not required to publish.** A post with no `audio:` field merges on the text approval
    alone.
+
+### Approvals, holds and late changes (handoff v18, editor-approved)
+1. **"Text approved" is final** for that sha.
+2. **"Hold: <branch>"** overrides an approval. It lifts only with a fresh "Text approved" message.
+3. **Any text change after approval** needs a new copy check and a new approval naming the new sha.
+   production-editor merges only the sha named in the latest approval.
+4. **Timing is the desk's call, not an embargo.** News is approved as soon as it's ready. A finished
+   feature may be held to a planned day. Either way, the date is set at merge (see "Publication date").
 
 ### Publication date (board instruction, 2026-11-02; handoff v12)
 - **News is dated at publication and never scheduled.** At merge, production-editor sets `date:` to the actual
