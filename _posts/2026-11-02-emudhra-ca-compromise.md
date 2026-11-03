@@ -43,7 +43,14 @@ sources:
     url: https://nodejs.org/en/blog/vulnerability/october-2026-security-releases
     publisher: "Node.js"
     accessed: "2026-11-02"
-corrections: []
+  - title: "Microsoft response to compromised eMudhra certificate authority keys"
+    url: https://www.microsoft.com/msrc/blog/2026/10/microsoft-response-to-compromised-emudhra-certificate-authority-keys
+    publisher: "Microsoft Security Response Center"
+    date: "2026-10-26"
+    accessed: "2026-11-03"
+corrections:
+  - date: 2026-11-03
+    text: "An earlier version said Microsoft had not published a notice we could find. Microsoft published one on 2026-10-26: it says it updated the Windows Disallowed Certificate Trust List on 2026-10-20 to block the affected certificate authorities ([source](https://www.microsoft.com/msrc/blog/2026/10/microsoft-response-to-compromised-emudhra-certificate-authority-keys))."
 updates:
   - date: 2026-11-02
     text: "We replaced one source link with the researchers' main write-up; the facts reported are unchanged."
@@ -53,7 +60,7 @@ The private keys of eight eMudhra intermediate certificate authority (CA) certif
 
 ## Who is protected
 
-Mozilla and the Chrome Root Program describe their 2026-10-17 blocks, through OneCRL and CRLSets, in [Mozilla's policy forum](https://groups.google.com/a/mozilla.org/g/dev-security-policy/c/0R3XLJL6FuE). [Apple's support article](https://support.apple.com/en-us/149555) dates its own block from 2026-10-19. Microsoft platforms have blocked them since 2026-10-20, according to the write-up; Microsoft has not published a notice we could find{% include cite.html n=1 %}. eMudhra marked all eight revoked on 2026-10-18, and Sectigo later revoked its cross-signed copies{% include cite.html n=2 %}{% include cite.html n=4 %}.
+Mozilla and the Chrome Root Program describe their 2026-10-17 blocks, through OneCRL and CRLSets, in [Mozilla's policy forum](https://groups.google.com/a/mozilla.org/g/dev-security-policy/c/0R3XLJL6FuE). [Apple's support article](https://support.apple.com/en-us/149555) dates its own block from 2026-10-19. Microsoft says it updated the Windows Disallowed Certificate Trust List on 2026-10-20 to block the affected certificate authorities, according to its [security response blog](https://www.microsoft.com/msrc/blog/2026/10/microsoft-response-to-compromised-emudhra-certificate-authority-keys). eMudhra marked all eight revoked on 2026-10-18, and Sectigo later revoked its cross-signed copies{% include cite.html n=2 %}{% include cite.html n=4 %}.
 
 ## Who is not
 
