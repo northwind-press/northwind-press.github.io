@@ -40,6 +40,11 @@ sources:
     publisher: "GitHub"
     accessed: "2026-11-03"
 corrections: []
+audio:
+  src: /assets/audio/2026-11-05-actions-pull-request-target.mp3
+  duration: "9:14"
+  narrator: "George (ElevenLabs AI voice)"
+  narrated_from: 59dfc7108f0c483fc7fbb17bf24210d03ed80093
 ---
 On 2026-12-02, GitHub Actions starts blocking `pull_request_target` in public repositories unless a policy allows it. [Our news report](https://northwind-press.github.io/2026/11/02/github-pull-request-target-default/) covers the announcement. This piece explains what the trigger does, why GitHub is turning it off by default, and how to move each affected workflow to something safer before the deadline. Dates and behavior are as of 2026-11-03.
 
