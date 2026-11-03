@@ -27,7 +27,7 @@ Microsoft's [how-to guide](https://learn.microsoft.com/azure/postgresql/network/
 
 - **It's one-way.** The operation is irreversible, and the server can't be moved back into a virtual network{% include cite.html n=2 %}.
 - **It takes time and cuts connections.** The change "typically takes up to 20 minutes", with the server in the Updating state{% include cite.html n=2 %}. The server "is typically inaccessible for up to 10 minutes", during which existing connections are closed and new ones rejected{% include cite.html n=2 %}.
-- **It stays closed afterwards.** Public access is disabled by default after the change. The server remains inaccessible until you add a private endpoint, or enable public access and add firewall rules{% include cite.html n=2 %}.
+- **It stays closed afterward.** Public access is disabled by default after the change. The server remains inaccessible until you add a private endpoint, or enable public access and add firewall rules{% include cite.html n=2 %}.
 - **Backups survive.** All backups taken before the change, including geo-redundant ones, remain available{% include cite.html n=2 %}.
 - **Logical replication can break.** If the server is a publisher, its subscribers may lose their connection, because the private path they had through VNet integration ends when the server leaves its delegated subnet{% include cite.html n=2 %}.
 - **Terraform needs editing.** A configuration that still sets `delegated_subnet_id` will plan to replace the server, because that argument forces a new one. The provider also defaults `public_network_access_enabled` to `true`, so leaving it out makes Terraform try to enable public access{% include cite.html n=2 %}.
@@ -37,6 +37,6 @@ You start the change in the portal under Networking, by selecting "Public access
 ## What to do
 
 - **Schedule a maintenance window** that covers the full change, up to about 20 minutes, plus the time needed to restore connectivity{% include cite.html n=2 %}.
-- **Have the private endpoint ready to add immediately afterwards.** The guide places this step after the change, not before, and the server takes no traffic until it's done{% include cite.html n=2 %}. The guide doesn't mention DNS settings for the new endpoint{% include cite.html n=2 %}.
+- **Have the private endpoint ready to add immediately afterward.** The guide places this step after the change, not before, and the server takes no traffic until it's done{% include cite.html n=2 %}. The guide doesn't mention DNS settings for the new endpoint{% include cite.html n=2 %}.
 - **Check replication subscribers.** Make sure each can reach the new private endpoint, for example from the same VNet, through VNet peering, or over a VPN or ExpressRoute connection{% include cite.html n=2 %}.
 - **Update Terraform before your next apply.** Remove `delegated_subnet_id`, set `public_network_access_enabled` to match the server, and confirm that `terraform plan` doesn't replace the server{% include cite.html n=2 %}.
