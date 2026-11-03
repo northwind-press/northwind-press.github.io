@@ -1,5 +1,5 @@
 ---
-title: "After eMudhra: where Go, Python, Node, Java, macOS and CI tools get their trusted roots"
+title: "After eMudhra: where Go, Python, Node, Java, macOS, and CI tools get their trusted roots"
 author: "Northwind Features"
 description: "Browsers blocked the compromised eMudhra intermediates within hours, but many runtimes and tools use other trust stores; here is where each gets its roots and how to check and update it."
 categories: [security]
@@ -129,7 +129,7 @@ Browsers stopped trusting the compromised eMudhra intermediates within hours of 
 
 Chrome received the report at 18:05 UTC on 2026-10-17 and blocked the public keys of the six TLS intermediates in a CRLSet update at 19:45 UTC, according to its post in Mozilla's [dev-security-policy forum](https://groups.google.com/a/mozilla.org/g/dev-security-policy/c/0R3XLJL6FuE). Because the block is by key, it also covers the Sectigo cross-certificates{% include cite.html n=4 %}. Mozilla got the report at 20:06 UTC the same day and finished blocking the certificates in Firefox through OneCRL at 22:59 UTC, with no update or restart needed{% include cite.html n=4 %}. Chrome says no TLS certificate under these intermediates had been logged to Certificate Transparency (CT) before its block, and that Chrome Root Store version 43 will remove the upstream eMudhra root{% include cite.html n=4 %}.
 
-Mozilla's [NSS 3.131.1 release](https://groups.google.com/a/mozilla.org/g/dev-tech-crypto/c/vSxZxnOMMvs) removes emSign ECC Root CA - G3, emSign Root CA - C1 and emSign ECC Root CA - C3. Firefox didn't need it: the release is for software that uses the NSS store without getting OneCRL{% include cite.html n=4 %}{% include cite.html n=5 %}. The disclosure write-up says Microsoft platforms have blocked the certificates since 2026-10-20{% include cite.html n=3 %}. We found no Microsoft notice that confirms it.
+Mozilla's [NSS 3.131.1 release](https://groups.google.com/a/mozilla.org/g/dev-tech-crypto/c/vSxZxnOMMvs) removes emSign ECC Root CA - G3, emSign Root CA - C1, and emSign ECC Root CA - C3. Firefox didn't need it: the release is for software that uses the NSS store without getting OneCRL{% include cite.html n=4 %}{% include cite.html n=5 %}. The disclosure write-up says Microsoft platforms have blocked the certificates since 2026-10-20{% include cite.html n=3 %}. We found no Microsoft notice that confirms it.
 
 ## Go
 
@@ -151,13 +151,13 @@ On a Mac with Python from python.org, the installer's last step, Install Certifi
 
 Node's [October 2026 security releases](https://nodejs.org/en/blog/vulnerability/october-2026-security-releases), 26.12.1, 24.22.1 and 22.23.4, update "ca-cert (eMudhra Intermediate CA Compromise)" on all three lines. The [24.22.1 release notes](https://nodejs.org/en/blog/release/v24.22.1), dated 2026-10-21, show two separate changes. The bundled roots move to NSS 3.131.1, and a new check rejects chains that contain blocked public keys{% include cite.html n=14 %}.
 
-By default Node trusts the roots bundled into the binary, and `NODE_EXTRA_CA_CERTS` only adds PEM certificates to them, according to Node's [command-line documentation](https://raw.githubusercontent.com/nodejs/node/main/doc/api/cli.md). Neither set applies when a TLS or HTTPS client passes its own `ca` option, and the variable is read only when the process starts{% include cite.html n=15 %}. Setting `NODE_USE_SYSTEM_CA=1` or `--use-system-ca` (added in v24.6.0 and v22.19.0) makes Node use the system store's trusted certificates "along with" the bundled ones{% include cite.html n=15 %}. In our reading, neither switch removes a bundled root, so updating Node is the fix.
+By default Node trusts the roots bundled into the binary, and `NODE_EXTRA_CA_CERTS` only adds PEM certificates to them, according to Node's [command-line documentation](https://raw.githubusercontent.com/nodejs/node/main/doc/api/cli.md). Neither set applies when a TLS or HTTPS client passes its own `ca` option, and the variable is read only when the process starts{% include cite.html n=15 %}. Setting `NODE_USE_SYSTEM_CA=1` (added in v24.6.0 and v22.19.0) or the `--use-system-ca` flag makes Node use the system store's trusted certificates "along with" the bundled ones{% include cite.html n=15 %}. In our reading, neither switch removes a bundled root, so updating Node is the fix.
 
 ## Java
 
 [OpenJDK's guidance page](https://openjdk.org/emudhra), last updated 2026-10-24 19:24 UTC, tracks the fix as JDK-8395690 (CVE-2026-114820). It tells users to install a vendor runtime whose release notes document that fix "when available", so updated builds depend on each vendor{% include cite.html n=16 %}.
 
-Where the roots live depends on how Java was installed. Standalone runtimes use their own keystore: `$JDK_HOME/lib/security/cacerts` on JDK 11 and later, or `$JDK_HOME/jre/lib/security/cacerts` on JDK 8{% include cite.html n=16 %}. OpenJDK packaged by Arch, Fedora, Gentoo, Oracle Linux and RHEL "most likely uses the operating system's certificates", so updating those "is likely sufficient"; the FreeBSD and Homebrew packages don't use the OS store{% include cite.html n=16 %}.
+Where the roots live depends on how Java was installed. Standalone runtimes use their own keystore: `$JDK_HOME/lib/security/cacerts` on JDK 11 and later, or `$JDK_HOME/jre/lib/security/cacerts` on JDK 8{% include cite.html n=16 %}. OpenJDK packaged by Arch, Fedora, Gentoo, Oracle Linux, and RHEL "most likely uses the operating system's certificates", so updating those "is likely sufficient"; the FreeBSD and Homebrew packages don't use the OS store{% include cite.html n=16 %}.
 
 For standalone runtimes, OpenJDK's steps are{% include cite.html n=16 %}:
 
@@ -170,7 +170,7 @@ On Debian and Ubuntu, updating `ca-certificates` and `ca-certificates-java` "is 
 
 ## macOS command-line tools
 
-Apple's [support note 149555](https://support.apple.com/en-us/149555) splits macOS software in two. Safari, Mail and apps that use Apple's networking and security frameworks get Apple's block automatically{% include cite.html n=17 %}. Some command-line tools that ship with macOS or the Xcode Command Line Tools, including curl, git, python3, ruby, perl and openssl, check against `/etc/ssl/cert.pem` instead, and for chains to roots in that file they check neither Apple's block nor revocation{% include cite.html n=17 %}.
+Apple's [support note 149555](https://support.apple.com/en-us/149555) splits macOS software in two. Safari, Mail, and apps that use Apple's networking and security frameworks get Apple's block automatically{% include cite.html n=17 %}. Some command-line tools that ship with macOS or the Xcode Command Line Tools, including curl, git, python3, ruby, perl, and openssl, check against `/etc/ssl/cert.pem` instead, and for chains to roots in that file they check neither Apple's block nor revocation{% include cite.html n=17 %}.
 
 Apple has blocked the 12 affected certificates (the six TLS intermediates and their Sectigo cross-signs) since 2026-10-19 and emSign ECC Root CA - G3 since 2026-10-23, through configuration data rather than a software update{% include cite.html n=17 %}. The fix for `/etc/ssl/cert.pem` itself "will be available in a future software update", and Apple warns that a macOS update can replace the file{% include cite.html n=17 %}.
 
@@ -178,7 +178,7 @@ Until then, Apple's note gives a manual fix that needs an admin account and can 
 
 ## Electron apps
 
-[Electron 44.9.1](https://github.com/electron/electron/releases/tag/v44.9.1), released 2026-10-20, includes "the mitigation for compromised eMudhra intermediate certificates". The [Electron advisory](https://github.com/electron/electron/security/advisories/GHSA-jr5w-w6x2-84p9) says the update adds the block to both Chromium's networking and Node's `tls`, `https` and `fetch` inside Electron. The fixed versions are 45.0.0-beta.6, 44.9.1, 43.8.1 and 42.11.16{% include cite.html n=19 %}. For app developers, "there are no app side workarounds, you must update to a patched version of Electron"{% include cite.html n=19 %}.
+[Electron 44.9.1](https://github.com/electron/electron/releases/tag/v44.9.1), released 2026-10-20, includes "the mitigation for compromised eMudhra intermediate certificates". The [Electron advisory](https://github.com/electron/electron/security/advisories/GHSA-jr5w-w6x2-84p9) says the update adds the block to both Chromium's networking and Node's `tls`, `https`, and `fetch` inside Electron. The fixed versions are 45.0.0-beta.6, 44.9.1, 43.8.1 and 42.11.16{% include cite.html n=19 %}. For app developers, "there are no app side workarounds, you must update to a patched version of Electron"{% include cite.html n=19 %}.
 
 ## GitLab and GitLab Runner
 
@@ -188,13 +188,13 @@ By default Runner reads the system certificate store to verify the GitLab server
 
 ## Debian and Ubuntu `ca-certificates`
 
-On Debian, [`update-ca-certificates`](https://manpages.debian.org/trixie/ca-certificates/update-ca-certificates.8.en.html) builds `/etc/ssl/certs/ca-certificates.crt` from `/etc/ca-certificates.conf`. A `!` at the start of a line in that file deactivates the CA, and `--fresh` rebuilds the symlinks{% include cite.html n=23 %}. Debian's [DSA-6572-1](https://security-tracker.debian.org/tracker/DSA-6572-1) fixes `ca-certificates` in trixie at version `20250419+deb13u1`, replacing `20250419`{% include cite.html n=24 %}. On Ubuntu, [bug 2171507](https://bugs.launchpad.net/ubuntu/+source/ca-certificates/+bug/2171507) is marked "Fix Released" for releases from Trusty through Tenacious. The update moves to NSS bundle 2.90 and removes "emSign ECC Root CA - G3"{% include cite.html n=25 %}.
+On Debian, [`update-ca-certificates`](https://manpages.debian.org/trixie/ca-certificates/update-ca-certificates.8.en.html) builds `/etc/ssl/certs/ca-certificates.crt` from `/etc/ca-certificates.conf`. A `!` at the start of a line in that file deactivates the CA, and `--fresh` first removes the existing symlinks in `/etc/ssl/certs`{% include cite.html n=23 %}. Debian's [DSA-6572-1](https://security-tracker.debian.org/tracker/DSA-6572-1) fixes `ca-certificates` in trixie at version `20250419+deb13u1`, replacing `20250419`{% include cite.html n=24 %}. On Ubuntu, [bug 2171507](https://bugs.launchpad.net/ubuntu/+source/ca-certificates/+bug/2171507) is marked "Fix Released" for releases from Trusty through Tenacious. The update moves to NSS bundle 2.90 and removes "emSign ECC Root CA - G3"{% include cite.html n=25 %}.
 
 ## Our view
 
 These are our recommendations, not the vendors'.
 
-- Before assuming the browser fix covers a service, find out which store it actually uses. Go on Linux, Node, pip, standalone Java, Electron apps and macOS command-line tools each use their own store or their own verifier.
+- Before assuming the browser fix covers a service, find out which store it actually uses. Go on Linux, Node, pip, standalone Java, Electron apps, and macOS command-line tools each use their own store or their own verifier.
 - Update the runtime first, then the bundles that travel with it. For Python that means certifi and pip as well as the interpreter.
 - Rebuild container images without the layer cache. Updating a host doesn't change the certificates an image carries.
-- On Macs that run curl, git or the system python3 against production, apply Apple's `cert.pem` steps and re-check after every macOS update.
+- On Macs that run curl, git, or the system python3 against production, apply Apple's `cert.pem` steps and re-check after every macOS update.
