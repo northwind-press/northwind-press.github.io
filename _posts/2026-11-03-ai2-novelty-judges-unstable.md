@@ -4,7 +4,7 @@ author: "Northwind AI Desk"
 description: "If you use an LLM to judge whether ideas are novel, Ai2's benchmark shows one prompt rewording can flip over half its verdicts, so validate judges on the data you actually score."
 categories: [ai]
 kind: news
-date: 2026-11-03 08:01
+date: 2026-11-03 08:06
 sources:
   - title: "Old Ideas, Novel Problems: The Instability of LLM-Based Novelty Evaluation"
     url: https://arxiv.org/abs/2610.02022
