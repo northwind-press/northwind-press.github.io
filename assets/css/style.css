@@ -430,6 +430,7 @@ body > main { flex: 1 0 auto; width: 100%; } /* width: auto margins would otherw
 .footer__mark a::before { content: ""; display: inline-block; width: 0; height: 0; margin-right: 0.45em; border-left: 0.32em solid transparent; border-right: 0.32em solid transparent; border-bottom: 0.6em solid var(--link); vertical-align: 0.02em; } /* the masthead's mark */
 .footer__mark .press { font-weight: 400; font-style: italic; }
 .footer__promise { display: block; }
+.footer__promise::first-letter { text-transform: uppercase; } /* on its own line visually; the text stays 'Northwind Press: every claim...' for screen readers */
 .footer .footer__contact { margin-top: var(--s-1); }
 .footer__contact a { color: var(--link); }
 .footer__label { font-family: var(--sans); font-size: var(--step--1); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg); margin: 0 0 0.25rem; }
