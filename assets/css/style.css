@@ -310,10 +310,6 @@ header.section-intro > p:not(.section-links), p.section-intro { font-size: var(-
 .section-feed { margin-left: 0.35em; }
 .section-page > p { font-family: var(--sans); color: var(--muted); margin-top: var(--s2); } /* "No stories yet." */
 
-/* Footer nav (About · Corrections · RSS): plain links, underlined so they read as links. */
-.footer-nav p { margin: 0 0 0.25rem; }
-.footer-nav a { display: inline-block; padding: 0.3rem 0; color: var(--link); text-decoration: underline; }
-.footer-nav a[aria-current] { font-weight: 600; box-shadow: none; }
 
 /* ---------- News front and section fronts (T-58) ----------
    Markup contract: wiki design/front.md. Phone first; DOM order = reading/Tab order, the grid only
@@ -449,10 +445,6 @@ body > main { flex: 1 0 auto; width: 100%; } /* width: auto margins would otherw
   .footer__nav a { padding: 0.2rem 0; } /* stacked links: line box + padding stays >= 24px */
   .footer__legal { grid-column: 1 / -1; }
 }
-/* Older footer markup (until default.html changes): keep it tidy. */
-.site-footer .footer-mark { font-family: var(--serif); font-weight: 700; color: var(--fg); }
-.site-footer > .wrap:not(.footer) { padding-top: var(--s1); padding-bottom: var(--s1); }
-.site-footer > .wrap:not(.footer) p { margin: 0 0 0.25rem; }
 
 /* ---------- Wider screens ---------- */
 @media (min-width: 48rem) {
