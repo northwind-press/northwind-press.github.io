@@ -20,6 +20,9 @@ sources:
     publisher: "OpenAI"
     accessed: "2026-11-02"
 corrections: []
+updates:
+  - date: 2026-11-03
+    text: "We named the OpenAI pages behind our statement that no quality comparison is published, and cited them; the facts reported are unchanged."
 ---
 
 OpenAI released GPT-6.1 Terra (`gpt-6.1-terra`) on 2026-10-26 for the Responses and Chat Completions APIs, according to its [API changelog](https://platform.openai.com/docs/changelog). OpenAI describes it as "a fast, efficient model for visual reasoning, precise computer use, and clear, natural writing"{% include cite.html n=1 %}. Those are the vendor's claims. None of the three OpenAI pages we checked publishes a benchmark or evaluation method for Terra.
@@ -50,4 +53,4 @@ Fast mode for Terra supports EU data residency{% include cite.html n=3 %}.
 
 ## What we don't know
 
-The three OpenAI pages we checked give no published quality comparison between Terra and GPT-5.6 Terra, Sol or Luna{% include cite.html n=1 %}{% include cite.html n=2 %}{% include cite.html n=3 %}. They also list no dated snapshot other than `gpt-6.1-terra`{% include cite.html n=2 %}. The documents we checked don't say whether GPT-5.6 Terra will be deprecated.
+The three OpenAI pages we checked give no published quality comparison between Terra and GPT-5.6 Terra, Sol, or Luna{% include cite.html n=1 %}{% include cite.html n=2 %}{% include cite.html n=3 %}. They also list no dated snapshot other than `gpt-6.1-terra`{% include cite.html n=2 %}. The documents we checked don't say whether GPT-5.6 Terra will be deprecated.

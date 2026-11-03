@@ -33,6 +33,9 @@ sources:
     publisher: "Mistral AI"
     accessed: "2026-11-03"
 corrections: []
+updates:
+  - date: 2026-11-03
+    text: "We named the pages behind our statement that no self-deployment terms are published, and cited them; the facts reported are unchanged."
 ---
 
 Mistral released four Voxtral 3 speech models on 2026-10-20, all in Public Preview, according to its [changelog](https://docs.mistral.ai/getting-started/changelog/). It also released Voice Agents, a managed real-time pipeline that captures speech, transcribes it, generates a reply with a language model, and speaks it back{% include cite.html n=1 %}.
@@ -56,7 +59,7 @@ Mistral's [pricing page](https://docs.mistral.ai/inference/pricing) lists Mini T
 
 ## Self-deployment and weights
 
-The announcement says Voxtral 3 is available on Mistral's API and "for self-deployment on your own infrastructure"{% include cite.html n=2 %}. For running the full stack on-premises or in a private cloud, it tells readers to contact Mistral's team{% include cite.html n=2 %}. The pricing page labels some Mistral models, such as Shieldstral and Timestral, "Self-hosted · Open weights"{% include cite.html n=5 %}. The Voxtral 3 models carry no such label, and the model cards list no weights or license{% include cite.html n=5 %}{% include cite.html n=3 %}{% include cite.html n=4 %}. None of these pages publishes self-deployment terms{% include cite.html n=2 %}{% include cite.html n=5 %}.
+The announcement says Voxtral 3 is available on Mistral's API and "for self-deployment on your own infrastructure"{% include cite.html n=2 %}. For running the full stack on-premises or in a private cloud, it tells readers to contact Mistral's team{% include cite.html n=2 %}. The pricing page labels some Mistral models, such as Shieldstral and Timestral, "Self-hosted · Open weights"{% include cite.html n=5 %}. The Voxtral 3 models carry no such label, and the model cards list no weights or license{% include cite.html n=5 %}{% include cite.html n=3 %}{% include cite.html n=4 %}. Neither the announcement nor the pricing page publishes self-deployment terms{% include cite.html n=2 %}{% include cite.html n=5 %}.
 
 ## Voice Agents interfaces
 
