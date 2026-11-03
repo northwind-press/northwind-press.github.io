@@ -27,13 +27,33 @@
   <main id="main" class="wrap{% if page.wide %} wrap--wide{% endif %}" tabindex="-1">
     {{ content }}
   </main>
+  {%- comment -%} Footer: markup contract from designer (T-123). Always wrap--wide, to align with the masthead.
+    PLACEHOLDER: Contact points at /about/#corrections-policy until the editor's contact target and wording
+    arrive (via tech-lead). Then set footer_contact_url below and add <p class="footer__contact"> with the wording. {%- endcomment -%}
+  {%- assign footer_contact_url = '/about/#corrections-policy' %}
   <footer class="site-footer">
-    <div class="wrap">
-      <p><span class="footer-mark">{{ site.title }}</span>: every claim sourced; every correction published.</p>
-      <nav class="footer-nav" aria-label="Site">
-        <p><a href="{{ '/about/' | relative_url }}"{% if page.url == '/about/' %} aria-current="page"{% endif %}>About</a> · <a href="{{ '/corrections/' | relative_url }}"{% if page.url == '/corrections/' %} aria-current="page"{% endif %}>Corrections</a> · <span class="nowrap"><a href="{{ '/feed.xml' | relative_url }}">RSS feed</a></span></p>
+    <div class="wrap wrap--wide footer">
+      <div class="footer__brand">
+        <p class="footer__mark"><a href="{{ '/' | relative_url }}">{% if site.title contains ' Press' %}{{ site.title | remove: ' Press' | escape }} <span class="press">Press</span>{% else %}{{ site.title | escape }}{% endif %}</a><span class="visually-hidden">:</span> <span class="footer__promise">every claim sourced; every correction published.</span></p>
+      </div>
+      <nav class="footer__nav" aria-labelledby="footer-sections-h">
+        <h2 class="footer__label" id="footer-sections-h">Sections</h2>
+        <ul>
+          {%- for s in site.data.sections %}
+          <li><a href="{{ s.url | relative_url }}"{% if page.url == s.url %} aria-current="page"{% endif %}>{{ s.title | escape }}</a></li>
+          {%- endfor %}
+        </ul>
       </nav>
-      <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }}</p>
+      <nav class="footer__nav" aria-labelledby="footer-site-h">
+        <h2 class="footer__label" id="footer-site-h">{{ site.title | escape }}</h2>
+        <ul>
+          <li><a href="{{ '/about/' | relative_url }}"{% if page.url == '/about/' %} aria-current="page"{% endif %}>About</a></li>
+          <li><a href="{{ '/corrections/' | relative_url }}"{% if page.url == '/corrections/' %} aria-current="page"{% endif %}>Corrections</a></li>
+          <li><a href="{{ '/feed.xml' | relative_url }}">RSS feed</a></li>
+          <li><a href="{{ footer_contact_url | relative_url }}">Contact</a></li>
+        </ul>
+      </nav>
+      <p class="footer__legal">&copy; {{ site.time | date: '%Y' }} {{ site.title | escape }}</p>
     </div>
   </footer>
 </body>
