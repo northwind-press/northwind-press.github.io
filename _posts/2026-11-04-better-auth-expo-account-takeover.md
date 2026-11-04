@@ -24,11 +24,11 @@ sources:
 corrections: []
 ---
 
-The Better Auth project has fixed a flaw in its Expo plugin that lets an unauthenticated attacker take over accounts. Their [security advisory](https://github.com/better-auth/better-auth/security/advisories/GHSA-4wq4-2ppv-q3hg), published on 2026-11-03, says an attacker who knows a user's email address can sign in as that user and change the account's email address, with no action from the user. If the session cookie cache is enabled, an attacker who knows a user's ID can also act as that user.
+The Better Auth project has fixed a flaw in its Expo plugin that lets an unauthenticated attacker take over accounts. Its [security advisory](https://github.com/better-auth/better-auth/security/advisories/GHSA-4wq4-2ppv-q3hg), published on 2026-11-03, says an attacker who knows a user's email address can sign in as that user and change the account's email address, with no action from the user. If the session cookie cache is enabled, an attacker who knows a user's ID can also act as that user.
 
 The cause, per the advisory, is a public endpoint that the `expo()` server plugin adds to help start social sign-in from the system browser. It signed a value taken from the request with the application secret, without checking that the server had issued it. Better Auth uses the same secret for email verification links and, when enabled, the session cookie cache. The same endpoint also had an open redirect, and wildcard entries in `trustedOrigins` could match URLs outside their intended scheme, host, or path{% include cite.html n=1 %}.
 
-Better Auth rates the advisory Critical (CVSS 3.1 9.1, per Better Auth){% include cite.html n=1 %}. The flaw is tracked as CVE-2026-121802; the [CVE record](https://www.cve.org/CVERecord?id=CVE-2026-121802), assigned by MITRE, gives the same score.
+Better Auth rates the advisory Critical, CVSS 3.1 9.1{% include cite.html n=1 %}. The flaw is tracked as CVE-2026-121802; the [CVE record](https://www.cve.org/CVERecord?id=CVE-2026-121802), assigned by MITRE, gives the same score.
 
 ## Who is affected
 
