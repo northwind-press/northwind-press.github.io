@@ -1,5 +1,5 @@
 ---
-title: "Weight-space programming: what a new blog post shows about LLMs editing weights"
+title: "Weight-space programming: what a new blog post claims about LLMs editing weights"
 author: "Northwind Features"
 description: "A blog post says an LLM can read and edit neural-network weights directly; here is what the authors report, what critics dispute, and how to inspect the released model and logs."
 categories: [curiosities]
@@ -7,7 +7,7 @@ kind: feature
 sources:
   - title: "Sparks of Weight-Space Programming: LLMs can natively read & write neural network weights"
     url: https://rikiyat.github.io/blog/weight-space-programming/
-    publisher: "Rikiya Takehi, Jayden Teoh, Alex Zhang and Omar Khattab"
+    publisher: "Rikiya Takehi, Jayden Teoh, Alex Zhang, and Omar Khattab"
     date: "2026-11-02"
     accessed: "2026-11-04"
   - title: "RikiyaT/lm_understand-logs"
@@ -53,7 +53,7 @@ Can a language model change what a neural network does by writing its weights di
 
 ## What it is
 
-The post defines the idea this way: "a general-purpose LLM reads and writes a network's weights directly (i.e., not through an optimizer, and in particular not with gradient descent) around some natural language spec"{% include cite.html n=1 %}. The authors are Rikiya Takehi, Jayden Teoh, Alex Zhang and Omar Khattab, listed as MIT CSAIL in the page's metadata{% include cite.html n=1 %}. The researchers say they coined the term: "We call this Weight-Space Programming"{% include cite.html n=1 %}.
+The post defines the idea this way: "a general-purpose LLM reads and writes a network's weights directly (i.e., not through an optimizer, and in particular not with gradient descent) around some natural language spec"{% include cite.html n=1 %}. The authors are Rikiya Takehi, Jayden Teoh, Alex Zhang, and Omar Khattab, listed as MIT CSAIL in the page's metadata{% include cite.html n=1 %}. The researchers say they coined the term: "We call this Weight-Space Programming"{% include cite.html n=1 %}.
 
 The model doing the reading and writing is OpenAI's GPT-6 Astra, run through the Codex CLI with its built-in tools switched off, according to the authors' [released logs](https://github.com/RikiyaT/lm_understand-logs).
 
@@ -64,7 +64,7 @@ The experiments fall into two groups, and the difference matters.
 **Small networks, no tools.** In these runs the model had no Python and didn't run the networks{% include cite.html n=1 %}:
 
 - The authors report that it named the game for each of four small PPO game-playing policies of 17,253 weights each, and named the shape each of three tiny diffusion models generates{% include cite.html n=1 %}.
-- The authors report that, in one shot, it fixed a stuck Kinetix car policy of 171,664 weights, taking it from 0 to 1,024 successes out of 1,024 by editing 3.5% of the weights{% include cite.html n=1 %}.
+- The authors report that, in one shot, it fixed a stuck Kinetix car policy of 171,664 weights, taking it from no successes in 256 episodes to 1,024 out of 1,024 by editing 3.5% of the weights{% include cite.html n=1 %}.
 - The authors report that it wrote MinAtar game networks from scratch that scored 517.4 in Breakout, 53.1 in Seaquest and 53.2 in Asterix{% include cite.html n=1 %}. Those beat PPO trained for 100 million steps in all three games, but against PPO trained for 500 million steps (25.3, 88.9 and 55.2) they won only Breakout{% include cite.html n=1 %}.
 
 **Larger networks, with Python.** Other runs gave the model a Python sandbox{% include cite.html n=1 %}. The authors report that, without running the networks, it named the training language of three 7.2-million-parameter character models from their middle blocks and found every copying head{% include cite.html n=1 %}. On Go, with 1.5 million weights, they report it won more than half its games against two small PPO networks with no forward passes, and beat an equal-sized PPO network once allowed 50{% include cite.html n=1 %}.
@@ -76,11 +76,11 @@ The experiments fall into two groups, and the difference matters.
 - IFEval: 21.0% to 62.3%
 - answers hitting the token limit: 93% to 33%
 
-With only 10 or 25 forward-pass batches, the authors report, the gains were small{% include cite.html n=1 %}.
+With only 10 or 25 forward-pass batches, the authors report, the loops barely went away and MATH-500 reached only 12.3% and 14.1%{% include cite.html n=1 %}.
 
 **What didn't work.** The post reports its own failures. The model couldn't spot a sycophantic Gemma 3 270M from its weights alone, though it could once given attention patterns, and it couldn't make Gemma 3 270M better at math{% include cite.html n=1 %}. The authors conclude that editing "could remove an obstacle that hid an ability, but it could not add an ability the model lacked"{% include cite.html n=1 %}.
 
-**What backs it up.** The logs include the prompts, replies, the code that ran and its outputs, and the evaluations, and the README says all 1,125 turns were audited as tool-free{% include cite.html n=2 %}. The edited Qwen checkpoint is public. Its [model card](https://huggingface.co/RikiyaT/Qwen3.5-0.8B-weight-space-programming) says Ahsen Khaliq of Hugging Face, whom the authors thank, rebuilt it from the logs with hash-verified tensors. His full MATH-500 re-run scored 51.0%, against the post's 48.1%, with 31.6% of answers hitting the token limit{% include cite.html n=3 %}. That is a partial reproduction from the released logs, not an independent replication of how the edit was found.
+**What backs it up.** The logs include the prompts, replies, the code that ran and its outputs, and the evaluations, and the README says all 1,125 turns were audited as tool-free{% include cite.html n=2 %}. The edited Qwen checkpoint is public. Its [model card](https://huggingface.co/RikiyaT/Qwen3.5-0.8B-weight-space-programming) says Ahsen Khaliq of Hugging Face, whom the authors thank, rebuilt it from the logs with hash-verified tensors{% include cite.html n=1 %}. His full MATH-500 re-run scored 51.0%, against the post's 48.1%, with 31.6% of answers hitting the token limit{% include cite.html n=3 %}. That is a partial reproduction from the released logs, not an independent replication of how the edit was found.
 
 ## What's contested
 
@@ -90,7 +90,7 @@ Sean Goedecke's [post](https://www.seangoedecke.com/llms-are-not-superhuman-at-r
 
 ## What's speculation
 
-The post ends with a "What comes next" section: auditing models without evaluation, one-shot model initialization, zero-data capability steering, recursive self-improvement, and grafting circuits across architectures{% include cite.html n=1 %}. The authors describe these as "very early" ideas that "may" work{% include cite.html n=1 %}. None of them is demonstrated in the post. Treat that section as the authors' speculation.
+The post ends with a "What comes next" section: auditing models without evaluation, one-shot model initialization, zero-data capability steering, recursive self-improvement, and grafting circuits across architectures{% include cite.html n=1 %}. The authors present them as things weight-space programming "may" allow, and call their own results "very early"{% include cite.html n=1 %}. None of them is demonstrated in the post. Treat that section as the authors' speculation.
 
 ## How to try it
 
