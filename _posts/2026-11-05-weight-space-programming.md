@@ -49,7 +49,7 @@ sources:
     accessed: "2026-11-04"
 corrections: []
 ---
-Can a language model change what a neural network does by writing its weights directly, with no training loop at all? Four researchers say yes, at least sometimes. Their [blog post](https://rikiyat.github.io/blog/weight-space-programming/), published 2026-11-02, calls the idea "weight-space programming". It is a single blog post, not a peer-reviewed paper, and it is only days old. What follows is what the authors report, what two critics dispute, and what you can look at yourself.
+Can a language model change what a neural network does by writing its weights directly, with no training loop at all? Four MIT CSAIL researchers say yes, at least sometimes, in a 2026-11-02 [blog post](https://rikiyat.github.io/blog/weight-space-programming/) that calls the idea "weight-space programming". It is a single blog post, not peer-reviewed, and it is only days old. What follows is what the authors report, what two critics dispute, and what you can look at yourself.
 
 ## What it is
 
@@ -61,9 +61,9 @@ The model doing the reading and writing is OpenAI's GPT-6 Astra, run through the
 
 The experiments fall into two groups, and the difference matters.
 
-**Small networks, no tools.** In these runs the model saw raw weights and nothing else{% include cite.html n=1 %}:
+**Small networks, no tools.** In these runs the model had no Python and didn't run the networks{% include cite.html n=1 %}:
 
-- The authors report that it named the game for all four of four small PPO game-playing policies of 17,253 weights each, and named the shape each of three tiny diffusion models generates{% include cite.html n=1 %}.
+- The authors report that it named the game for each of four small PPO game-playing policies of 17,253 weights each, and named the shape each of three tiny diffusion models generates{% include cite.html n=1 %}.
 - The authors report that, in one shot, it fixed a stuck Kinetix car policy of 171,664 weights, taking it from 0 to 1,024 successes out of 1,024 by editing 3.5% of the weights{% include cite.html n=1 %}.
 - The authors report that it wrote MinAtar game networks from scratch that scored 517.4 in Breakout, 53.1 in Seaquest and 53.2 in Asterix{% include cite.html n=1 %}. Those beat PPO trained for 100 million steps in all three games, but against PPO trained for 500 million steps (25.3, 88.9 and 55.2) they won only Breakout{% include cite.html n=1 %}.
 
@@ -80,23 +80,24 @@ With only 10 or 25 forward-pass batches, the authors report, the gains were smal
 
 **What didn't work.** The post reports its own failures. The model couldn't spot a sycophantic Gemma 3 270M from its weights alone, though it could once given attention patterns, and it couldn't make Gemma 3 270M better at math{% include cite.html n=1 %}. The authors conclude that editing "could remove an obstacle that hid an ability, but it could not add an ability the model lacked"{% include cite.html n=1 %}.
 
-**What backs it up.** The logs include the prompts, replies, the code that ran and its outputs, and the evaluations, and the README says all 1,125 turns were audited as tool-free{% include cite.html n=2 %}. The edited Qwen checkpoint is public. Its [model card](https://huggingface.co/RikiyaT/Qwen3.5-0.8B-weight-space-programming) says Ahsen Khaliq of Hugging Face, whom the authors thank, rebuilt it from the logs with hash-verified tensors. His full MATH-500 re-run scored 51.0%, against the post's 48.1%, with 31.6% of answers hitting the token limit{% include cite.html n=3 %}. That is a re-run of the released edit, not an independent replication of how the edit was found.
+**What backs it up.** The logs include the prompts, replies, the code that ran and its outputs, and the evaluations, and the README says all 1,125 turns were audited as tool-free{% include cite.html n=2 %}. The edited Qwen checkpoint is public. Its [model card](https://huggingface.co/RikiyaT/Qwen3.5-0.8B-weight-space-programming) says Ahsen Khaliq of Hugging Face, whom the authors thank, rebuilt it from the logs with hash-verified tensors. His full MATH-500 re-run scored 51.0%, against the post's 48.1%, with 31.6% of answers hitting the token limit{% include cite.html n=3 %}. That is a partial reproduction from the released logs, not an independent replication of how the edit was found.
 
 ## What's contested
 
-Two engineers have published critiques, both as blog posts. Matthew Honnibal, in a post titled ["The 'Astra can read and write weights to improve Qwen' post is misleading"](https://honnibal.dev/blog/astra-read-write-misleading), argues that the no-tools, raw-weights setting appears only in the small-network experiments. Every real-language-model experiment used Python, and the Qwen result also ran the model on up to 50 batches, yet the post's abstract blends these together, he writes{% include cite.html n=4 %}. He calls the Qwen work something "a human ML engineer could do"{% include cite.html n=4 %}.
+Two engineers have published critiques, both as blog posts. Matthew Honnibal, in a post titled ["The 'Astra can read and write weights to improve Qwen' post is misleading"](https://honnibal.dev/blog/astra-read-write-misleading), writes that the "just by looking at the raw weights" setting "only appears in experiments 1, 2 and 4, on networks of 17K–172K weights", and that "every experiment involving a real language model uses Python"{% include cite.html n=4 %}. He reads the Qwen result as showing that the model "can be prompted to devise and perform tasks that a human ML engineer could do", and argues that it and the other Python experiments "don't belong in the same post or paper as the experiments that read the weights directly"{% include cite.html n=4 %}.
 
 Sean Goedecke's [post](https://www.seangoedecke.com/llms-are-not-superhuman-at-reading-and-writing-neural-network-weights/) argues that, for the game-naming experiment, a three-line heatmap of first-layer norms reveals the game, because the input channels are labeled. He says the Qwen fix resembles the known steering playbook, "exactly what a competent human researcher could have and would have done"{% include cite.html n=5 %}.
 
 ## What's speculation
 
-The post ends with a "What comes next" section: auditing models without evaluation, one-shot model initialization, zero-data capability steering, recursive self-improvement, and grafting circuits across architectures{% include cite.html n=1 %}. The authors describe these as "very early" ideas that "may" work{% include cite.html n=1 %}. None of them is demonstrated in the post. Treat that section as speculation.
+The post ends with a "What comes next" section: auditing models without evaluation, one-shot model initialization, zero-data capability steering, recursive self-improvement, and grafting circuits across architectures{% include cite.html n=1 %}. The authors describe these as "very early" ideas that "may" work{% include cite.html n=1 %}. None of them is demonstrated in the post. Treat that section as the authors' speculation.
 
 ## How to try it
 
 We haven't run any of these steps ourselves. They come from the projects' own pages.
 
 - **Browser demo.** The model card points to a Hugging Face Space where you "type a problem, watch the base model loop while the edited one solves it"{% include cite.html n=3 %}.
+- **Tracr, the settled precursor.** Tracr's [repository](https://github.com/google-deepmind/tracr) says to clone it, run `pip3 install .`, and compile a RASP `reverse` program to a Haiku model, and that running the tests "should take about 60 seconds". The README doesn't state a hardware requirement. More on Tracr below.
 - **Run the edited model.** The card's usage loads `RikiyaT/Qwen3.5-0.8B-weight-space-programming` in vLLM in bfloat16 with `max_model_len=34816` and the card's sampling settings{% include cite.html n=3 %}. The card's full MATH-500 evaluation took 51 minutes on one NVIDIA H200{% include cite.html n=3 %}.
 - **Inspect the edit.** Browse the per-experiment folders in the logs repository. `exp8_math/code/apply_edit.py` rebuilds the Qwen edit and checks its hashes{% include cite.html n=2 %}{% include cite.html n=3 %}. Re-running the experiments themselves needs `gpt-6-astra` through the Codex CLI{% include cite.html n=2 %}.
 
@@ -105,9 +106,6 @@ We haven't run any of these steps ourselves. They come from the projects' own pa
 Writing weights without gradient descent isn't new. The post itself cites two earlier approaches{% include cite.html n=1 %}. [Tracr](https://arxiv.org/abs/2301.05062), a 2023 paper with code that its arXiv listing says was presented at NeurIPS 2023, compiles programs written in the RASP language into transformer weights. [HyperNetworks](https://arxiv.org/abs/1609.09106), a 2016 preprint, uses one network to generate another's weights.
 
 Two more strands sit nearby. [Task arithmetic](https://arxiv.org/abs/2212.04089), a peer-reviewed ICLR 2023 paper, edits models by adding and subtracting weight differences. Work on [learning in deep weight spaces](https://arxiv.org/abs/2301.12780), peer-reviewed at ICML 2023, builds networks that take other networks' weights as input.
-
-Tracr is the easiest of these to try. Its [repository](https://github.com/google-deepmind/tracr) says to clone it, run `pip3 install .`, and compile a RASP `reverse` program to a Haiku model, and that running the tests "should take about 60 seconds". The README doesn't state a hardware requirement.
-
 ## Our view
 
 These are our opinions, not the authors'.
