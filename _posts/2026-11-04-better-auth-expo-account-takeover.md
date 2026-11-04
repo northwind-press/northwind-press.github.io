@@ -39,7 +39,7 @@ The advisory lists both `@better-auth/expo` and the core `better-auth` package a
 ## What to do
 
 - **Upgrade both packages.** Better Auth says to move `@better-auth/expo` and `better-auth` to 1.7.16, or to 1.8.0-beta.5 on the beta line{% include cite.html n=1 %}. Both fixes shipped in the [v1.7.16 release](https://github.com/better-auth/better-auth/releases/tag/v1.7.16) on 2026-11-03.
-- **Then rotate the application secret** if the endpoint was reachable. The advisory says signatures issued before the fix stay valid until the secret changes{% include cite.html n=1 %}.
+- **Then rotate the application secret** if the endpoint was reachable. The advisory says signatures issued before the fix stay valid until the secret changes, but it does not say whether a rotation that keeps the old secret available as a fallback is enough{% include cite.html n=1 %}. In our view, make sure the old secret is no longer accepted.
 - **If Expo sign-in through an SSO identity provider fails after upgrading,** add the provider's origin to `trustedOrigins`, as the advisory advises{% include cite.html n=1 %}.
 - **If you can't upgrade yet** and don't use Expo social sign-in, remove the `expo()` server plugin. Otherwise the advisory describes a request filter for the plugin's authorization-proxy endpoint, which it says blocks the signing problem only{% include cite.html n=1 %}.
 
