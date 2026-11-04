@@ -4,7 +4,7 @@ author: "Northwind AI Desk"
 description: "A new preprint's vLLM plugin stores 2- to 4-bit KV caches with lower error and up to 6.1 times the token capacity, but decodes slower than BF16 at large batch sizes."
 categories: [ai]
 kind: news
-date: 2026-11-04 07:42
+date: 2026-11-04 07:45
 sources:
   - title: "FlagRot: Selective Rotation for Low-Bit KV Caches (arXiv:2611.03992)"
     url: https://arxiv.org/abs/2611.03992
