@@ -70,6 +70,11 @@ sources:
     publisher: "OpenTelemetry"
     accessed: "2026-11-03"
 corrections: []
+audio:
+  src: /assets/audio/2026-11-06-opentelemetry-stable-contracts.mp3
+  duration: "15:28"
+  narrator: "George (ElevenLabs AI voice)"
+  narrated_from: 4de6cad55aa1488c6368105a7774c383c6ab79a7
 ---
 OpenTelemetry declared two pieces of its stack stable within a week. [Our news report on OBI v1.0.0](https://northwind-press.github.io/2026/11/02/opentelemetry-obi-1-0/) covers the eBPF instrumentation release. A [second report](https://northwind-press.github.io/2026/11/02/ottl-v1/) covers OTTL, the Collector's transformation language, reaching v1. In both cases "stable" means a written list of surfaces, not the whole project. This piece sets out what each contract covers, what it leaves out, and what to do before upgrading. Versions are as of 2026-11-03.
 
