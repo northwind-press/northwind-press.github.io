@@ -36,11 +36,11 @@ A2UI is an open protocol for agent-generated UI. A client advertises a catalog o
 
 You choose the format with one argument, `inference_format_factory`, when you create the generator. The SDK generates the format's prompt instructions and its compiler from your catalog's JSON schema, so a format can't describe a component the catalog lacks{% include cite.html n=1 %}. Express writes one Python-like assignment per line, and Google says catalogs and renderers stay as they are{% include cite.html n=1 %}.
 
-The post calls Express "the new default"{% include cite.html n=1 %}. In the Python SDK's [changelog](https://github.com/a2ui-project/a2ui/blob/main/python/a2ui_agent/CHANGELOG.md), version 0.9.0 (2026-10-17) moves Express out of the experimental package, but the breaking change that makes Express the default for `A2uiGenerator` is listed under "Unreleased"{% include cite.html n=3 %}. Builders on 0.9.0 should pass the factory explicitly, as Google's own example does{% include cite.html n=1 %}.
+The post calls Express "the new default"{% include cite.html n=1 %}. In the Python SDK's [changelog](https://github.com/a2ui-project/a2ui/blob/main/python/a2ui_agent/CHANGELOG.md), version 0.9.0 (2026-10-17) moves Express out of the experimental package, but the breaking change that makes Express the default for `A2uiGenerator` is listed under "Unreleased"{% include cite.html n=3 %}. Our advice: on 0.9.0, pass the factory explicitly, as Google's own example does{% include cite.html n=1 %}.
 
 ## SDK coverage
 
-The post lists Express in Python (`a2ui-agent-sdk` 0.9.0), TypeScript (`@a2ui/agent`) and Dart (`a2ui_agent` 0.0.1-wip004){% include cite.html n=1 %}. The repository's package table lists the TypeScript agent SDK as "Not published yet"{% include cite.html n=2 %}. We could not reach its npm page to check. The Dart [package page](https://pub.dev/packages/a2ui_agent) says it supports only protocol v0.9 and only the Express format{% include cite.html n=4 %}.
+The post lists Express in Python (`a2ui-agent-sdk` 0.9.0), TypeScript (`@a2ui/agent`), and Dart (`a2ui_agent` 0.0.1-wip004){% include cite.html n=1 %}. The repository's package table lists the TypeScript agent SDK as "Not published yet"{% include cite.html n=2 %}. We could not reach its npm page to check. The Dart [package page](https://pub.dev/packages/a2ui_agent) says it supports only protocol v0.9 and only the Express format{% include cite.html n=4 %}.
 
 ## Google's speed claims
 
