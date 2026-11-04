@@ -14,8 +14,8 @@ sources:
     url: https://kubernetes.io/releases/patch-releases/
     publisher: "Kubernetes"
     accessed: "2026-11-04"
-  - title: "Releases · kubernetes/kubernetes"
-    url: https://github.com/kubernetes/kubernetes/releases
+  - title: "kubernetes/kubernetes releases (GitHub REST API release data, with created_at and published_at)"
+    url: https://api.github.com/repos/kubernetes/kubernetes/releases
     publisher: "GitHub"
     accessed: "2026-11-04"
   - title: "CHANGELOG-1.34.md"
@@ -29,7 +29,7 @@ Kubernetes 1.34 reached end of life on 2026-10-27, according to the project's [r
 
 ## The final patches, and a gap between sources
 
-The project's [GitHub releases](https://github.com/kubernetes/kubernetes/releases) show v1.34.13, v1.35.10, v1.36.6, and v1.37.2, all created on 2026-10-27 and published on 2026-10-28 (UTC). So v1.34.13 was created on the end-of-life date and published the day after.
+The project's [GitHub release data](https://api.github.com/repos/kubernetes/kubernetes/releases) shows v1.34.13, v1.35.10, v1.36.6, and v1.37.2, all created on 2026-10-27 and published on 2026-10-28 (UTC). So v1.34.13 was created on the end-of-life date and published the day after.
 
 The project's own website hadn't caught up as of 2026-11-04. The releases page still lists 1.34.12 as the latest 1.34 release, dated 2026-09-15, and doesn't yet include 1.34 in its end-of-life table{% include cite.html n=1 %}. The [patch-releases page](https://kubernetes.io/releases/patch-releases/) still says the next patch releases are 1.37.2, 1.36.6, and 1.35.10, and its 1.34 history stops at 1.34.12{% include cite.html n=2 %}. That page targeted the October patches for 2026-10-13{% include cite.html n=2 %}. On GitHub, v1.34.12 itself was published on 2026-09-23, not 2026-09-15{% include cite.html n=3 %}.
 
