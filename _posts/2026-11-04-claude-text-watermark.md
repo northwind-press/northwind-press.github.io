@@ -47,4 +47,4 @@ Text watermark detection is an API in private preview{% include cite.html n=2 %}
 
 ## The EU basis
 
-Anthropic says it signed the EU AI Act's Article 50(2) Code of Practice on Transparency of AI-Generated Content{% include cite.html n=2 %}. It says that as of August 2 the EU requires AI providers serving its market to mark AI-generated content, and that other major developers signed the same Code{% include cite.html n=4 %}. It applies the watermark globally, because it can't yet limit it by region{% include cite.html n=4 %}. We could not read the Act's text on EUR-Lex with our tools, so these EU claims are Anthropic's.
+Anthropic says it signed the EU AI Act's Article 50(2) Code of Practice on Transparency of AI-Generated Content{% include cite.html n=2 %}. It says that as of 2026-08-02 the EU requires AI providers serving its market to mark AI-generated content, and that other major developers signed the same Code{% include cite.html n=4 %}. It applies the watermark globally, because it can't yet limit it by region{% include cite.html n=4 %}. We could not read the Act's text on EUR-Lex with our tools, so these EU claims are Anthropic's.
