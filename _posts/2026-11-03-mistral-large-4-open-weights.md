@@ -5,7 +5,6 @@ description: "Mistral Large 4's weights are downloadable under a modified MIT li
 categories: [ai]
 kind: news
 date: 2026-11-03 08:08
-placement: lead
 sources:
   - title: "Mistral Large 4 (Le Chonk) is now open weight"
     url: https://mistral.ai/news/mistral-large-4-oss/
