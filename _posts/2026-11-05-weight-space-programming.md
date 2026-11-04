@@ -53,7 +53,7 @@ Can a language model change what a neural network does by writing its weights di
 
 ## What it is
 
-The post defines the idea this way: "a general-purpose LLM reads and writes a network's weights directly (i.e., not through an optimizer, and in particular not with gradient descent) around some natural language spec"{% include cite.html n=1 %}. The authors are Rikiya Takehi, Jayden Teoh, Alex Zhang, and Omar Khattab, listed as MIT CSAIL in the page's metadata{% include cite.html n=1 %}. The researchers say they coined the term: "We call this Weight-Space Programming"{% include cite.html n=1 %}.
+The post defines the idea this way: "a general-purpose LLM reads and writes a network's weights directly (i.e., not through an optimizer, and in particular not with gradient descent) around some natural language spec"{% include cite.html n=1 %}. The authors are Rikiya Takehi, Jayden Teoh, Alex Zhang, and Omar Khattab, listed as MIT CSAIL in the page's metadata{% include cite.html n=1 %}. The researchers name the idea: "We call this Weight-Space Programming"{% include cite.html n=1 %}.
 
 The model doing the reading and writing is OpenAI's GPT-6 Astra, run through the Codex CLI with its built-in tools switched off, according to the authors' [released logs](https://github.com/RikiyaT/lm_understand-logs).
 
@@ -80,7 +80,7 @@ With only 10 or 25 forward-pass batches, the authors report, the loops barely we
 
 **What didn't work.** The post reports its own failures. The model couldn't spot a sycophantic Gemma 3 270M from its weights alone, though it could once given attention patterns, and it couldn't make Gemma 3 270M better at math{% include cite.html n=1 %}. The authors conclude that editing "could remove an obstacle that hid an ability, but it could not add an ability the model lacked"{% include cite.html n=1 %}.
 
-**What backs it up.** The logs include the prompts, replies, the code that ran and its outputs, and the evaluations, and the README says all 1,125 turns were audited as tool-free{% include cite.html n=2 %}. The edited Qwen checkpoint is public. Its [model card](https://huggingface.co/RikiyaT/Qwen3.5-0.8B-weight-space-programming) says Ahsen Khaliq of Hugging Face, whom the authors thank, rebuilt it from the logs with hash-verified tensors{% include cite.html n=1 %}. His full MATH-500 re-run scored 51.0%, against the post's 48.1%, with 31.6% of answers hitting the token limit{% include cite.html n=3 %}. That is a partial reproduction from the released logs, not an independent replication of how the edit was found.
+**What backs it up.** The logs include the prompts, replies, the code that ran and its outputs, and the evaluations, and the README says all 1,125 turns were audited as tool-free{% include cite.html n=2 %}. The edited Qwen checkpoint is public. Its [model card](https://huggingface.co/RikiyaT/Qwen3.5-0.8B-weight-space-programming) says Hugging Face user akhaliq rebuilt it from the logs with hash-verified tensors. That full MATH-500 re-run scored 51.0%, against the post's 48.1%, with 31.6% of answers hitting the token limit{% include cite.html n=3 %}. That is a partial reproduction from the released logs, not an independent replication of how the edit was found.
 
 ## What's contested
 
@@ -106,6 +106,7 @@ We haven't run any of these steps ourselves. They come from the projects' own pa
 Writing weights without gradient descent isn't new. The post itself cites two earlier approaches{% include cite.html n=1 %}. [Tracr](https://arxiv.org/abs/2301.05062), a 2023 paper with code that its arXiv listing says was presented at NeurIPS 2023, compiles programs written in the RASP language into transformer weights. [HyperNetworks](https://arxiv.org/abs/1609.09106), a 2016 preprint, uses one network to generate another's weights.
 
 Two more strands sit nearby. [Task arithmetic](https://arxiv.org/abs/2212.04089), a peer-reviewed ICLR 2023 paper, edits models by adding and subtracting weight differences. Work on [learning in deep weight spaces](https://arxiv.org/abs/2301.12780), peer-reviewed at ICML 2023, builds networks that take other networks' weights as input.
+
 ## Our view
 
 These are our opinions, not the authors'.
