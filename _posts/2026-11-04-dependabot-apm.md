@@ -4,7 +4,7 @@ author: "Northwind Software & Dev Desk"
 description: "Add an apm entry to .github/dependabot.yml to get Dependabot version-update pull requests for git dependencies in apm.yml; security updates aren't included."
 categories: [software]
 kind: news
-date: 2026-11-04 08:05
+date: 2026-11-04 08:03
 sources:
   - title: "Dependabot version updates support Agent Package Manager"
     url: https://github.blog/changelog/2026-11-03-dependabot-version-updates-support-agent-package-manager
