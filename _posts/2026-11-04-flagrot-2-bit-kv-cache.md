@@ -47,7 +47,7 @@ The [repository](https://github.com/KunmingSHAO/FlagRot_releaser) contains a sim
 
 ## Who wrote it
 
-Most named authors, including first author Kunming Shao and corresponding author Chi Ying Tsui, are at the Hong Kong University of Science and Technology, and the paper says all the work was done there{% include cite.html n=2 %}.
+Most named authors, including corresponding author Chi Ying Tsui, are at the Hong Kong University of Science and Technology, and the paper says all the work was done there{% include cite.html n=2 %}.
 
 ## What we don't know
 
