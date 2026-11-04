@@ -5,6 +5,7 @@ description: "If you rely on Claude's text watermark with Sonnet 4.6, omit tempe
 categories: [ai]
 kind: news
 date: 2026-11-04 07:44
+placement: top
 sources:
   - title: "Claude Platform release notes"
     url: https://docs.claude.com/en/release-notes/api
