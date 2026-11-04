@@ -40,7 +40,7 @@ The [1.34 changelog](https://github.com/kubernetes/kubernetes/blob/master/CHANGE
 - Pod `.status.resourceClaimStatuses` no longer flaps between partial lists when a pod uses several claims{% include cite.html n=4 %}.
 - kube-scheduler now evaluates pod affinity and anti-affinity namespace selectors with negative operators correctly{% include cite.html n=4 %}.
 - The kubelet `/configz` endpoint reports the right `cgroupDriver` when the setting comes from the container runtime{% include cite.html n=4 %}.
-- kube-apiserver now accepts up to 16,384 request header values, so impersonated or proxied users with about 500 or more groups aren't rejected with HTTP 431 under Go 1.27's default limit{% include cite.html n=4 %}.
+- kube-apiserver now accepts up to 16,384 request header values. The changelog says Go 1.27's default of 500 would otherwise reject impersonated or proxied users with about 500 or more groups with HTTP 431, and that releases built with Go 1.26 had no separate limit{% include cite.html n=4 %}.
 
 ## The schedule ahead
 
