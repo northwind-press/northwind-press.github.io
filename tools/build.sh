@@ -25,7 +25,7 @@ echo "== post checks"
 ruby tools/check-all-posts.rb HEAD
 
 echo "== output sanity"
-for f in index.html ai/index.html software/index.html security/index.html infra/index.html \
+for f in index.html ai/index.html software/index.html security/index.html infra/index.html curiosities/index.html \
          feeds/ai.xml feed.xml about/index.html corrections/index.html; do
   [ -s ".render/_site/$f" ] || { echo "MISSING or empty: $f"; exit 1; }
 done

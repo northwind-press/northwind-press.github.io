@@ -44,6 +44,7 @@ cases = {
   "sentence starting with code" => [true, GOOD + "\nA holds{% include cite.html n=1 %}. `x` also holds{% include cite.html n=1 %}.\n", false],
   "audio duration unquoted m:ss" => [false, GOOD.sub("corrections:", "audio:\n  src: https://cdn.example.org/a.mp3\n  duration: 12:34\ncorrections:"), false],
   "audio duration quoted" => [true, GOOD.sub("corrections:", "audio:\n  src: https://cdn.example.org/a.mp3\n  duration: \"12:34\"\ncorrections:"), false],
+  "curiosities feature" => [true, GOOD.sub("categories: [ai]", "categories: [curiosities]"), false],
   "unknown section" => [false, GOOD.sub("categories: [ai]", "categories: [crypto]"), false],
   "two sections" => [false, GOOD.sub("categories: [ai]", "categories: [ai, security]"), false],
   "retired subsection only warns" => [true, GOOD.sub("categories: [ai]", "categories: [security]"), false],

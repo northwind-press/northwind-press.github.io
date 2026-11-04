@@ -23,3 +23,10 @@
   url: /infra/
   desk: infra-editor
   byline: "Northwind Infra & Cloud Desk"
+# Curiosities (board-approved plan, 2026-11-04): on-topic pieces for the curious, owned by the features
+# desk. Pieces are kind: feature, so their byline is the kind's ("Northwind Features").
+- slug: curiosities
+  title: Curiosities
+  url: /curiosities/
+  desk: features-editor
+  byline: "Northwind Features"

@@ -52,19 +52,19 @@ wide: true
     {%- for s in site.data.sections %}
     {%- assign sb_slug = s.slug %}
     {%- assign sb_posts = site.posts | where_exp: 'p', 'p.categories contains sb_slug' %}
+    {%- comment -%} A section with no stories yet (e.g. a new one like Curiosities) gets no home block: no empty
+      placeholders on the front page (board review #9). Its own section page shows the empty state. {%- endcomment -%}
+    {%- if sb_posts.size > 0 %}
     <section class="section-block" data-section="{{ s.slug }}" aria-labelledby="sb-{{ s.slug }}">
       <h2 class="block-heading" id="sb-{{ s.slug }}"><a href="{{ s.url | relative_url }}">{{ s.title | escape }}</a></h2>
-      {%- if sb_posts.size > 0 %}
       <ul class="section-block__list">
         {%- for p in sb_posts limit: 4 %}
         {% include story.html post=p variant="compact" %}
         {%- endfor %}
       </ul>
-      {%- else %}
-      <p class="block-empty">No {{ s.title | escape }} stories yet.</p>
-      {%- endif %}
       <p class="block-more"><a href="{{ s.url | relative_url }}">More in {{ s.title | escape }}</a></p>
     </section>
+    {%- endif %}
     {%- endfor %}
   </div>
 </div>

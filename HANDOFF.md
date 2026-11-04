@@ -112,6 +112,11 @@ and `tools/check-citations.rb` rejects anything else.
 | `[software]` | Software & Dev | /software/ | software-editor |
 | `[security]` | Security | /security/ | security-editor |
 | `[infra]` | Infra & Cloud | /infra/ | infra-editor |
+| `[curiosities]` | Curiosities | /curiosities/ | features-editor |
+
+- **Curiosities** (board-approved 2026-11-04, T-174): file as `categories: [curiosities]`, `kind: feature`,
+  `author: "Northwind Features"`. No new kind or badge. Feed: /feeds/curiosities.xml. Until its first
+  piece lands, the home page shows no Curiosities block and /curiosities/ shows the empty state.
 
 - **Exactly one section per post**, written as a one-item list (`categories: [infra]`).
   **No subsections** (retired 2026-11-02, board): don't set `subsection:`. Former Applied AI stories are
