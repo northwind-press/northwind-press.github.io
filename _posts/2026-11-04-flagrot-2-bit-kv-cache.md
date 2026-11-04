@@ -29,7 +29,7 @@ A [preprint posted to arXiv](https://arxiv.org/abs/2611.03992) on 2026-11-02, wh
 
 Low-bit caches usually rotate every key before quantizing it{% include cite.html n=1 %}. The authors report that rotation can also hurt: it flattens spiky parts of a key but can add a peak to flat ones{% include cite.html n=1 %}. FlagRot chooses per 32-channel piece whether to rotate, and stores the choice in sign bits the cache already has{% include cite.html n=1 %}.
 
-According to the [paper](https://arxiv.org/html/2611.03992v1), at 2.5 bits per value FlagRot cuts the error of KIVI, an existing 2-bit cache that quantizes keys per channel, from 18.7 to 12.4 (KL divergence ×10⁻³, averaged over 12 models). In vLLM it adds 2.9 points on RULER, a long-context benchmark, at 128k tokens, which the authors put at about 26% of what KIVI alone loses. On Qwen3-32B, it adds 1.94 LongBench points and isn't separated from the full-precision BF16 baseline{% include cite.html n=2 %}. Gains on two 8B models were smaller, 0.42 and 0.86 points, and on the hybrid Qwen3.8-27B there was no gain{% include cite.html n=2 %}.
+According to the [paper](https://arxiv.org/html/2611.03992v1), at 2.5 bits per value FlagRot cuts the error of KIVI, an existing 2-bit cache that quantizes keys per channel, from 18.7 to 12.4 (KL divergence ×10⁻³, geometric mean over 12 models). In vLLM it adds 2.9 points on RULER, a long-context benchmark, at 128k tokens, which the authors put at about 26% of what KIVI alone loses. On Qwen3-32B, it adds 1.94 LongBench points and isn't separated from the full-precision BF16 baseline{% include cite.html n=2 %}. Gains on two 8B models were smaller, 0.42 and 0.86 points, and on the hybrid Qwen3.8-27B, where 2-bit KIVI already matched BF16, there was nothing to recover{% include cite.html n=2 %}.
 
 The authors report that the 2.5-bit layout holds 6.1 times as many tokens as BF16 on Qwen3-8B. At 32k context, a per-token variant at the same 2.5 bits generates 3.0 times the BF16 token rate, and 1.4 times the FP8 rate, within a 60 ms per-token budget{% include cite.html n=2 %}.
 
@@ -39,7 +39,7 @@ The paper reports that at batch 64 the packed cache of the 27B model takes 33% l
 
 ## What was tested
 
-Task evaluations cover four models from 8B to 32B parameters on NVIDIA H20 and H200 GPUs, with one inference engine. The fidelity study covers 12 to 15 open models{% include cite.html n=2 %}. The authors say the task evaluation includes no mixture-of-experts model and nothing above 32B. Most comparisons with other published low-bit caches are simulated, and served task comparisons cover only KIVI{% include cite.html n=2 %}.
+Task evaluations cover four models from 8B to 32B parameters on NVIDIA H20 and H200 GPUs, with one inference engine. The fidelity study covers 12 to 15 open models{% include cite.html n=2 %}. The authors say the task evaluation includes no mixture-of-experts model and nothing above 32B. Most comparisons with other published low-bit caches are simulated, and served task comparisons cover only KIVI and the authors' own per-token variant{% include cite.html n=2 %}.
 
 ## The code
 
@@ -47,7 +47,7 @@ The [repository](https://github.com/KunmingSHAO/FlagRot_releaser) contains a sim
 
 ## Who wrote it
 
-The paper's author block lists affiliations at the Hong Kong University of Science and Technology for six named authors, including first author Kunming Shao and corresponding author Chi Ying Tsui. One named author is at Sun Yat-sen University and one at Wuhan University{% include cite.html n=2 %}.
+Most named authors, including first author Kunming Shao and corresponding author Chi Ying Tsui, are at the Hong Kong University of Science and Technology, and the paper says all the work was done there{% include cite.html n=2 %}.
 
 ## What we don't know
 
