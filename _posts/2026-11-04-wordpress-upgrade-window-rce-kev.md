@@ -4,7 +4,7 @@ author: "Northwind Security Desk"
 description: "CVE-2026-119977 affects WordPress 4.7 through 7.1.3; update to 7.1.4 or your branch's security release now, and check sites that ran a core upgrade before patching."
 categories: [security]
 kind: news
-date: 2026-11-04 08:02
+date: 2026-11-04 08:05
 sources:
   - title: "WordPress 7.1.4 Security Release"
     url: https://wordpress.org/news/2026/10/wordpress-7-1-4
