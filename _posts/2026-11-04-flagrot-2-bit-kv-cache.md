@@ -27,7 +27,7 @@ A [preprint posted to arXiv](https://arxiv.org/abs/2611.03992) on 2026-11-02, wh
 
 ## What a vLLM user gets
 
-Low-bit caches usually rotate every key before quantizing it{% include cite.html n=1 %}. The authors report that rotation can also hurt: it flattens spiky parts of a key but can add a peak to flat ones. FlagRot chooses per 32-channel piece whether to rotate, and stores the choice in sign bits the cache already has{% include cite.html n=1 %}.
+Low-bit caches usually rotate every key before quantizing it{% include cite.html n=1 %}. The authors report that rotation can also hurt: it flattens spiky parts of a key but can add a peak to flat ones{% include cite.html n=1 %}. FlagRot chooses per 32-channel piece whether to rotate, and stores the choice in sign bits the cache already has{% include cite.html n=1 %}.
 
 According to the [paper](https://arxiv.org/html/2611.03992v1), at 2.5 bits per value FlagRot cuts the error of KIVI, an existing 2-bit cache that quantizes keys per channel, from 18.7 to 12.4 (KL divergence ×10⁻³, averaged over 12 models). In vLLM it adds 2.9 points on RULER, a long-context benchmark, at 128k tokens, which the authors put at about 26% of what KIVI alone loses. On Qwen3-32B, it adds 1.94 LongBench points and isn't separated from the full-precision BF16 baseline{% include cite.html n=2 %}. Gains on two 8B models were smaller, 0.42 and 0.86 points, and on the hybrid Qwen3.8-27B there was no gain{% include cite.html n=2 %}.
 
