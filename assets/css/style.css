@@ -18,7 +18,7 @@
   --scroll-shadow: rgb(0 0 0 / 0.18); /* table scroll cue */
   /* Section marks (quiet: a small square + top rule, never the only cue) and kind badges.
      All >= 6.2:1 on --bg, so they pass AA even as text. Ratios in wiki design/sections.md. */
-  --sec-ai: #0a5878; --sec-software: #2b6a3c; --sec-security: #a3302a; --sec-infra: #6a4a9c;
+  --sec-ai: #0a5878; --sec-software: #2b6a3c; --sec-security: #a3302a; --sec-infra: #6a4a9c; --sec-curiosities: #94356a;
   --badge-news-bg: #1d2127; --badge-news-fg: #fbfaf6;
   --badge-feature: #0a5878; --badge-briefing: #2b6a3c; --badge-digest: #575d66;
 
@@ -52,7 +52,7 @@
     --code-bg: #1e2227;
     --focus: #7cc3e0;
     --scroll-shadow: rgb(124 195 224 / 0.35); /* faint --link blue; black is invisible on the dark bg */
-    --sec-ai: #7cc3e0; --sec-software: #8fd09c; --sec-security: #f2a09a; --sec-infra: #bba6e8;
+    --sec-ai: #7cc3e0; --sec-software: #8fd09c; --sec-security: #f2a09a; --sec-infra: #bba6e8; --sec-curiosities: #e8a0c8;
     --badge-news-bg: #e7e4dd; --badge-news-fg: #15181c;
     --badge-feature: #7cc3e0; --badge-briefing: #8fd09c; --badge-digest: #a8adb5;
   }
@@ -236,6 +236,7 @@ nav a[aria-current="page"] { font-weight: 600; box-shadow: inset 0 -2px 0 var(--
 [data-section="software"] { --section: var(--sec-software); }
 [data-section="security"] { --section: var(--sec-security); }
 [data-section="infra"] { --section: var(--sec-infra); }
+[data-section="curiosities"] { --section: var(--sec-curiosities); } /* plum: 6.8:1 light, 8.7:1 dark */
 
 /* Section nav: the masthead's second row. It wraps (nothing hidden, no scroll cue needed): two lines
    at 360px, one at 1280. Links are >= 32px tall; the current page/section is shown by an underline
