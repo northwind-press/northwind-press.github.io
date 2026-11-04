@@ -18,7 +18,7 @@ sources:
 corrections: []
 ---
 
-Dependabot can now open version-update pull requests for dependencies declared in `apm.yml`, the manifest of Agent Package Manager (APM), GitHub said in a [changelog post](https://github.blog/changelog/2026-11-03-dependabot-version-updates-support-agent-package-manager) on 2026-11-03. APM's [project page](https://microsoft.github.io/apm/) describes it as a dependency manager for AI agents, in which a project declares the skills, prompts, instructions, plugins and MCP servers it needs in one `apm.yml`.
+Dependabot can now open version-update pull requests for dependencies declared in `apm.yml`, the manifest of Agent Package Manager (APM), GitHub said in a [changelog post](https://github.blog/changelog/2026-11-03-dependabot-version-updates-support-agent-package-manager) on 2026-11-03. APM's [project page](https://microsoft.github.io/apm/) describes it as a dependency manager for AI agents, in which a project declares the skills, prompts, instructions, plugins, and MCP servers it needs in one `apm.yml`.
 
 ## What Dependabot does
 
