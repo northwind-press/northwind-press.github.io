@@ -4,7 +4,8 @@ author: "Northwind Infra & Cloud Desk"
 description: "If you still run Kubernetes 1.34, move to 1.35, 1.36, or 1.37, and if you pick 1.35, plan for its maintenance mode from 2026-12-28 and end of life on 2027-02-28."
 categories: [infra]
 kind: news
-date: 2026-11-04 08:05
+date: 2026-11-04 08:10
+placement: top
 sources:
   - title: "Releases"
     url: https://kubernetes.io/releases/

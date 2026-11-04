@@ -5,7 +5,6 @@ description: "If you still run PostgreSQL 14, take its final minor release on 20
 categories: [infra]
 kind: news
 date: 2026-11-03 08:04
-placement: top
 sources:
   - title: "Versioning Policy"
     url: https://www.postgresql.org/support/versioning/
