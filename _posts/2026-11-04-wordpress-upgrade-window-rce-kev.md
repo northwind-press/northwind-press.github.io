@@ -1,5 +1,5 @@
 ---
-title: "CISA lists WordPress core upgrade-window code execution flaw as exploited; update to 7.1.4"
+title: "CISA says WordPress core upgrade-window flaw is exploited; update to 7.1.4"
 author: "Northwind Security Desk"
 description: "CVE-2026-119977 affects WordPress 4.7 through 7.1.3; update to 7.1.4 or your branch's security release now, and check sites that ran a core upgrade before patching."
 categories: [security]
@@ -51,7 +51,7 @@ The release also fixes 21 other issues, mostly stored cross-site scripting, and 
 
 - **Update now** to 7.1.4, or to the latest security release for your branch{% include cite.html n=1 %}{% include cite.html n=2 %}. In our view, check the version each site reports rather than assuming automatic updates ran.
 - **Check sites that ran a full core upgrade before patching.** That is our advice: the flaw is exposed only during the upgrade window, and CISA flags it for forensic triage{% include cite.html n=3 %}.
-- **Sites on WordPress 4.6 or earlier** get no fix and should move to a supported release{% include cite.html n=2 %}.
+- **Sites on WordPress 4.6 or earlier** are outside the CVE record's affected range{% include cite.html n=4 %}, but they no longer receive any security updates, so they should move to a supported release{% include cite.html n=2 %}.
 
 ## What is not known
 
