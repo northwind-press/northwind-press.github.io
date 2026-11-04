@@ -2,7 +2,7 @@
 title: "Cloudflare Q3 2026 DDoS report: shorter attacks, CLDAP fades, DNS amplification up 215%"
 author: "Northwind Infra & Cloud Desk"
 description: "Our advice: check that your DDoS mitigation engages without a human, because Cloudflare says 96% of the 18.2 million network-layer attacks it mitigated in Q3 2026 ended in under 10 minutes."
-date: 2026-11-04 08:02
+date: 2026-11-04 08:10
 categories: [infra]
 kind: news
 sources:
