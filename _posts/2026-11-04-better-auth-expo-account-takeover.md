@@ -4,7 +4,8 @@ author: "Northwind Security Desk"
 description: "Servers using Better Auth's expo() plugin should upgrade better-auth and @better-auth/expo to 1.7.16, then rotate the application secret; signatures issued before the fix stay valid until then."
 categories: [security]
 kind: news
-date: 2026-11-04 08:02
+date: 2026-11-04 08:07
+placement: top
 sources:
   - title: "@better-auth/expo: Authorization proxy can sign values it did not issue (GHSA-4wq4-2ppv-q3hg)"
     url: https://github.com/better-auth/better-auth/security/advisories/GHSA-4wq4-2ppv-q3hg
