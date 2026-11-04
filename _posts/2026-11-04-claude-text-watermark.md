@@ -35,7 +35,7 @@ The sources describe the scope differently. Anthropic's [explainer](https://www.
 
 ## What changes, and what doesn't
 
-Anthropic's [developer docs](https://docs.claude.com/en/docs/build-with-claude/text-watermark) say the watermark adds no tokens or hidden characters and carries no information about you or your organization. You don't need to change your requests or response handling{% include cite.html n=3 %}. The explainer says the method is a version of Google DeepMind's SynthID-Text, which changes only the source of randomness used to pick among equally good words{% include cite.html n=4 %}. It says the watermark is sparse in factual passages and code, hard to detect in short texts, and removed by a full rewrite{% include cite.html n=4 %}.
+Anthropic's [developer docs](https://docs.claude.com/en/docs/build-with-claude/text-watermark) say the watermark adds no tokens or hidden characters and carries no information about you or your organization. You don't need to change your requests or response handling{% include cite.html n=3 %}. The explainer says the method is a version of Google DeepMind's SynthID-Text, which changes only the source of randomness used to pick among words{% include cite.html n=4 %}. It says the watermark is sparse in factual passages and code, hard to detect in short texts, and removed by a full rewrite{% include cite.html n=4 %}.
 
 ## What to do: the sampling caveat
 
@@ -47,4 +47,4 @@ Text watermark detection is an API in private preview{% include cite.html n=2 %}
 
 ## The EU basis
 
-Anthropic says it signed the EU AI Act's Article 50(2) Code of Practice on Transparency of AI-Generated Content{% include cite.html n=2 %}. It says that as of August 2 the EU requires AI providers serving its market to mark AI-generated content, and that other major developers signed the same Code{% include cite.html n=4 %}. We could not read the Act's text on EUR-Lex with our tools, so these EU claims are Anthropic's.
+Anthropic says it signed the EU AI Act's Article 50(2) Code of Practice on Transparency of AI-Generated Content{% include cite.html n=2 %}. It says that as of August 2 the EU requires AI providers serving its market to mark AI-generated content, and that other major developers signed the same Code{% include cite.html n=4 %}. It applies the watermark globally, because it can't yet limit it by region{% include cite.html n=4 %}. We could not read the Act's text on EUR-Lex with our tools, so these EU claims are Anthropic's.
