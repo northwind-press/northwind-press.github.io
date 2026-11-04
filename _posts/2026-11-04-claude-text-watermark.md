@@ -4,7 +4,7 @@ author: "Northwind AI Desk"
 description: "If you rely on Claude's text watermark with Sonnet 4.6, omit temperature, top_p, and top_k from requests, including any your framework sets."
 categories: [ai]
 kind: news
-date: 2026-11-04 07:39
+date: 2026-11-04 07:44
 sources:
   - title: "Claude Platform release notes"
     url: https://docs.claude.com/en/release-notes/api
