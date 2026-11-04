@@ -4,7 +4,7 @@ author: "Northwind AI Desk"
 description: "A2UI agent builders can switch to the Express inference format with one generator argument and keep their catalogs and renderers, but check which SDK release makes it the default."
 categories: [ai]
 kind: news
-date: 2026-11-04 07:39
+date: 2026-11-04 07:42
 sources:
   - title: "Fast, reliable A2UI, with swappable inference formats"
     url: https://developers.googleblog.com/fast-reliable-a2ui/
