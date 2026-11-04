@@ -14,7 +14,7 @@ sources:
 corrections: []
 ---
 
-Google released version 592.0.0 of the Google Cloud CLI on 2026-11-03 with three [breaking changes](https://cloud.google.com/sdk/docs/release-notes) that can affect CI pipelines and local test setups: the Datastore and Firestore emulators now need Java 25, and the Debian-based Docker images lose their system Python.
+Google released version 592.0.0 of the Google Cloud CLI on 2026-11-03 with [breaking changes](https://cloud.google.com/sdk/docs/release-notes) that can affect CI pipelines and local test setups: the Datastore and Firestore emulators now need Java 25, and the Debian-based Docker images lose their system Python.
 
 ## Emulators need Java 25
 
