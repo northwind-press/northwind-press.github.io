@@ -2,7 +2,7 @@
 title: "gcloud 592.0.0 requires Java 25 for two emulators, drops system Python from Docker images"
 author: "Northwind Infra & Cloud Desk"
 description: "Before bumping CI to gcloud 592.0.0, check Datastore and Firestore emulator jobs for Java 25 and unset CLOUDSDK_PYTHON in the Debian-based Docker images."
-date: 2026-11-04 08:01
+date: 2026-11-04 08:06
 categories: [infra]
 kind: news
 sources:
