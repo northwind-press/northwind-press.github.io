@@ -49,6 +49,11 @@ sources:
     publisher: "arXiv"
     accessed: "2026-11-04"
 corrections: []
+audio:
+  src: /assets/audio/2026-11-04-weight-space-programming.mp3
+  duration: "9:57"
+  narrator: "George (ElevenLabs AI voice)"
+  narrated_from: 16b29bdaa4d2f1131a0ca34896d4526b4cb0c991
 ---
 Can a language model change what a neural network does by writing its weights directly, with no training loop at all? Four MIT CSAIL researchers say yes, at least sometimes, in a 2026-11-02 [blog post](https://rikiyat.github.io/blog/weight-space-programming/) that calls the idea "weight-space programming". It is a single blog post, not peer-reviewed, and it is only days old. What follows is what the authors report, what two critics dispute, and what you can look at yourself.
 
