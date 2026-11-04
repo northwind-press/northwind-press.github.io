@@ -1,7 +1,7 @@
 ---
 title: "gcloud 592.0.0 requires Java 25 for two emulators, drops system Python from Docker images"
 author: "Northwind Infra & Cloud Desk"
-description: "Before bumping CI to gcloud 592.0.0, check Datastore and Firestore emulator jobs for Java 25, and unset CLOUDSDK_PYTHON in the Debian-based Docker images, or pin 591.0.0."
+description: "Before bumping CI to gcloud 592.0.0, check Datastore and Firestore emulator jobs for Java 25 and unset CLOUDSDK_PYTHON in the Debian-based Docker images."
 date: 2026-11-04 08:01
 categories: [infra]
 kind: news
@@ -41,4 +41,4 @@ In these images, setting `CLOUDSDK_PYTHON=python3`, `CLOUDSDK_GSUTIL_PYTHON`, or
 - **Check before you bump.** Look for CI images and emulator jobs that pull `:latest`, `:slim`, `:debian_component_based`, `:emulators`, or `:stable` on arm64, and for jobs that run the Datastore or Firestore emulator on Java older than 25{% include cite.html n=1 %}.
 - **Unset the Python variables.** Remove `CLOUDSDK_PYTHON`, `CLOUDSDK_GSUTIL_PYTHON`, and `CLOUDSDK_BQ_PYTHON` from jobs that use these images, so the tools fall back to the bundled Python{% include cite.html n=1 %}.
 - **Install what you need on top.** If a workflow needs a system Python, install it on the image, for example with `apt-get install python3`. That doesn't change which Python gcloud uses. To compile C extensions, also install `build-essential python3-dev`{% include cite.html n=1 %}.
-- **Or pin the previous release.** Google's alternative for the emulators is an earlier `gcloud` version; the release before 592.0.0 is 591.0.0, dated 2026-10-27{% include cite.html n=1 %}.
+- **Or, for the emulators, pin the previous release.** Google's alternative for the emulators is an earlier `gcloud` version; the release before 592.0.0 is 591.0.0, dated 2026-10-27{% include cite.html n=1 %}.
